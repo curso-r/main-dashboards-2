@@ -1,0 +1,1671 @@
+---
+title: "Dashboards com R II"
+subtitle: "O pacote Golem"
+author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: "css/xaringan-themer.css"
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+knit: pagedown::chrome_print
+---
+
+```{r setup, include=FALSE}
+`%>%` <- magrittr::`%>%`
+knitr::opts_chunk$set(eval = TRUE, echo = TRUE, comment = "#>", fig.align = "center")
+```
+
+# Motivação
+
+---
+# Pacotes
+
+Um pacote do R é uma forma específica de organizar seus código, seguindo o protocolo descrito pela R Foundation:
+
+> _Pacotes são a unidade fundamental de código R reprodutível._
+> 
+> — Wickham & Bryan
+
+.pull-left[
+- Pacotes incluem: 
+  
+  - Funções em R
+  
+  - Documentação sobre como usá-las
+  
+  - Testes
+  
+  - Dados de exemplo
+]
+
+.pull-right[
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("img/pacote.gif")
+```
+]
+
+---
+# Motivação
+
+Por que aprender a fazer um pacote se scripts funcionam bem o suficiente? Por que divulgar meus pacotes em algum serviço open source?
+
+- Compartilhar código é sempre uma boa ideia para que a comunidade se beneficie dos avanços individuais de quem a compõe
+
+- Para programar melhor, precisamos receber ajuda e sugestões de outras pessoas mais experientes
+
+- É muito mais fácil usar controle de versão e integração contínua se você estiver programando um pacote
+
+- Reprodutibilidade (no caso, outra pessoa pode reproduzir os seus resultados sem precisar do seu computador)
+
+---
+# Vantagens
+
+- Padroniza a organização dos códigos
+
+- Integração com pacotes que aceleram desenvolvimento
+
+- Motiva e facilita a documentação do código
+
+- Facilita o compartilhamento e a reutilização de códigos em outros projetos e com outras pessoas
+
+> _Qualquer coisa que possa ser automatizada, deve ser automatizada._
+> 
+> — Wickham & Bryan
+
+.footnote[Fonte: [R Packages](https://r-pkgs.org/intro.html)]
+
+---
+# Simplificando tudo: usethis
+
+O pacote `{usethis}` ajuda com todo o fluxo de desenvolvimento em R. Ele ajuda a criar arquivos, projetos, usar o Git, criar repositórios no GitHub e muito mais.
+
+Apresentaremos várias funções do `{usethis}` ao longo do curso!
+
+<br>
+
+```{r echo=FALSE, out.width="15%", fig.align='center'}
+knitr::include_graphics("img/usethis.png")
+```
+
+---
+class: middle, center
+
+# Resumo do pacote usethis
+
+```{r echo=FALSE, out.width="70%"}
+knitr::include_graphics("https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/usethis.png")
+```
+
+
+---
+# Nomes
+
+Suponha que você criou uma função incrível que você quer compartilhar com o mundo. Ela tem várias funções auxiliares e um comportamento complexo o suficiente para depender de uma documentação... Você precisa criar um pacote.
+
+Mas qual deve ser o seu nome?
+
+> _Há apenas duas coisas difíceis na Ciência da Computação: invalidação de cache e dar nome para as coisas._
+> 
+> — Phil Karlton
+
+Os melhores nomes são simples e descritivos. Pense em algo que possa ser procurado facilmente no Google e que, preferencialmente, seja em inglês (a menos que você não ache que pessoas de outro país usarão o seu pacote).
+
+Evite usar letras maiúsculas ou mesmo números pois isso pode confundir os usuários. Você definitivamente ganha pontos extras se conseguir inserir alguma brincadeira com a letra R no nome (`stringr`, `decryptr`, `plyr`, `purrr`, etc.).
+
+---
+# Dica para pesquisar nomes
+
+```{r eval=FALSE}
+available::available("chess", browse = FALSE)
+```
+
+```
+#> Urban Dictionary can contain potentially offensive results,
+#>   should they be included? [Y]es / [N]o:
+#> 1: No
+#> ── chess ──────────────────────────────────────────────────────────────
+#> Name valid: ✔
+#> Available on CRAN: ✖ 
+#> Available on Bioconductor: ✔
+#> Available on GitHub:  ✖ 
+#> Abbreviations: http://www.abbreviations.com/chess
+#> Wikipedia: https://en.wikipedia.org/wiki/chess
+#> Wiktionary: https://en.wiktionary.org/wiki/chess
+#> Sentiment:???
+```
+
+---
+# Criando um pacote
+
+Para criar um pacote, usamos a função `usethis::create_package()`
+
+- Você deve passar um caminho como `~/Documents/meupacote` e uma nova pasta chamada `meupacote` será criada dentro da pasta `Documents`. Essa pasta será tanto um `Rproj` quanto um pacote, ambos chamados `meupacote`
+
+- **Dica geral:** não adicione acentos, caracteres especiais e espaços no nome dos caminhos, arquivos, funções, pacotes, etc.
+
+```{r eval=FALSE}
+# Saída no próximo slide
+usethis::create_package("~/Documents/meupacote")
+```
+
+---
+
+```
+#> ✓ Creating '/home/clente/Documents/meupacote/'
+#> ✓ Setting active project to '/home/clente/Documents/meupacote'
+#> ✓ Creating 'R/'
+#> ✓ Writing 'DESCRIPTION'
+#> Package: meupacote
+#> Title: What the Package Does (One Line, Title Case)
+#> Version: 0.0.0.9000
+#> Authors@R (parsed):
+#>     * First Last <first.last@example.com> [aut, cre] (YOUR-ORCID-ID)
+#> Description: What the package does (one paragraph).
+#> License: `use_mit_license()`, `use_gpl3_license()` or friends to
+#>     pick a license
+#> Encoding: UTF-8
+#> LazyData: true
+#> Roxygen: list(markdown = TRUE)
+#> RoxygenNote: 7.1.1
+#> ✓ Writing 'NAMESPACE'
+#> ✓ Writing 'meupacote.Rproj'
+#> ✓ Adding '^meupacote\\.Rproj$' to '.Rbuildignore'
+#> ✓ Adding '.Rproj.user' to '.gitignore'
+#> ✓ Adding '^\\.Rproj\\.user$' to '.Rbuildignore'
+#> ✓ Opening '/home/clente/Documents/meupacote/' in new RStudio session
+#> ✓ Setting active project to '<no active project>'
+```
+
+---
+# Diretório de trabalho
+
+O arquivo `meupacote.Rproj` indica para o RStudio que aquele diretório será a raiz de um projeto e que, sempre que o projeto estiver aberto, será utilizado por padrão como o diretório de trabalho.
+
+- *Working directory* é a pasta em que o R vai procurar arquivos na hora de ler informações ou gravar arquivos na hora de salvar objetos
+
+- Se você não souber qual é o seu diretório de trabalho, você pode descobri-lo usando a função `getwd()`. Ela vai devolver uma string com o caminho do seu diretório de trabalho
+
+Fixar o diretório de trabalho como a pasta raiz do projeto, ao lado da regra de manter todos os arquivos dentro da pasta do projeto, garante que sua análise poderá ser executada por qualquer pessoa e em qualquer computador sem a preocupação de ajustar caminhos até os arquivos utilizados ou criados pelo seu código.
+
+---
+# Estrutura básica do pacote
+
+Essa é a estrutura criada quando usamos a função `usethis::create_package()`:
+
+- `meupacote.Rproj`: este arquivo faz com que este diretório seja um projeto no RStudio (RStudio Project)
+
+- `LICENSE`: especifica os termos de uso e distribuição do seu pacote
+
+- `DESCRIPTION`: define o nome, descrição, versão, licença, dependências e outras caracaterísticas do seu pacote
+
+- `R/`: aqui ficam as funções desenvolvidas em R
+
+- `.Rbuildignore`:  Lista arquivos que não devem ser incluídos ao compilar o pacote R a partir do código-fonte
+<!-- usethis::use_build_ignore("..") ajuda a adicionar arquivos no .Rbuildignore-->
+
+- `NAMESPACE`: Não devemos editar este arquivo manualmente. Ele declara as funções que o pacote exporta para uso externo e as funções externas que seu pacote importa de outros pacotes
+
+---
+# Sobre licenças de código aberto
+
+- O pacote `{usethis}` possui algumas funcões para nos ajudar a declarar uma licenças como, por exemplo:
+
+```{r eval=FALSE}
+usethis::use_cc0_license()
+```
+
+- CC0: essa licença, muitas vezes chamada de "sem direitos reservados", permite que o trabalho seja colocado em domínio público. Qualquer pessoa pode usar, modificar, distribuir e vender o seu trabalho sem nenhuma restrição de direitos autorais
+
+```{r eval=FALSE}
+usethis::use_mit_license()
+```
+
+- MIT: curta e permissiva, a licença MIT exige apenas manutenção dos direitos autorais. Modificações e trabalhos maiores podem ser distribuídos sob outros termos de uso
+
+```{r eval=FALSE}
+usethis::use_gpl3_license()
+```
+
+- GPLv3: essa licença exige que o código-fonte dos derivados seja _open source_ sob a mesma licença. Direitos autorais devem ser preservados.
+
+
+- O help é útil: `?usethis::use_mit_license`, e também o site [Choose a License](https://choosealicense.com/licenses/).
+
+---
+
+# Testando o pacote na prática
+
+Podemos usar a função `devtools::check()`. Ela carrega todo o código, gera toda a documentação e executa todos os testes, verificando em todo passo se tudo está funcionando como o esperado.
+
+1. Crie o pacote usando a função `usethis::create_package("caminho_onde_o_pacote_sera_criado/nomedopacote")` 
+
+1. Observe a estrutura do diretório
+
+1. Carregue o pacote com `devtools::load_all()` (**CTRL + SHIFT + L**)
+
+1. Cheque se está tudo OK com o seu pacote com `devtools::check()`
+
+1. Adicione uma licença no pacote (com `usethis::use_***_license()`) para corrigir o alerta
+
+1. Adicione suas informações no `DESCRIPTION`: nome, descrição do pacote, etc.
+
+---
+# A pasta R/
+
+Dentro de um pacote, a pasta `R/` só pode ter arquivos R com funções.
+
+- Uma função é responsável por executar uma tarefa pequena, mas muito bem. Quando trabalhamos com funções, nossas operações ficam mais confiáveis.
+
+- A ideia da pasta `R/` é guardar em um local comum tudo aquilo que nós utilizamos como ferramenta interna para nossas análises, bem como aquilo que queremos que outras pessoas possam usar no futuro.
+
+- Podemos usar `usethis::use_r("nome-do-arquivo")` para que um arquivo seja criado antes começarmos a escrever uma função.
+
+- Assim que escrevermos/modificarmos alguma função, podemos carregá-las e testá-las manualmente com `devtools::load_all()`
+
+---
+# Vantagens de usar funções
+
+- Um código bem encapsulado reduz a necessidade de objetos intermediários (`base_tratada`, `base_filtrada` etc.) pois para gerar um deles basta a aplicação de uma função.
+
+- Programas com funções normalmente são muito mais enxutos e limpos do que *scripts* soltos, pois estes estimulam repetição de código.
+
+- Ao encontrar um bug, haverá apenas um lugar para concertar; se surgir a necessidade de modificar uma propriedade, haverá apenas um lugar para editar; se aquele código se tornar obsoleto, haverá apenas um lugar para deletar.
+
+.footnote[Leia mais [neste capítulo do livro R for Data Science](https://r4ds.had.co.nz/functions.html)]
+
+---
+# Criando a sua própria função
+
+Quando estamos desenvolvendo pacotes, iremos criar funções para executar as tarefas necessárias:
+
+```{r}
+nome_da_funcao <- function(argumento_1, argumento_2 = valor_padrao_2) {
+  # Código que a função irá executar
+}
+```
+
+Um exemplo: vamos criar uma função que soma dois números.
+
+```{r}
+minha_soma <- function(x, y) { # minha_soma é uma função de x e y
+  soma <- x + y # soma é igual a x + y
+  soma # resultado retornado
+}
+
+minha_soma(2, 2)
+```
+
+Se quisermos dar valores padrões para os argumentos, basta colocar um `=` na definição da função.
+
+---
+# Dependências
+
+Sem os inúmeros pacotes criados pela comunidade, o R provavelmente já estaria no porão da Ciência de Dados. Por isso, é a primeira coisa que escrevemos nos nossos *scripts* quase sempre é `library(algumPacoteLegal)`.
+
+Quando lidamos com pacotes, a função `library()` não pode ser utilizada, e todas as funções devem ter seus pacotes de origem explicitamente referenciados pelo operador `::`.
+
+- O código, no total, executa um pouco mais rápido porque são carregadas menos funções no ambiente global (isso é especialmente importante em aplicações interativas feitas em Shiny).
+
+- As dependências do código estão sempre atualizadas porque elas estão diretamente atreladas às próprias funções sendo utilizadas.
+
+  - `usethis::use_package()`: adiciona pacotes que foram instalados via CRAN
+  
+  - `usethis::use_dev_package()`: adiciona pacotes que não foram instalados via CRAN
+
+- Para escrever `dplyr::`, por exemplo, basta digitar `d`, `p`, `l` e apertar TAB uma vez. Com os `::`, as sugestões passarão a ser somente de funções daquele pacote.
+
+---
+# Discussão em sala
+
+- Como podemos transformar o código a seguir em uma função que fará parte de um pacote?
+
+- Exemplo: Importar a base mananciais e calcular a média do volume de água armazenado (em %) para o sistema Cantareira, em abril de 2021.
+
+```{r eval=FALSE}
+library(tidyverse)
+library(lubridate)
+
+"https://git.io/JOLeb" %>%
+  read_csv2() %>%
+  mutate(ano = year(data), mes = month(data)) %>%
+  group_by(sistema, ano, mes) %>%
+  summarise(media_volume_porcentagem = mean(volume_porcentagem)) %>%
+  filter(ano == 2021, mes == 4, sistema == "Cantareira")
+```
+
+.footnote[Fonte: [pacote](https://github.com/beatrizmilz/mananciais/raw/master/inst/extdata/mananciais.csv) `{mananciais}` por Beatriz Milz]
+
+---
+# Discussão em sala
+
+Código original:
+
+```{r eval=FALSE}
+library(tidyverse)
+library(lubridate)
+
+"https://git.io/JOLeb" %>%
+  read_csv2() %>%
+  mutate(ano = year(data), mes = month(data)) %>%
+  group_by(sistema, ano, mes) %>%
+  summarise(media_volume_porcentagem = mean(volume_porcentagem)) %>%
+  ungroup() %>%
+  filter(ano == 2021, mes == 4, sistema == "Cantareira")
+```
+
+---
+# Discussão em sala
+
+Passo 1: Adicionar os quatro pontos `::`
+
+```{r eval=FALSE}
+library(tidyverse)
+library(lubridate)
+
+"https://git.io/JOLeb" %>%
+  readr::read_csv2() %>%
+  dplyr::mutate(ano = lubridate::year(data), mes = lubridate::month(data)) %>%
+  dplyr::group_by(sistema, ano, mes) %>%
+  dplyr::summarise(media_volume_porcentagem = mean(volume_porcentagem)) %>%
+  dplyr::ungroup() %>%
+  dplyr::filter(ano == 2021, mes == 4, sistema == "Cantareira")
+```
+
+---
+# Discussão em sala
+
+Passo 2: Declarar as dependências com a função `usethis::use_package()`. Não precisaremos mais do `library()`!
+
+Vamos **remover** isso do código da função...
+
+```{r eval=FALSE}
+library(tidyverse)
+library(lubridate)
+```
+
+E declararemos as dependências... faremos isso no console, e não no código da função!
+
+```{r eval=FALSE}
+usethis::use_package("lubridate")
+usethis::use_package("readr")
+usethis::use_package("dplyr")
+
+# Também usamos o pipe!
+usethis::use_pipe()
+devtools::document() # Após usar o use_pipe(), atualize a documentação
+```
+
+---
+# Discussão em sala
+
+Passo 3: Adicionar o código dentro de uma função. Chamaremos de `calcular_media_volume()`.
+
+```{r eval=FALSE}
+calcular_media_volume <- function() {
+  "https://git.io/JOLeb" %>%
+    readr::read_csv2() %>%
+    dplyr::mutate(ano = lubridate::year(data), mes = lubridate::month(data)) %>%
+    dplyr::group_by(sistema, ano, mes) %>%
+    dplyr::summarise(media_volume_porcentagem = base::mean(volume_porcentagem)) %>%
+    dplyr::ungroup() %>%
+    dplyr::filter(ano == 2021, mes == 4, sistema == "Cantareira")
+}
+```
+
+---
+# Discussão em sala
+
+Passo 4: pensar em quais podem ser os argumentos da nossa função. E se eu quiser calcular a média em outro mês? Outro ano? Outro sistema?
+
+```{r}
+calcular_media_volume <- function(filtro_sistema, filtro_ano, filtro_mes) {
+  "https://git.io/JOLeb" %>%
+    readr::read_csv2() %>%
+    dplyr::mutate(ano = lubridate::year(data), mes = lubridate::month(data)) %>%
+    dplyr::group_by(sistema, ano, mes) %>%
+    dplyr::summarise(media_volume_porcentagem = base::mean(volume_porcentagem)) %>%
+    dplyr::ungroup() %>%
+    dplyr::filter(ano == filtro_ano, mes == filtro_mes, sistema == filtro_sistema)
+}
+```
+
+```{r message=FALSE, warning=FALSE}
+calcular_media_volume(filtro_sistema = "Guarapiranga",
+                      filtro_ano = 2021, filtro_mes = 3)
+```
+
+---
+# Discussão em sala
+
+Passo 5: argumentos padrão. E se eu quiser que a função funcione caso o ano e/ou o mês não seja informado como argumento? 
+
+```{r}
+calcular_media_volume <- function(filtro_sistema,
+                                  filtro_ano = 2021,
+                                  filtro_mes = 4) {
+  "https://git.io/JOLeb" %>%
+    readr::read_csv2() %>%
+    dplyr::mutate(ano = lubridate::year(data), mes = lubridate::month(data)) %>%
+    dplyr::group_by(sistema, ano, mes) %>%
+    dplyr::summarise(media_volume_porcentagem = base::mean(volume_porcentagem)) %>%
+    dplyr::ungroup() %>%
+    dplyr::filter(ano %in% filtro_ano,
+                  mes %in% filtro_mes,
+                  sistema %in% filtro_sistema)
+}
+```
+
+---
+# Discussão em sala
+
+```{r message=FALSE, warning=FALSE}
+calcular_media_volume(filtro_sistema = "Guarapiranga")
+```
+
+---
+# Recomendações
+
+Algumas recomendação sobre como organizar seu código:
+
+- Evite usar `.` no nome das suas funções (hoje em dia usar `_` é muito mais comum)
+
+- Use nomes descritivos para as funções, pois isso facilita a manutenção e o uso do pacote
+
+- Tente se limitar a 80 caracteres por linha porque isso permite que seu código caiba confortavelmente em qualquer tela
+
+- Não use `library()` ou `require()`, pois isso vai causar problemas (use a notação `pacote::função()`)
+
+- **Nunca** use `source()`, todo o código já será carregado automaticamente com `devtools::load_all()`
+
+- Não usar "metapackages" (como o tidyverse)
+
+---
+# Criando uma função na prática
+
+- Crie um arquivo onde iremos escrever a função para o pacote. Dica: use a função `usethis::use_r("nome-do-arquivo")`!
+
+- Copie o código disponível em [git.io/JO8NV](https://git.io/JO8NV) e cole no arquivo criado.
+
+- Adapte o código e o transforme em uma função. Não esqueça das dependências
+
+- Verifique que o arquivo onde sua função foi escrita está no diretório `R/` e que as dependências estão descritas no arquivo `DESCRIPTION`
+
+- Carregue o pacote com `devtools::load_all()`, e confira se está tudo ok com `devtools::check()`!
+
+### Exercícios para casa
+
+- [Exercício: git.io/JO8Nr](https://git.io/JO8Nr)
+
+- [Desafio: git.io/JO8NP](https://git.io/JO8NP)
+
+
+
+.footnote[Fonte: dados do [pacote brasileirão](https://blog.curso-r.com/posts/2021-03-02-brasileirao/)]
+
+---
+# Dados
+
+Se você quiser inserir dados ao seu pacote, você pode utilizar a função `usethis::use_data()`. 
+
+Ela criará uma pasta `data/` na raiz do seu pacote, caso ela não exista ainda, e salvará nela o objeto `meus_dados` em formato `.rda`.
+
+Arquivos `.rda` são extremamente estáveis, compactos e podem ser carregados rapidamente pelo R, tornando este formato o principal meio de guardar dados de um pacote.
+
+---
+# Breve retorno
+
+Passo 6: adicionando bases de dados ao pacote. Ao executar o comando abaixo no Console, a base é salva como um `.rda` e podemos invocar o objeto diretamente na nossa função.
+
+```{r eval=FALSE}
+partidas_brasileirao <- readr::read_csv2("https://git.io/JOqUN")
+usethis::use_data(partidas_brasileirao)
+```
+
+```
+✓ Setting active project to '/home/clente/Documents/meupacote'
+✓ Adding 'R' to Depends field in DESCRIPTION
+✓ Saving 'partidas_brasileirao' to 'data/partidas_brasileirao.rda'
+● Document your data (see 'https://r-pkgs.org/data.html')
+```
+
+```{r eval=FALSE}
+encontrar_pior_ano_time <- function(time) {
+  partidas_brasileirao %>%
+    dplyr::group_by(temporada, quem_ganhou) %>%
+    dplyr::filter(quem_ganhou != "Empate", quem_ganhou %in% time) %>%
+    dplyr::count(quem_ganhou, sort = TRUE, name = "n_vitorias") %>%
+    dplyr::ungroup() %>%
+    dplyr::filter(n_vitorias == min(n_vitorias)) %>%
+    dplyr::rename("time" = quem_ganhou)
+}
+```
+
+---
+# Manipulando dados crus
+
+Se a base que você quiser colocar no pacote for o resultado de um processo de manipulação de uma base crua, você pode salvar a base crua e o código desse processo na pasta `data-raw`. 
+
+Para isso, utilize a função `usethis::use_data_raw("meus_dados")`. Ela criará uma pasta `data-raw/` na raiz do seu pacote, caso ela não exista ainda, e um arquivo `meus_dados.R` onde você colocará o código de manipulação da base crua.
+
+---
+# Qual a diferença entre R/ e data-raw/?
+
+`data-raw`
+
+- A pasta `data-raw/` é sua caixa de areia
+
+- Apesar de existirem formas razoáveis de organizar seus pacotes aqui, nessa parte você será livre
+
+`R/`
+
+- Já a pasta `R/` conterá funções bem organizadas e documentadas
+
+- Por exemplo, uma função que ajusta um modelo estatístico, outra que arruma um texto de um jeito patronizado, ou uma que contém seu tema customizado do `{ggplot2}`
+
+- Dentro dessa pasta você não deve carregar outros pacotes com `library()`, mas sim usar o operador `::`
+
+---
+class: middle, center, inverse
+# Documentação
+
+---
+# Documentação de funções
+
+Se quisermos adicionar documentação ao nosso pacote (as instruções que aparecem quando vamos usar uma função ou o documento mostrado quando rodamos `?função()`) precisamos usar um comentário especial: `#'`
+
+```{r eval=FALSE}
+#' Título da função
+#'
+#' Descrição da função
+#'
+#' @param a primeiro parâmetro
+#' @param b segundo parâmetro
+#'
+#' @return descrição do resultado
+#'
+#' @export
+fun <- function(a, b) {
+  a + b
+}
+```
+
+---
+# Documentação de funções
+
+- O parâmetro `@export` indica que a função ficará disponível quando rodarmos `library(meupacote)`. Não se esqueça de exportar todas (e somente) as funções públicas!
+
+- O RStudio disponibiliza um atalho para criar a estrutura da documentação de uma função. No menu superior, clique em `Code` ->  `Insert Roxygen Skeleton`.
+
+- Para deixar a documentação das suas funções acessível (no help do R), use a função `devtools::document()` (**CTRL + SHIFT + D**).
+
+- Ao executar `devtools::check()`, a documentação já é atualizada e disponibilizada de brinde
+
+---
+# Documentação de bases de dados
+
+```{r eval=FALSE}
+#' Título da base
+#'
+#' Descrição da base
+#'
+#' @format Uma lista que descreve as colunas:
+#' \describe{
+#'   \item{col1}{Descrição da coluna 1}
+#'   \item{col2}{Descrição da coluna 2}
+#'   ...
+#' }
+#' @source Origem dos dados
+"base"
+```
+
+- `@format` descreve o formato da base (número de colunas, linhas, etc.) e pode conter uma lista que explica o significado de cada coluna
+
+- `@source` é a fonte, muitas vezes um `\url{}`
+
+- **Nunca** coloque `@export` em uma base de dados
+
+---
+# Acentos, encoding e variáveis globais
+
+Prefira manter os arquivos em inglês para que seu pacote possa ser submetido ao CRAN.
+
+- Se quiser fazer um pacote com documentação em português, tente escrever sem acentos ou escapar strings (veja `abjutils::escape_unicode()`). O `devtools::check()` vai te alertar caso essa regra seja violada
+
+O _encoding_ (codificação) dos arquivos deve ser **sempre** UTF-8 para evitar problemas entre plataformas.
+
+- Se tiver problemas com isso, tente **File > Reopen with Encoding...**, ou **File > Save with Encoding...**, ou **Tools > Project Options... > Code Editing > Text encoding**
+
+Variáveis globais são normalmente uma má prática em código R, então a `devtools::check()` vai reclamar se encontrar algo do tipo; o problema é que as colunas modificadas em funções do `{dplyr}` são caracterizadas como globais.
+
+- A solução é criar um arquivo com uma linha como a abaixo contendo todas as variáveis que fizerem a `devtools::check()`reclamar
+
+```{r, eval=FALSE}
+utils::globalVariables(c("variavel1", "variavel2"))
+```
+
+---
+# Boas práticas no desenvolvimento
+
+- Não rode as funções diretamente. Utilize sempre a função `devtools::load_all()`. Ela carrega todas as funções da pasta `R/` e as bases salvas na pasta `data/`. Isso diminuirá a chance de elas estarem sendo afetadas por valores externos que estão no seu *Environment*.
+
+- Limpe o seu *Environment* sempre que possível. Um atalho útil: **CTRL + SHIFT + F10**.
+
+- Para deixar a documentação das suas funções acessível (no help do R), use a função `devtools::document()`.
+
+- Se você precisar instalar o seu pacote (equivalente ao que fazemos com pacotes do CRAN quando rodamos `install.packages()`), use a função `devtools::install()`. Ela deve ser utilizada quando o seu pacote estiver pronto (ou pelo menos alguma versão dele).
+
+<!-- Acho que tem mais coisa aqui, mas isso tudo já é bem bom -->
+
+---
+
+# Documentação na prática
+
+Passo 7: Pratique o que aprendemos sobre documentação de pacotes!
+
+1. Execute e observe o resultado de `devtools::check()`. Lá terão indicações do que devemos fazer
+
+1. Crie uma lista de variáveis globais e adicione os elementos que aparecem no check em _Undefined global functions or variables_
+
+1. Documente a base de dados
+
+1. Documente as funções do pacote
+
+1. Execute e observe novamente o resultado de `devtools::check()`. O objetivo é obter:
+
+.center[`0 errors ✓ | 0 warnings ✓ | 0 notes ✓`]
+
+---
+class: middle, center, inverse
+# Git e GitHub
+
+---
+# Git
+
+- Git é um **sistema de versionamento**, criado por Linus Torvalds, autor do Linux.
+
+- É capaz de guardar o histórico de alterações de todos os arquivos dentro de uma pasta, que chamamos de repositório.
+
+- Funciona como o "*Track changes*" do word, mas muito melhor.
+
+- Torna-se importante à medida que seu trabalho é __colaborativo__.
+
+- Git é um software que você instala no computador.
+
+- Arquivo `.gitignore`: Lista arquivos que deverão ser ignorados ao versionar o pacote com Git. 
+
+<br>
+
+```{r echo=FALSE, out.width="30%", fig.align='center'}
+knitr::include_graphics("img/git.png")
+```
+
+---
+# GitHub
+
+- GitHub é um site onde você coloca e compartilha repositórios Git.
+
+- Utilizado por milhões de pessoas em projetos de código aberto ou fechado.
+
+- Útil para colaborar com outros programadores em projetos de ciência de dados.
+
+- Existem alternativas, como [GitLab](https://about.gitlab.com/) e [BitBucket](https://bitbucket.org/product).
+
+- GitHub é um site que você acessa na internet.
+
+<br>
+
+```{r echo=FALSE, out.width="40%", fig.align='center'}
+knitr::include_graphics("img/github.png")
+```
+
+---
+# Pacotes e GitHub
+
+
+
+.pull-left[
+
+
+Pacotes do R e repositórios do GitHub são melhores amigos
+
+
+
+<br>
+
+O grande cupido dessa amizade é o `{usethis}` <br>
+
+Após deixar o pacote no GitHub, outras pessoas poderão instalá-lo usando a função `remotes::install_github("org/repo")`
+]
+
+.pull-right[
+
+```{r echo=FALSE, out.width="90%", fig.align='center'}
+knitr::include_graphics("img/hug.gif")
+```
+
+]
+
+
+---
+# Fluxo de trabalho
+
+O diagrama abaixo exemplifica o fluxo de trabalho de um projeto com versionamento.
+
+
+```{r echo=FALSE, fig.align='center', out.width="70%"}
+knitr::include_graphics("img/fluxo_github_rstudio.png")
+```
+
+
+
+---
+
+# Configurando o Git e GitHub no RStudio
+
+.pull-left[
+
+####  Usando protocolo https
+
+- `r emo::ji("white_large_square")` Ter o pacote `usethis` instalado 
+
+- `r emo::ji("white_large_square")` Se apresentar para o `git` 
+
+- `r emo::ji("white_large_square")` Criar um GitHub Token/PAT
+
+- `r emo::ji("white_large_square")` Armazenar o GitHub Token/PAT 
+
+- `r emo::ji("white_large_square")` Reiniciar o RStudio
+]
+
+.pull-right[
+#### Usando protocolo ssh
+
+- `r emo::ji("white_large_square")` Todas as etapas para o protocolo https (listadas ao lado)
+
+- `r emo::ji("white_large_square")` Criar as chaves SSH no RStudio
+
+- `r emo::ji("white_large_square")` Adicionar a chave ssh no ssh-agent
+
+- `r emo::ji("white_large_square")` Adicionar as chaves públicas no  GitHub
+
+- `r emo::ji("white_large_square")` Alterar o protocolo padrão no arquivo `.Rprofile`
+
+- `r emo::ji("white_large_square")` Reiniciar o RStudio
+
+
+
+Obs: Se você utiliza Linux, recomendamos usar `ssh`.
+
+]
+
+---
+
+# Configure seu usuário do Git
+
+Antes de começarmos a versionar o código do nosso pacote, vamos configurar o Git e o GitHub no RStudio. 
+
+Esse processo precisa ser feito apenas uma vez!
+
+```{r eval=FALSE}
+usethis::use_git_config(
+  user.name = "SEU NOME NO GITHUB",
+  user.email = "seu_email_no@github.com"
+)
+```
+
+- Em `user.name`, pode ser seu nome mesmo, não precisa ser o nickname.
+
+- O `user.email` precisa ser o que está vinculado à sua conta do GitHub.
+
+---
+
+# Configure o Personal Access Token 
+
+- Ao conectar com o GitHub, você será instruída(o) a criar um *Personal Access Token* (PAT).
+
+- O PAT serve para autenticar ao GitHub, podendo ser utilizado como senha de acesso ou internamente para automatizar tarefas (como criar um repositório).
+
+- Para criar um novo PAT, use a função `usethis::create_github_token()`. Uma janela do navegador será aberta, e você deve autenticar no GitHub (se necessário), criar o novo token, e copiá-lo. 
+
+```{r echo=TRUE, eval=FALSE}
+usethis::create_github_token()
+```
+
+
+---
+
+# Armazenar o Personal Access Token 
+
+#### Método 1 - `gitcreds::gitcreds_set()`
+
+
+.pull-left[
+```{r echo=TRUE, eval=FALSE}
+gitcreds::gitcreds_set()
+# -> Your current credentials for 'https://github.com':
+#   protocol: https
+#   host    : github.com
+#   username: beatrizmilz
+#   password: <-- hidden -->
+#     
+# -> What would you like to do? 
+# 1: Keep these credentials
+# 2: Replace these credentials
+# 3: See the password / token
+```
+]
+
+
+.pull-right[
+Siga as instruções e cole o PAT quando for solicitado as credenciais.
+
+```{r echo=TRUE, eval=FALSE}
+# -> Adding new credentials...
+# -> Removing credetials from cache...
+# -> Done.
+```
+]
+
+
+
+
+---
+
+# Armazenar o Personal Access Token 
+
+#### Método 2 - Armazenar manualmente no `.Renviron`
+
+- Use a função `usethis::edit_r_environ()` para abrir o arquivo `.Renviron` para salvar seu token. 
+
+```{r echo=TRUE, eval=FALSE}
+usethis::edit_r_environ()
+# ● Modify 'C:/Users/beatr/Documents/.Renviron'
+# ● Restart R for changes to take effect
+```
+
+- Crie uma nova linha na forma `GITHUB_PAT=SEU_TOKEN`, adicione o token, **pule uma linha** e salve o arquivo. Se certifique que o arquivo termina com uma linha vazia!
+
+
+Use essa estrutura, substituindo os 0 pelo código copiado na etapa anterior:
+
+```{r echo=TRUE, eval=FALSE}
+GITHUB_PAT="0000000000000000000000000000000000000000"
+```
+
+
+
+
+---
+
+# Checando se a configuração deu certo
+
+
+- Lembre-se de reiniciar sua sessão do R!
+  - **Reinicie o R usando o RStudio**:  CTRL + SHIFT + F10
+
+- Utilize a função `usethis::git_sitrep()` e leia o resultado que aparece no console. A mensagem abaixo foi cortada para mostrar os trechos de interesse!
+
+
+```{r eval=FALSE}
+usethis::git_sitrep()
+#> Git config (global)
+#> ● Name: 'SEU NOME DEVE APARECER AQUI'
+#> ● Email: 'SEU EMAIL DEVE APARECER AQUI'
+
+#> GitHub
+#> ● Default GitHub host: 'https://github.com'
+#> ● Personal access token for 'https://github.com': '<discovered>' ***IMPORTANTE ESTAR COMO DISCOVERED***
+#> ● GitHub user: 'SEU NOME DE USUÁRIO(A) DEVE APARECER AQUI'
+#> ● Token scopes: 'gist, repo, user, workflow'
+#> ● Email(s): 'SEU EMAIL DEVE APARECER AQUI'
+```
+
+---
+
+# Configurando com o SSH (Parte 1)
+
+
+
+.pull-left[
+
+- Se você utiliza Linux, recomendamos usar o protocolo `ssh`.
+
+- Além das etapas anteriores (se apresentar para o `git` e configurar o PAT), é necessário seguir os seguintes passos: 
+
+** CRIANDO UMA CHAVE SSH**
+
+- No RStudio, clique em `Tools` -> `Global Options...` -> `Git/SVN`. No campo `SSH RSA Key`, clique em `Create RSA Key`.
+
+
+
+Referência: https://happygitwithr.com/ssh-keys.html 
+
+]
+
+.pull-right[
+
+```{r echo=FALSE, fig.align='center', out.width="90%"}
+knitr::include_graphics("img/ssh/etapa-1.png")
+```
+
+]
+
+
+
+
+---
+
+# Configurando com o SSH (Parte 2)
+
+
+.pull-left[
+
+** CRIANDO UMA CHAVE SSH**
+
+- Não altere o primeiro campo, mas você pode adicionar uma senha caso queira. Porém você precisará informar essa senha todas as vezes que quiser fazer algumas ações como Pull ou Push. Clique em `Create`.
+
+A sua senha será criada e aparecerá uma caixinha com ela. Pode clicar em `Close`.
+
+Após fechar, veja se o campo `SSA RSA KEY` está preenchido.
+
+Referência: https://happygitwithr.com/ssh-keys.html 
+
+]
+
+.pull-right[
+
+
+```{r echo=FALSE, fig.align='center', out.width="90%"}
+knitr::include_graphics("img/ssh/etapa-2.png")
+```
+
+]
+
+
+---
+
+
+# Configurando com o SSH (Parte 3)
+
+
+.pull-left[
+
+**Verificando se o ssh-agent está funcionando**
+
+
+
+
+
+Referência: https://happygitwithr.com/ssh-keys.html#add-key-to-ssh-agent
+
+]
+
+.pull-right[
+
+- **Mac OS ou Linux** - no terminal, escreva:
+
+```
+eval "$(ssh-agent -s)"
+```
+
+
+- **Windows** - no Git Bash shell, escreva:
+
+```
+eval $(ssh-agent -s)
+```
+
+
+
+<br><br><br><br>
+A resposta esperada, nessa etapa, é algo como:
+```
+Agent pid 14198
+```
+
+
+]
+
+
+
+---
+
+
+# Configurando com o SSH (Parte 4)
+
+
+.pull-left[
+
+**Adicionando a chave ssh no ssh-agent**
+
+- Se você definiu uma senha ao criar a chave ssh, ela será solicitada nessa etapa.
+
+
+- **Linux** - no terminal, escreva:
+
+```
+ssh-add ~/.ssh/id_rsa
+```
+
+
+- **Mac OS** - no terminal, escreva:
+
+```
+ssh-add -K ~/.ssh/id_rsa
+```
+
+
+- **Windows** - no Git Bash shell, escreva:
+
+```
+ssh-add ~/.ssh/id_rsa
+```
+<br>
+
+Referência: https://happygitwithr.com/ssh-keys.html#add-key-to-ssh-agent
+
+]
+
+.pull-right[
+
+A resposta esperada, nessa etapa, é algo como:
+```
+Identity added: /home/bea/.ssh/id_rsa
+```
+
+```{r echo=FALSE, fig.align='center', out.width="100%"}
+knitr::include_graphics("img/ssh/etapa-5.png")
+```
+
+]
+
+
+---
+
+
+# Configurando com o SSH (Parte 5)
+
+
+
+**Adicionando a chave pública no GitHub**
+
+- No GitHub, vá em `Settings` -> `SSH and GPG keys` -> `New ssh key` (ou clique aqui: https://github.com/settings/ssh/new )  
+
+
+- No RStudio, clique em `Tools` -> `Global Options...` -> `Git/SVN`. No campo `SSH RSA Key`, clique em `View Public Key`.
+
+- Uma janela vai abrir com a chave pública e você deve copiar o conteúdo todo.
+
+- No campo `Title`, escreva algo que ajude você a lembrar em qual computador essa chave está sendo usada. No campo `Key`, cole todo o conteúdo copiado na etapa anterior. Clique em `Add SSH key`.
+
+
+
+<br>
+
+Referência: https://happygitwithr.com/ssh-keys.html#add-key-to-ssh-agent
+
+
+
+---
+
+
+# Configurando com o SSH (Parte 6)
+
+
+
+**Dicas**
+
+
+- Confira se está funcionando executando o seguinte código na aba Terminal, no RStudio: 
+```
+ssh -T git@github.com
+```
+
+- Ao clonar um projeto, é importante utilizar o protocolo que foi configurado. O protocolo padrão utilizado pelo usethis é o `https`. Para alterar para o `ssh` , altere no `.Rprofile` o protocolo padrão a ser utilizado: 
+
+  - Abrir o arquivo o `.Rprofile`: 
+  
+```
+usethis::edit_r_profile()
+```
+
+  - Adicione a seguinte linha neste arquivo:
+  
+```
+options(usethis.protocol = "ssh")
+```
+
+  - Salve o arquivo e reinicie o RStudio.
+
+
+<br>
+
+Referência: https://usethis.r-lib.org/reference/git_protocol.html
+
+---
+
+# Versione com o Git e o GitHub
+
+```{r, eval=FALSE}
+usethis::use_git()
+```
+
+- Rodando o comando acima na pasta do projeto (a nova aba do RStudio que
+apareceu) você adiciona controle de versão.
+
+- Você receberá algumas instruções para seguir, mas está tudo certo.
+
+```{r, eval=FALSE}
+usethis::use_github()
+```
+
+- O comando acima sincroniza a pasta com o GitHub.
+
+- Mais uma vez, você receberá algumas instruções, mas lembre-se  de alterar para o protocolo `ssh` caso tenha feito a configuração usando esse protocolo. Para isso, use o argumento `protocol = ssh`.
+
+---
+# Stage & Commit
+
+```{r echo=FALSE, out.width="50%", fig.align='center'}
+knitr::include_graphics("img/passo_3_commit_1.gif")
+```
+
+- Nesta etapa, você estará descrevendo as modificações que fez nos arquivos selecionados.
+
+- __Observação__: o ato de clicar no item é o passo de Stage.
+
+---
+
+# Push
+
+```{r, echo=FALSE, out.width="50%", fig.align='center'}
+knitr::include_graphics("img/passo_4_push.gif")
+```
+
+- *Push* (ou *dar push*) significa atualizar o seu repositório remoto (GitHub) com os arquivos que você *commitou* no passo anterior.
+
+---
+
+# Extra: Pull
+
+```{r, echo=FALSE, out.width="50%", fig.align='center'}
+knitr::include_graphics("img/passo_5_pull.gif")
+```
+
+- *Pull* é a ação inversa do *Push*: você trará a versão mais recente dos arquivos do seu repositório remoto (GitHub) para a sua máquina (caso você tenha subido uma versão de um outro computador ou uma outra pessoa tenha subido uma atualização).
+
+---
+
+# Resumo
+
+1. Repositório: Criar projeto/pacote
+
+2. Adicionar Git
+
+3. Adicionar GitHub
+
+4. Commit: Edite e "Commite" as mudanças no código
+
+5. Push: Suba os commits para o GitHub
+
+6. Pull (extra): Baixe o estado atual do projeto
+
+### Cuidados
+
+- Se uma base de dados tem mais do que 50Mb de tamanho, ela não deveria estar no seu repositório.
+
+- Nem sempre o comando Pull dá certo. Às vezes, você e a colega de trabalho fizeram mudanças no mesmo arquivo e, quando vão juntar, ocorre um conflito.
+
+---
+class: middle, center, inverse
+name: testes-unitarios
+
+# Comunicação
+
+---
+
+.pull-left[
+# O arquivo README.md 
+
+O arquivo `README.md` é importante pois contém informações como: logo (opcional!), introdução (o que ele faz?), instruções de instalação, exemplos de uso, etc.
+  
+  
+A função `usethis::use_readme_rmd()` cria um arquivo `README.Rmd`. Esse arquivo já possui uma estrutura para facilitar o preenchimento das informações. 
+
+
+O arquivo gerado é um **RMarkdown** (`.Rmd`), e portanto precisamos converter para **Markdown** (`.md`). Para isso podemos usar a função `devtools::build_readme()`.
+
+<!-- Citamos aqui o botão knit? -->
+]
+
+.pull-right[
+```{r echo=FALSE, out.width="90%"}
+knitr::include_graphics("img/readme-chess.png")
+```
+
+.footnote[Fonte da imagem: [README do pacote {chess}](https://github.com/curso-r/chess)]
+
+]
+
+---
+.pull-left[
+
+
+
+# Vignettes
+
+É muito comum a construção de *vignettes* para documentar o pacote. Elas são documentos em HTML melhor formatados do que a tradicional documentação do R.
+
+Você pode usar a função `usethis::use_vignette()` para criar *vignettes*.
+
+<br> 
+Atenção: Caso você use alguma distribuição Linux e retornar a seguinte mensagem no `devtools::check()`, você precisa instalar o [qpdf](https://sourceforge.net/projects/qpdf/).
+
+
+```
+> ‘qpdf’ is needed for checks on size
+ reduction of PDFs
+```
+
+<!-- ### Outros -->
+
+<!-- Se você precisar construir sites, relatórios, dashboards estáticos (flexdashboard) dentro do seu pacote, você pode criar uma pasta chamada `docs/` na raiz do seu projeto para guardar esses arquivos. -->
+
+<!-- Veremos também como criar um site do pacote criado com o `{pkgdown}`. -->
+
+]
+
+.pull-right[
+```{r echo=FALSE, out.width="90%"}
+knitr::include_graphics("img/vignette-chess.png")
+```
+
+.footnote[Fonte da imagem: [Exemplo de vignette do pacote {chess}](https://github.com/curso-r/chess)]
+
+]
+
+
+
+---
+
+# Criando um site para o pacote com {pkgdown}
+
+.pull-left[
+
+
+O pacote pkgdown permite criar um site para o pacote. Para criar, use a função a seguir uma vez, para configurar o pacote para usar o pkgdown:
+
+```r
+usethis::use_pkgdown()
+```
+]
+
+.pull-right[
+```{r echo=FALSE, out.width="90%"}
+knitr::include_graphics("img/pkgdownchess.png")
+```
+
+.footnote[Fonte da imagem: [Site do pacote {chess}](https://github.com/curso-r/chess)]
+
+]
+
+---
+
+# Criando um site para o pacote com {pkgdown} (cont.)
+
+Conteúdo do site será gerado a partir dos documentos já existentes no pacote: 
+
+- O conteúdo do site estará no diretório `docs/`. 
+
+- O arquivo `README.md` será usado para criar a página principal do site;
+
+- A documentação das funções serão usadas para criar a seção 'references'
+
+- As vignettes serão usadas para criar a seção 'articles'
+
+O site não é atualizado automaticamente. Caso mude algo nos itens descritos acima, você deve atualizar o site usando a função:
+
+```r
+pkgdown::build_site()
+```
+
+---
+
+# Criando um site para o pacote com {pkgdown} (cont.)
+
+- Os passos anteriores geram o conteúdo do site no diretório `docs/`, mas para que o site do pacote fique disponível na internet para que outras pessoas consultem é necessário:
+
+  - O pacote estar vinculado a um repositório no GitHub (falamos disso na seção passada)
+
+  - No repositório do pacote, clique em **Settings**, e no menu lateral escolha **Pages**
+    
+  - Em **Source**, selecione a sua branch principal (provavelmente chama de **main** ou **master**), escolha o diretório `docs/` e clique em **save**
+    
+```{r echo=FALSE, out.width="50%"}
+knitr::include_graphics("img/githubpages.png")
+```
+  
+- O endereço do site será `https://seu-username.github.io/nome-repositorio/`  
+
+---
+class: middle, center, inverse
+name: testes-unitarios
+
+# Testes unitários
+
+
+.footnote[Leia mais [neste capítulo do livro Zen do R](https://curso-r.github.io/zen-do-r/testes.html).]
+
+---
+
+# Testes
+
+Se quisermos verificar que todo o pacote continua funcionando mesmo depois fazer alguma alteração, precisamos de testes automatizados.
+
+Para isso, basta rodar `usethis::use_testthat()` (apenas uma vez por pacote) e depois `usethis::use_test("nome_do_teste")` (para cada novo arquivo de testes que quiser criar).
+
+Com o pacote testthat podemos criar quantos arquivos de testes quisermos, cada um com um número ilimitado de testes e sub-testes. Quando tivermos todos os testes prontos, basta rodar `devtools::test()`. Atalho: **Ctrl + Shift + T**.
+
+---
+# Expectativas
+
+- Um arquivo de testes tem duas estruturas principais: **testes** e
+**expectativas**
+
+  - Um teste, declarado com `test_that()`, indica um bloco de testes cujo
+  objetivo é garantir que uma funcionalidade foi implementada corretamente
+
+  - Uma expectativa, declarada com `expect_*()`, realiza uma verificação dentro
+  do teste, comparando o valor retornado pela expressão com alguma referência
+
+- Um teste precisa ser independente dos outros (inclusive do mesmo arquivo!) e
+ter um objetivo definido, declarado através de sua **descrição**
+
+  - A independência dos testes é importante porque eles serão executados em
+  paralelo, mesmo que digam respeito à mesma função e estejam no mesmo arquivo
+
+- Alguns tipos importantes de expectativas: `equal`, `error`, `true`,
+`length`, `lt`, `lte`, `gt`, `gte`, `message`, `null`, `output`, `snapshot`,
+`warning`
+
+---
+# Exemplo de teste
+
+Considerando a função:
+```r
+tira_media <- function(x, rm_na = TRUE) {
+  purrr::reduce(x, sum, na.rm = rm_na)/conta_itens(x, rm_na)
+}
+```
+
+Podemos escrever os seguintes testes:
+```r
+test_that("taking the mean works", {
+  expect_equal(tira_media(c(1, 2, 3, 4, NA, 6)), 3.2)
+  expect_equal(tira_media(c(1, 2, 3, 4, 6)), 3.2)
+})
+test_that("rm_na works as expected", {
+  expect_output(tira_media(c(1, 2, NA), rm_na = FALSE), NA)
+  expect_equal(tira_media(c(NA, NA, NA)), NaN)
+})
+```
+
+---
+# Testes na prática
+
+Passo 8: Pratique o que aprendemos sobre testes!
+
+1. Use a função `usethis::use_testthat()` para preparar o pacote 
+
+1. Abra o arquivo da função que deseja escrever testes, e use a função  `usethis::use_test()` para criar o arquivo onde o teste será escrito
+
+1. Desenvolva um teste para a função
+
+1. Execute e observe novamente o resultado de `devtools::check()`. O objetivo é obter:
+
+.center[`0 errors ✓ | 0 warnings ✓ | 0 notes ✓`]
+
+---
+class: middle, center, inverse
+name: ci
+
+# Integração contínua
+
+---
+# Integração contínua
+
+- Dado um certo código e um método consistente de testá-lo, faz todo sentido
+**automatizar** o processo
+
+- Integração contínua normalmente envolve garantir que a versão mais
+recente do software está atendendo os padrões de qualidade
+
+- Hoje vamos falar sobre o **GitHub Actions** porque ele se conecta facilmente
+com o GitHub
+
+.pull-left[
+
+
+Alguns exemplos: 
+
+- Vários pacotes usam para fazer executar o check e testes: [{readr}](https://github.com/tidyverse/readr/tree/master/.github/workflows), [{dplyr}](https://github.com/tidyverse/dplyr/tree/master/.github/workflows), [{usethis}](https://github.com/r-lib/usethis/tree/master/.github/workflows), e muitos outros
+
+- Pacote [{mananciais}](https://beatrizmilz.github.io/mananciais/) - atualiza diariamente a base de dados 
+
+- Página [Materiais sobre R](https://materiais-estudo-r.netlify.app/) - atualiza o site sempre que há mudança na base de dados
+
+
+
+]
+
+.pull-right[
+
+<br><br>
+
+```{r echo=FALSE}
+knitr::include_graphics("https://avatars.githubusercontent.com/u/44036562?s=200&v=4")
+```
+
+]
+
+---
+# GitHub Actions
+
+> GitHub Actions ajuda a automatizar tarefas dentro de seu ciclo de vida de
+desenvolvimento de software https://docs.github.com/pt/actions
+
+- Um **workflow** não passa de um processo bem-definido que será executado no
+repositório ao qual ele pertence
+
+- Ele é definido a partir de um arquivo YAML dentro da pasta `.github/workflows`
+
+  - É comum definir workflows para testagem de pacotes, geração de documentação, 
+  atualização de dados, etc.
+  
+- O workflow é, essencialmente, um duende mágico que baixa o nosso repositório
+em um **servidor do GitHub** e executa os comandos especificados
+
+  - O plano gratuito já funciona para bastante coisa, mas cuidado com os
+  **custos** das máquinas MacOS
+
+---
+# Estrutura
+
+- Um workflow tem alguns componentes importantes:
+
+  - **Event**: gatilhos que ativam o workflow, podendo ser desde um push ao
+  repositório até uma hora do dia
+  
+  - **Job**: sequências completas de comandos que podem ser executadas
+  paralelamente entre si
+  
+  - **Step**: uma tarefa dentro de um job, composta por ações
+      
+      - **Use**: passos importados de outro repositório (úteis para setup)
+  
+  - **Action**: o átomo do workflow, um comando a ser executado pelo "duende
+  mágico"
+  
+- Também é comum definir **env**, variáveis de ambiente para o workflow
+
+---
+# Exemplo de workflow
+
+```yaml
+on: [push]                                              # Event
+jobs:
+  R-CMD-check:                                          # Job
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2                       # Use
+      - uses: r-lib/actions/setup-r@v1                  # Use
+      - name: Install dependencies                      # Step
+        run: |                                          # Action
+          install.packages(c("remotes", "rcmdcheck"))
+          remotes::install_deps(dependencies = TRUE)
+        shell: Rscript {0}
+      - name: Check                                     # Step
+        run: rcmdcheck::rcmdcheck(args = "--no-manual") # Action
+        shell: Rscript {0}
+```
+
+---
+# Integração contínua com GitHub Actions
+
+Para utilizar o GitHub Actions, usamos arquivos `.yaml` que armazenam informações os fluxos de trabalho.
+
+- **Eventos**: Um evento é uma atividade que aciona um fluxo de trabalho. Por exemplo:
+  
+  - Quando o repositório recebe uma alteração (`on: push`)
+  
+  - Quando um Pull Request é criado (em outras palavras, alguém está enviando uma contribuição para o repositório) (`on: pull_request`)
+  
+  - Eventos programados. Ex: a cada hora, todos os dias, uma vez por semana, uma vez por mês, etc. O site [CronTab](https://crontab.guru/) é muito útil para isso.
+  
+  - Quando acionado "manualmente", ou via API (`on: workflow_dispatch`)
+  
+- **Trabalho**: Um evento aciona automaticamente o fluxo de trabalho, que contém um trabalho. Em seguida, o trabalho usa etapas para controlar a ordem em que as ações são executadas. Exemplo de ações executadas:
+  
+  - Executar testes
+  
+  - Executar um script `.R`
+
+---
+# Integração contínua com GitHub Actions (cont.)
+
+- Recomendação: partir de um arquivo de workflow já existente, e alterar o que for necessário. 
+
+  - [Neste repositório](https://github.com/r-lib/actions/tree/master/examples#readme), estão disponíveis alguns exemplos de workflows de GitHub Actions que podemos usar com pacotes em R
+
+- Os arquivos `.yaml` devem estar em um diretório específico do pacote:  `pacote/.github/workflows/nome-do-workflow.yaml`
+
+- O pacote {usethis} também pode nos ajudar nisso. O código a seguir cria o arquivo `.yaml` apresentado no último slide, usado para fazer uma checagem simples no pacote:
+
+```{r eval=FALSE}
+usethis::use_github_action("check-release")
+```
+
+---
+# Exemplo de workflow 
+
+```{r echo=FALSE, out.width="60%"}
+knitr::include_graphics("img/action.png")
+```
+
+.footnote[[Veja os logs do Exemplo!](https://github.com/beatrizmilz/materiais_estudo_R/runs/2328985236?check_suite_focus=true)]
+
+
+---
+# Regras para colocar um pacote no CRAN
+
+<!-- Antes desse slide o Caio vai escrever sobre o R-Hub -->
+
+Um pacote é uma coleção de código, dados, documentação e testes que qualquer pessoa pode instalar em sua máquina.
+
+Se quisermos criar apenas um conjunto de funções que provavelmente não serão utilizadas por muitas pessoas, podemos subir esse pacote para o GitHub e mantê-lo lá somente para
+garantir controle de versão.
+
+Mas se quisermos que o máximo número possível de pessoas tenha acesso ao nosso pacote, pode ser que precisemos subi-lo para o CRAN (Comprehensive R Archive Network). Neste caso precisaremos criar teste e documentação (em inglês) para nosso pacote.
+
+Use as funções `devtools::submit_cran()` e `usethis::use_release_issue()` para auxiliar no processo de submissão do pacote para o CRAN.
+
+---
+class: middle, center, inverse
+
+
+# Resumo
+
+---
+
+# Etapas iniciais
+
+- Criar um pacote usando a função `usethis::create_package("~/caminho/ate/o/nomepacote")`
+
+- No arquivo DESCRIPTION, adicionar o nome de quem criou o pacote, além do título e descrição do pacote.
+
+- Adicionar uma licença com `usethis::use_**_licence()`
+
+- Versionar o projeto usando `usethis::use_git()`
+
+- Crie um repositório no GitHub onde esse pacote será versionado utilizando `usethis::use_github()`
+
+- Para preparar o pacote para receber testes, use `usethis::use_testthat()` 
+
+- Para criar o arquivo README, use a função `usethis::use_readme_rmd()`
+
+- Para criar um site para o pacote, use a função `usethis::use_pkgdown()`
+
+---
+
+# Funções para repetir com frequência
+
+
+- `devtools::document()`: atualiza a documentação e o arquivo NAMESPACE
+
+- `devtools::load_all()`: simula o processo de instalação e carregamento do pacote. As funções criadas ficam disponíveis para uso
+
+- `devtools::check()`: verifica se o pacote está funcionando. Pode apresentar erros, avisos e notas. Leia as mensagens no console :)
+
+
+- Quando necessário:
+
+  - `usethis::build_readme()`: atualizar o `README.md`
+
+  - `pkgdown::build_site()`: atualizar o site do pacote
+
+---
+
+# Desenvolvendo funções
+
+- Criar funções: a função `usethis::use_r("nome-do-arquivo")` cria o arquivo onde as funções devem ser escritas
+
+- Declare as dependências usando:
+
+  - pipe `%>%`: `usethis::use_pipe()` + `devtools::document()` + `devtools::load_all()`
+  
+  - Pacotes instalados via CRAN: `usethis::use_package("nome_do_pacote")`
+  
+  - Pacotes instalados via GitHub: `usethis::use_dev_package("nome_do_pacote")`
+  
+- Documente suas funções no arquivo `.R`
+
+- Crie o arquivo de testes usando `usethis::use_test("nome-do-arquivo")` e escreva testes para as funções presentes nesse arquivo
+
+
+
+---
+# Referências  e materiais para estudo
+
+- [Zen do R](https://curso-r.github.io/zen-do-r/), livro em desenvolvimento pela Curso-R.
+
+- [R Packages](https://r-pkgs.org), livro aprofundado sobre desenvolvimento de pacotes.
+
+- [R for Data Science - capítulo sobre Funcões](https://r4ds.had.co.nz/functions.html)
+
+- [Materiais da R-Ladies SP sobre a Hacktoberfest 2020](https://r-ladies-sao-paulo.github.io/2020-hacktoberfest/).
+
+- [Folha de dicas do Git em Português](https://training.github.com/downloads/pt_BR/github-git-cheat-sheet/)

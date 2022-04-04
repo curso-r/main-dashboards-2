@@ -1,0 +1,96 @@
+---
+title: "Dashboards com R II"
+subtitle: "Introdução ao curso"
+author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
+date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE), 'de', lubridate::year(Sys.Date()))`"
+output:
+  xaringan::moon_reader:
+    css: 
+      - "default"
+      - "default-fonts"
+      - "https://curso-r.github.io/assets/css/padrao-curso-r.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "4:3"
+knit: pagedown::chrome_print
+---
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+
+link <- function(href, ...) {
+  htmltools::a(
+    href = href,
+    target = "_blank",
+    ...
+  )
+}
+```
+
+class: middle, center
+
+# Sobre o curso
+
+---
+## Cronograma
+
+.pull-left[
+- **Aula 1**: 17 de janeiro
+  - Introdução e conceitos básicos
+
+- **Aula 2**: 18 de janeiro
+  - Reatividade - parte 1
+
+- **Aula 3**: 19 de janeiro
+  - Layouts, boostrap e dashobards
+  
+- **Aula 4**: 20 de janeiro
+  - Reatividade - parte 2
+
+- **Aula 5**: 21 de de janeiro
+  - HTMLWIDGETS
+]
+
+.pull-right[
+- **Aula 6**: 24 de janeiro
+  - Módulos
+
+- **Aula 7**: 25 de janeiro
+  - Pacotes
+
+- **Aula 8**: 26 de janeiro
+  - Golem
+  - Shinyapps.io e Github
+  
+- **Aula 9**: 27 de janeiro
+  - APIs
+  - Shiny Server e deploy on-premise
+
+- **Aula 10**: 28 de de janeiro
+  - Deploy com docker e máquinas virtuais
+]
+
+---
+## Dinâmica do curso
+
+- As aulas serão em maior parte expositivas.
+
+- As aulas terão uma seção teórica, de exposição de conceitos, e prática, de aplicação de conceitos.
+
+- Haverá exercícios facultativos para fixar conceitos e gerar dúvidas.
+
+- Se de interesse da equipe, ao longo do curso, desenvolveremos juntos um aplicativo em Shiny que incorpore alguma análise do dia-a-dia da Suzano.
+
+---
+## Dinâmica das aulas
+
+- Mande dúvidas e comentários no chat em qualquer momento.
+
+- Para falar, levante a mão.
+
+- Algumas dúvidas serão respondidas na hora. Outras serão respondidas mais tarde na própria aula ou em aulas futuras.
+
+- Fora do horário de aula, envie suas perguntas no Google Classroom.
+     
