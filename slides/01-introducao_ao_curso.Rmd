@@ -2,7 +2,7 @@
 title: "Dashboards com R II"
 subtitle: "Introdução ao curso"
 author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
-date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE), 'de', lubridate::year(Sys.Date()))`"
+date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE, locale = 'pt_BR.UTF-8'), 'de', lubridate::year(Sys.Date()))`"
 output:
   xaringan::moon_reader:
     css: 
@@ -31,45 +31,134 @@ link <- function(href, ...) {
 
 class: middle, center
 
+# Sobre a Curso-R
+
+---
+
+## A empresa
+
+<br>
+
+```{r, echo = FALSE, out.width="50%", fig.align="center"}
+knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/295643c6243701ae6a9bac3fb8ad467ff0ce3c84/d1785/img/logo/cursor1-41.png")
+```
+
+<br>
+<br>
+
+```{r, echo = FALSE, out.width="40%", fig.align="center"}
+knitr::include_graphics("img/logo_r6.png")
+```
+
+---
+
+## Filosofia de código aberto!
+
+.pull-left[
+```{r, echo = FALSE}
+htmltools::h3("Livros")
+
+link(
+  href = "https://livro.curso-r.com/",
+  htmltools::img(src = "img/hex-livro.png", width = "100px")
+)
+
+link(
+  href = "https://curso-r.github.io/zen-do-r/index.html",
+  htmltools::img(
+    src = "img/zen-do-r.png",
+    width = "100px",
+    style = "margin-left: 20px;"
+  )
+)
+```
+
+<br>
+
+```{r, echo = FALSE}
+htmltools::h3("Lives")
+link(
+  href = "https://www.youtube.com/c/CursoR6",
+  htmltools::img(src = "img/youtube.png", width = "200px")
+)
+```
+]
+
+.pull-right[
+```{r, echo = FALSE}
+htmltools::h3("Material dos cursos")
+link(
+  href = "https://github.com/curso-r",
+  htmltools::img(src = "img/github.png", width = "230px")
+)
+```
+
+<br>
+
+```{r, echo = FALSE}
+htmltools::h3("Blog")
+link(
+  href = "https://blog.curso-r.com/",
+  htmltools::img(src = "img/blog.png", width = "400px")
+)
+```
+]
+
+<br>
+
+.center[
+### [www.curso-r.com](https://www.curso-r.com)
+]
+
+
+---
+class: middle, center
+## [Clique para ver nossos cursos](https://loja.curso-r.com/)
+
+<!-- ```{css, echo = FALSE} -->
+<!-- .remark-slide-content .cursos h2 { -->
+<!--    font-size: 15px; -->
+<!-- } -->
+<!-- ``` -->
+
+
+```{r, echo = FALSE}
+# htmltools::div(
+#   class = "cursos",
+#   style = "font-size: 0.8em;",
+#   templatesR6::criar_slide_nossos_cursos()
+# )
+```
+
+---
+class: middle, center
+
 # Sobre o curso
 
 ---
 ## Cronograma
 
 .pull-left[
-- **Aula 1**: 17 de janeiro
-  - Introdução e conceitos básicos
+- **Aula 1**: 
+  - Módulos
 
-- **Aula 2**: 18 de janeiro
-  - Reatividade - parte 1
+- **Aula 2**: 
+  - Framework Golem
 
-- **Aula 3**: 19 de janeiro
-  - Layouts, boostrap e dashobards
-  
-- **Aula 4**: 20 de janeiro
-  - Reatividade - parte 2
-
-- **Aula 5**: 21 de de janeiro
-  - HTMLWIDGETS
+- **Aula 3**: 
+  - Introdução a HTML e CSS
 ]
 
 .pull-right[
-- **Aula 6**: 24 de janeiro
-  - Módulos
+- **Aula 4**: 
+  - Reatividade
 
-- **Aula 7**: 25 de janeiro
-  - Pacotes
+- **Aula 5**:
+  - HTMLWidgets
 
-- **Aula 8**: 26 de janeiro
-  - Golem
-  - Shinyapps.io e Github
-  
-- **Aula 9**: 27 de janeiro
-  - APIs
-  - Shiny Server e deploy on-premise
-
-- **Aula 10**: 28 de de janeiro
-  - Deploy com docker e máquinas virtuais
+- **Aula 6**:
+  - Banco de dados
+  - Testes
 ]
 
 ---
@@ -79,9 +168,15 @@ class: middle, center
 
 - As aulas terão uma seção teórica, de exposição de conceitos, e prática, de aplicação de conceitos.
 
-- Haverá exercícios facultativos para fixar conceitos e gerar dúvidas.
+- O objetivo dos exercícios é gerar dúvidas. **Com exceção do trabalho final, nenhum exercício precisa ser entregue**.
 
-- Se de interesse da equipe, ao longo do curso, desenvolveremos juntos um aplicativo em Shiny que incorpore alguma análise do dia-a-dia da Suzano.
+- O certificado será emitido mediante uma **entrega final**, a ser especificada nas últimas aulas do curso. 
+
+- Haverá monitoria para esclarecimento de dúvidas sempre 30 minutos antes do início das aulas.
+
+- Usaremos os últimos minutos de cada aula para tirar dúvidas do conteúdo apresentado. Não haverá plantão de dúvidas pós aula.
+
+- A gravação das aulas ficará disponível por 1 ano após o final do curso.
 
 ---
 ## Dinâmica das aulas
@@ -92,5 +187,17 @@ class: middle, center
 
 - Algumas dúvidas serão respondidas na hora. Outras serão respondidas mais tarde na própria aula ou em aulas futuras.
 
-- Fora do horário de aula, envie suas perguntas no Google Classroom.
+- Só interrompa quem estiver falando em caso de emergência.
+
+---
+## Tirando dúvidas
+
+- **Não fique com dúvida**.
+ 
+- Fora do horário de aula ou monitoria:
+    - envie suas perguntas gerais **sobre o curso** no Classroom.
+     
+    - envie preferencialmente suas perguntas **sobre R** no [nosso discourse](https://discourse.curso-r.com/).
+
+- Saber fazer a pergunta certa vai te ajudar bastante nos estudos de programação. [Veja aqui dicas de como fazer uma boa pergunta](https://discourse.curso-r.com/t/como-escrever-uma-boa-pergunta/542).
      
