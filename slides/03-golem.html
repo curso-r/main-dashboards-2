@@ -1,26 +1,26 @@
----
-title: "Dashboards com R II"
-subtitle: "O pacote Golem"
-author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
-output:
-  xaringan::moon_reader:
-    lib_dir: libs
-    css: 
-      - "default"
-      - "default-fonts"
-      - "https://curso-r.github.io/assets/css/padrao-curso-r.css"
-    nature:
-      ratio: '16:9'
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
-#knit: pagedown::chrome_print
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Dashboards com R II</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="" />
+    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://curso-r.github.io/assets/css/padrao-curso-r.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Dashboards com R II
+## O pacote Golem
+### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
+
 ---
 
-```{r setup, include=FALSE}
-`%>%` <- magrittr::`%>%`
-knitr::opts_chunk$set(eval = TRUE, echo = TRUE, comment = "#>", fig.align = "center")
-```
+
+
 
 # Motivação
 
@@ -40,9 +40,9 @@ knitr::opts_chunk$set(eval = TRUE, echo = TRUE, comment = "#>", fig.align = "cen
 
 Um pacote do R é uma forma específica de organizar seus código, seguindo o protocolo descrito pela R Foundation:
 
-> _Pacotes são a unidade fundamental de código R reprodutível._
-> 
-> — Wickham & Bryan
+&gt; _Pacotes são a unidade fundamental de código R reprodutível._
+&gt; 
+&gt; — Wickham &amp; Bryan
 
 .pull-left[
 - Pacotes incluem: 
@@ -57,9 +57,7 @@ Um pacote do R é uma forma específica de organizar seus código, seguindo o pr
 ]
 
 .pull-right[
-```{r echo=FALSE, fig.align='center'}
-knitr::include_graphics("img/pacote.gif")
-```
+&lt;img src="img/pacote.gif" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -71,7 +69,8 @@ Para criar um pacote, usamos a função `usethis::create_package()`
 
 - **Dica geral:** não adicione acentos, caracteres especiais e espaços no nome dos caminhos, arquivos, funções, pacotes, etc.
 
-```{r eval=FALSE}
+
+```r
 # Saída no próximo slide
 usethis::create_package("~/Documents/meupacote")
 ```
@@ -90,7 +89,7 @@ Essa é a estrutura criada quando usamos a função `usethis::create_package()`:
 - `R/`: aqui ficam as funções desenvolvidas em R
 
 - `.Rbuildignore`:  Lista arquivos que não devem ser incluídos ao compilar o pacote R a partir do código-fonte
-<!-- usethis::use_build_ignore("..") ajuda a adicionar arquivos no .Rbuildignore-->
+&lt;!-- usethis::use_build_ignore("..") ajuda a adicionar arquivos no .Rbuildignore--&gt;
 
 - `NAMESPACE`: Não devemos editar este arquivo manualmente. Ele declara as funções que o pacote exporta para uso externo e as funções externas que seu pacote importa de outros pacotes
 
@@ -112,21 +111,27 @@ Dentro de um pacote, a pasta `R/` só pode ter arquivos R com funções.
 
 Quando estamos desenvolvendo pacotes, iremos criar funções para executar as tarefas necessárias:
 
-```{r}
-nome_da_funcao <- function(argumento_1, argumento_2 = valor_padrao_2) {
+
+```r
+nome_da_funcao &lt;- function(argumento_1, argumento_2 = valor_padrao_2) {
   # Código que a função irá executar
 }
 ```
 
 Um exemplo: vamos criar uma função que soma dois números.
 
-```{r}
-minha_soma <- function(x, y) { # minha_soma é uma função de x e y
-  soma <- x + y # soma é igual a x + y
+
+```r
+minha_soma &lt;- function(x, y) { # minha_soma é uma função de x e y
+  soma &lt;- x + y # soma é igual a x + y
   soma # resultado retornado
 }
 
 minha_soma(2, 2)
+```
+
+```
+#&gt; [1] 4
 ```
 
 Se quisermos dar valores padrões para os argumentos, basta colocar um `=` na definição da função.
@@ -207,7 +212,8 @@ class: middle, center, inverse
 
 Se quisermos adicionar documentação ao nosso pacote (as instruções que aparecem quando vamos usar uma função ou o documento mostrado quando rodamos `?função()`) precisamos usar um comentário especial: `#'`
 
-```{r eval=FALSE}
+
+```r
 #' Título da função
 #'
 #' Descrição da função
@@ -218,7 +224,7 @@ Se quisermos adicionar documentação ao nosso pacote (as instruções que apare
 #' @return descrição do resultado
 #'
 #' @export
-fun <- function(a, b) {
+fun &lt;- function(a, b) {
   a + b
 }
 ```
@@ -228,7 +234,7 @@ fun <- function(a, b) {
 
 - O parâmetro `@export` indica que a função ficará disponível quando rodarmos `library(meupacote)`. Não se esqueça de exportar todas (e somente) as funções públicas!
 
-- O RStudio disponibiliza um atalho para criar a estrutura da documentação de uma função. No menu superior, clique em `Code` ->  `Insert Roxygen Skeleton`.
+- O RStudio disponibiliza um atalho para criar a estrutura da documentação de uma função. No menu superior, clique em `Code` -&gt;  `Insert Roxygen Skeleton`.
 
 - Para deixar a documentação das suas funções acessível (no help do R), use a função `devtools::document()` (**CTRL + SHIFT + D**).
 
@@ -237,7 +243,8 @@ fun <- function(a, b) {
 ---
 # Documentação de bases de dados
 
-```{r eval=FALSE}
+
+```r
 #' Título da base
 #'
 #' Descrição da base
@@ -263,19 +270,22 @@ fun <- function(a, b) {
 
 - O pacote `{usethis}` possui algumas funcões para nos ajudar a declarar uma licenças como, por exemplo:
 
-```{r eval=FALSE}
+
+```r
 usethis::use_cc0_license()
 ```
 
 - CC0: essa licença, muitas vezes chamada de "sem direitos reservados", permite que o trabalho seja colocado em domínio público. Qualquer pessoa pode usar, modificar, distribuir e vender o seu trabalho sem nenhuma restrição de direitos autorais
 
-```{r eval=FALSE}
+
+```r
 usethis::use_mit_license()
 ```
 
 - MIT: curta e permissiva, a licença MIT exige apenas manutenção dos direitos autorais. Modificações e trabalhos maiores podem ser distribuídos sob outros termos de uso
 
-```{r eval=FALSE}
+
+```r
 usethis::use_gpl3_license()
 ```
 
@@ -293,13 +303,14 @@ Prefira manter os arquivos em inglês para que seu pacote possa ser submetido ao
 
 O _encoding_ (codificação) dos arquivos deve ser **sempre** UTF-8 para evitar problemas entre plataformas.
 
-- Se tiver problemas com isso, tente **File > Reopen with Encoding...**, ou **File > Save with Encoding...**, ou **Tools > Project Options... > Code Editing > Text encoding**
+- Se tiver problemas com isso, tente **File &gt; Reopen with Encoding...**, ou **File &gt; Save with Encoding...**, ou **Tools &gt; Project Options... &gt; Code Editing &gt; Text encoding**
 
 Variáveis globais são normalmente uma má prática em código R, então a `devtools::check()` vai reclamar se encontrar algo do tipo; o problema é que as colunas modificadas em funções do `{dplyr}` são caracterizadas como globais.
 
 - A solução é criar um arquivo com uma linha como a abaixo contendo todas as variáveis que fizerem a `devtools::check()`reclamar
 
-```{r, eval=FALSE}
+
+```r
 utils::globalVariables(c("variavel1", "variavel2"))
 ```
 
@@ -326,3 +337,127 @@ utils::globalVariables(c("variavel1", "variavel2"))
 - [Materiais da R-Ladies SP sobre a Hacktoberfest 2020](https://r-ladies-sao-paulo.github.io/2020-hacktoberfest/).
 
 - [Folha de dicas do Git em Português](https://training.github.com/downloads/pt_BR/github-git-cheat-sheet/)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
