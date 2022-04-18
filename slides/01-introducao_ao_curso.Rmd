@@ -1,5 +1,5 @@
 ---
-title: "Dashboards com R II"
+title: "Dashboards com R --- Módulo II"
 subtitle: "Introdução ao curso"
 author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
 date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE, locale = 'pt_BR.UTF-8'), 'de', lubridate::year(Sys.Date()))`"
@@ -15,7 +15,7 @@ output:
       highlightLines: true
       countIncrementalSlides: false
       ratio: "4:3"
-knit: pagedown::chrome_print
+# knit: pagedown::chrome_print
 ---
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)

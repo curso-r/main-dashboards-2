@@ -1,5 +1,5 @@
 ---
-title: "Dashboards com R II"
+title: "Dashboards com R --- Módulo II"
 subtitle: "HTML e CSS para Shiny"
 author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
 date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE, locale = 'pt_BR.UTF-8'), 'de', lubridate::year(Sys.Date()))`"
@@ -22,7 +22,317 @@ knit: pagedown::chrome_print
 
 ```
 
-## 
+class: middle, center, inverse
+# HTML
+
+---
+# O que é?
+
+HTML é uma [linguagem de marcação](https://pt.wikipedia.org/wiki/Linguagem_de_marca%C3%A7%C3%A3o) para construir páginas web. 
+
+Uma linguagem de marcação é apenas um tipo de documento que contem texto simples (como em um bloco de notas) e um conjunto de instruções para formatar (anotar, marcar) parte específicas do conteúdo. Além do HTML, o LaTeX e o (R) Markdown são outros exemplos comuns de linguagem de marcação.
+
+A maior parte do esforço em aprender uma linguagem de marcação está em aprender quais são e como utilizar as instruções de formatação.
+
+---
+# Documentos HTML
+
+<!-- All HTML documents must start with a document type declaration: <!DOCTYPE html>. -->
+
+<!-- The HTML document itself begins with <html> and ends with </html>. -->
+
+<!-- The visible part of the HTML document is between <body> and </body>. -->
+
+<!-- The <!DOCTYPE> declaration represents the document type, and helps browsers to display web pages correctly. -->
+
+<!-- It must only appear once, at the top of the page (before any HTML tags). -->
+
+<!-- The <!DOCTYPE> declaration is not case sensitive. -->
+
+<!-- The <!DOCTYPE> declaration for HTML5 is: -->
+
+---
+# Principais tags
+
+#### Cabeçalhos
+
+#### Parâgrafos
+
+#### Links
+
+#### Imagens
+
+---
+# Elementos
+
+<!-- The HTML element is everything from the start tag to the end tag: -->
+
+<!-- <tagname>Content goes here...</tagname> -->
+
+<!-- Examples of some HTML elements: -->
+
+<!-- <h1>My First Heading</h1> -->
+<!-- <p>My first paragraph.</p> -->
+
+---
+# Elementos aninhados 
+
+
+```{html}
+<!DOCTYPE html>
+<html>
+  <body>
+
+    <h1>My First Heading</h1>
+    <p>My first paragraph.</p>
+
+  </body>
+</html>
+```
+
+---
+# Elementos vazios
+
+<!-- HTML elements with no content are called empty elements. -->
+
+<!-- The <br> tag defines a line break, and is an empty element without a closing tag: -->
+
+---
+# É bom saber!
+
+<!-- Some HTML elements will display correctly, even if you forget the end tag: -->
+
+```{html}
+<html>
+<body>
+
+<p>This is a paragraph
+<p>This is a paragraph
+
+</body>
+</html>
+```
+
+
+<!-- However, never rely on this! Unexpected results and errors may occur if you forget the end tag! -->
+
+<!-- - HTML tags are not case sensitive: <P> means the same as <p>. --> 
+<!-- The HTML standard does not require lowercase tags, but W3C recommends lowercase in HTML, and demands lowercase for stricter document types like XHTML. -->
+
+<!-- You can add comments to your HTML source by using the following syntax: -->
+<!-- Write your comments here -->
+
+
+---
+# Atributos
+
+<!-- All HTML elements can have attributes -->
+<!-- Attributes provide additional information about elements -->
+<!-- Attributes are always specified in the start tag -->
+<!-- Attributes usually come in name/value pairs like: name="value" -->
+
+--- 
+# Exemplos de atributos
+
+<!-- The href Attribute -->
+<!-- The <a> tag defines a hyperlink. The href attribute specifies the URL of the page the link goes to: -->
+
+<!-- The src Attribute -->
+<!-- The <img> tag is used to embed an image in an HTML page. The src attribute specifies the path to the image to be displayed: -->
+
+<!-- There are two ways to specify the URL in the src attribute: -->
+
+<!-- 1. Absolute URL - Links to an external image that is hosted on another website. Example: src="https://www.w3schools.com/images/img_girl.jpg". -->
+
+<!-- Notes: External images might be under copyright. If you do not get permission to use it, you may be in violation of copyright laws. In addition, you cannot control external images; it can suddenly be removed or changed. -->
+
+<!-- 2. Relative URL - Links to an image that is hosted within the website. Here, the URL does not include the domain name. If the URL begins without a slash, it will be relative to the current page. Example: src="img_girl.jpg". If the URL begins with a slash, it will be relative to the domain. Example: src="/images/img_girl.jpg". -->
+
+<!-- Tip: It is almost always best to use relative URLs. They will not break if you change domain. -->
+
+<!-- The width and height Attributes -->
+<!-- The <img> tag should also contain the width and height attributes, which specifies the width and height of the image (in pixels): -->
+
+<!-- The style Attribute -->
+<!-- The style attribute is used to add styles to an element, such as color, font, size, and more. -->
+
+<!-- The title Attribute -->
+<!-- The title attribute defines some extra information about an element. -->
+
+<!-- The value of the title attribute will be displayed as a tooltip when you mouse over the element: -->
+
+---
+# Elementos em bloco e em linha
+
+<!-- A block-level element always starts on a new line, and the browsers automatically add some space (a margin) before and after the element. -->
+
+<!-- A block-level element always takes up the full width available (stretches out to the left and right as far as it can). -->
+
+<!-- Two commonly used block elements are: <p> and <div>. -->
+
+<!-- The <p> element defines a paragraph in an HTML document. -->
+
+<!-- The <div> element defines a division or a section in an HTML document. -->
+
+<!-- The <p> element is a block-level element. -->
+
+<!-- The <div> element is a block-level element. -->
+
+<!-- An inline element does not start on a new line. -->
+
+<!-- An inline element only takes up as much width as necessary. -->
+
+<!-- This is a <span> element inside a paragraph. -->
+
+---
+# A tag <div>
+
+The <div> Element
+The <div> element is often used as a container for other HTML elements.
+
+The <div> element has no required attributes, but style, class and id are common.
+
+When used together with CSS, the <div> element can be used to style blocks of content:
+
+---
+# A tag <span>
+
+The <span> element is an inline container used to mark up a part of a text, or a part of a document.
+
+The <span> element has no required attributes, but style, class and id are common.
+
+When used together with CSS, the <span> element can be used to style parts of the text:
+
+---
+class: middle, center, inverse
+# CSS
+
+---
+# O que é?
+
+<!-- Cascading Style Sheets (CSS) is used to format the layout of a webpage. -->
+
+<!-- With CSS, you can control the color, font, the size of text, the spacing between elements, how elements are positioned and laid out, what background images or background colors are to be used, different displays for different devices and screen sizes, and much more! -->
+
+<!-- The word cascading means that a style applied to a parent element will also apply to all children elements within the parent. So, if you set the color of the body text to "blue", all headings, paragraphs, and other text elements within the body will also get the same color (unless you specify something else)! -->
+
+---
+# Usando CSS
+
+<!-- CSS can be added to HTML documents in 3 ways: -->
+
+<!-- Inline - by using the style attribute inside HTML elements -->
+<!-- Internal - by using a <style> element in the <head> section -->
+<!-- External - by using a <link> element to link to an external CSS file -->
+
+<!-- The most common way to add CSS, is to keep the styles in external CSS files. However, in this tutorial we will use inline and internal styles, because this is easier to demonstrate, and easier for you to try it yourself. -->
+
+---
+# CSS inline
+
+<!-- An inline CSS is used to apply a unique style to a single HTML element. -->
+
+<!-- An inline CSS uses the style attribute of an HTML element. -->
+
+<!-- The following example sets the text color of the <h1> element to blue, and the text color of the <p> element to red: -->
+
+---
+# CSS interno
+
+<!-- An internal CSS is used to define a style for a single HTML page. -->
+
+<!-- An internal CSS is defined in the <head> section of an HTML page, within a <style> element. -->
+
+<!-- The following example sets the text color of ALL the <h1> elements (on that page) to blue, and the text color of ALL the <p> elements to red. In addition, the page will be displayed with a "powderblue" background color:  -->
+
+---
+# CSS externo
+
+<!-- An external style sheet is used to define the style for many HTML pages. -->
+
+<!-- To use an external style sheet, add a link to it in the <head> section of each HTML page: -->
+
+<!-- The external style sheet can be written in any text editor. The file must not contain any HTML code, and must be saved with a .css extension. -->
+
+<!-- Here is what the "styles.css" file looks like: -->
+
+---
+# Cores, fontes e tamanhos
+
+<!-- Here, we will demonstrate some commonly used CSS properties. You will learn more about them later. -->
+
+<!-- The CSS color property defines the text color to be used. -->
+
+<!-- The CSS font-family property defines the font to be used. -->
+
+<!-- The CSS font-size property defines the text size to be used. -->
+
+--- 
+# Usando fontes do Google fontes
+
+
+---
+# Bordas
+
+<!-- The CSS border property defines a border around an HTML element. -->
+
+<!-- Tip: You can define a border for nearly all HTML elements. -->
+
+---
+# Margens e padding
+
+<!-- The CSS margin property defines a margin (space) outside the border. -->
+
+---
+# Classes
+
+<!-- The class attribute is often used to point to a class name in a style sheet. It can also be used by a JavaScript to access and manipulate elements with the specific class name. -->
+
+<!-- In the following example we have three <div> elements with a class attribute with the value of "city". All of the three <div> elements will be styled equally according to the .city style definition in the head section: -->
+
+<!-- In the following example we have two <span> elements with a class attribute with the value of "note". Both <span> elements will be styled equally according to the .note style definition in the head section: -->
+
+<!-- HTML elements can belong to more than one class. -->
+
+<!-- To define multiple classes, separate the class names with a space, e.g. <div class="city main">. The element will be styled according to all the classes specified. -->
+
+<!-- In the following example, the first <h2> element belongs to both the city class and also to the main class, and will get the CSS styles from both of the classes:  -->
+
+<!-- Different HTML elements can point to the same class name. -->
+
+<!-- In the following example, both <h2> and <p> points to the "city" class and will share the same style: -->
+
+
+---
+# Ids
+
+<!-- The id attribute specifies a unique id for an HTML element. The value of the id attribute must be unique within the HTML document. -->
+
+<!-- The id attribute is used to point to a specific style declaration in a style sheet. It is also used by JavaScript to access and manipulate the element with the specific id. -->
+
+<!-- The syntax for id is: write a hash character (#), followed by an id name. Then, define the CSS properties within curly braces {}. -->
+
+<!-- In the following example we have an <h1> element that points to the id name "myHeader". This <h1> element will be styled according to the #myHeader style definition in the head section: -->
+
+<!-- Difference Between Class and ID -->
+<!-- A class name can be used by multiple HTML elements, while an id name must only be used by one HTML element within the page: -->
+
+---
+# Posicionamento relativo e absoluto
+
+- static position
+
+padrão para todos os elementos menos <html>
+
+- relative position: relativo a sua posição no fluxo normal do documento
+
+o elemento não é retirado do fluxo normal do documento
+
+
+- abolute positioning
+
+offsets: right, left, top, bottom
+todos os offsets são relativos à posição do ancestral mais próximo que não possui positioning static (em geral <html>)
 
 ---
 ## Atividade

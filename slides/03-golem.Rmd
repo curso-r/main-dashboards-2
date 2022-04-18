@@ -1,5 +1,5 @@
 ---
-title: "Dashboards com R II"
+title: "Dashboards com R --- Módulo II"
 subtitle: "O pacote Golem"
 author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
 output:
@@ -24,16 +24,35 @@ knitr::opts_chunk$set(eval = TRUE, echo = TRUE, comment = "#>", fig.align = "cen
 
 # Motivação
 
+O destino final de aplicativos Shiny costuma ser um ambiente de produção diferente do ambiente de desenvolvimento. Seja um servidor próprio, uma máquina na nuvem ou [shinyapps.io](https://shinyapps.io/), o nosso app precisa funcionar nesses ambientes, e não apenas na nossa máquina.
+
+Uma vez no ambiente de produção, aplicativos Shiny costumam ficar lá por um bom tempo, gerando a necessidade de manutenção e/ou atualizações periódicas. 
+
+A depender de como o app foi desenvolvido, essas tarefas podem ficar muito mais trabalhosas. Nesse sentido, seria interessante ter um framework de desenvolvimento que facilitasse a organização e documentação do código e o controle das dependências.
+
 ---
-# Vantagens
+# Solução
+
+O `golem` é um *framework* para desenvolvimento de aplicativos Shiny prontos para serem colocados em produção.
+
+### Vantagens
 
 - Padroniza a organização dos códigos
 
-- Integração com pacotes que aceleram desenvolvimento
+- Integra com pacotes que aceleram o desenvolvimento
 
 - Motiva e facilita a documentação do código
 
 - Facilita o compartilhamento e a reutilização de códigos em outros projetos e com outras pessoas
+
+---
+# Premissas do `golem`
+
+- Um aplicativo `golem` funciona melhor quando trabalhamos com módulos.
+
+- Um aplicativo `golem` é construído dentro de um pacote R.
+
+Antes de continuar falando do `golem`, vamos fazer uma breve introdução ao desenvolvimentos de pacotes em R.
 
 ---
 # Pacotes
@@ -199,6 +218,71 @@ Para isso, utilize a função `usethis::use_data_raw("meus_dados")`. Ela criará
 - Dentro dessa pasta você não deve carregar outros pacotes com `library()`, mas sim usar o operador `::`
 
 ---
+# Voltando ao `golem`
+
+Para instalar o pacote direto do CRAN, rode o código abaixo:
+
+```{r, eval = FALSE}
+install.packages("golem")
+```
+
+Já a versão de desenvolvimento pode ser instalada com o código a seguir:
+
+```{r, eval = FALSE}
+remotes::install_github("Thinkr-open/golem")
+```
+
+Para criar um aplicativo golem, utilizamos a função `golem::create_golem()`. Essa função cria um projeto do RStudio (uma pasta no computador) com a estrutura de um pacote de R e arquivos auxiliares que facilitam o início do desenvolvimento do app.
+
+```{r, eval = FALSE}
+golem::create_golem(path = "caminho/para/o/pacote")
+```
+
+---
+## Estrutura
+
+A pasta criada terá a seguinte estrutura:
+
+```{r}
+#> ├── DESCRIPTION 
+#> ├── NAMESPACE 
+#> ├── R 
+#> │   ├── app_config.R 
+#> │   ├── app_server.R 
+#> │   ├── app_ui.R 
+#> │   └── run_app.R 
+#> ├── dev 
+#> │   ├── 01_start.R 
+#> │   ├── 02_dev.R 
+#> │   ├── 03_deploy.R 
+#> │   └── run_dev.R 
+#> ├── inst 
+#> │   ├── app 
+#> │   │   └── www 
+#> │   │       └── favicon.ico 
+#> │   └── golem-config.yml 
+#> └── man 
+#>     └── run_app.Rd
+```
+
+---
+## Estrutura
+
+- Arquivos `DESCRIPTION` e `NAMESPACE`: metadados do pacote.
+
+- `R/app_config.R`: usado para ler o arquivo de configuração do `golem` localizado em `inst/golem-config.yml`.
+
+- `R/app_server.R` e `R/app_ui.R`: arquivos onde vamos desenvolver a UI e o servidor do app.
+
+- `R/run_app.R`: função para configurar e rodar o app.
+
+- `dev/`: scripts do `golem` que podem ser utilizados ao longo do desenvolvimento do app. Eles contêm uma lista de funções úteis que ajudam a configurar diversos aspectos do aplicativo.
+
+- `inst/app/www`: pasta onde adicionaremos os recursos externos do aplicativo (imagens, arquivos CSS, fontes etc).
+
+- `man`: documentação do pacote, a ser gerado pelo R e pelo `roxygen2`.
+
+---
 class: middle, center, inverse
 # Leitura extra 
 
@@ -315,7 +399,7 @@ utils::globalVariables(c("variavel1", "variavel2"))
 - Se você precisar instalar o seu pacote (equivalente ao que fazemos com pacotes do CRAN quando rodamos `install.packages()`), use a função `devtools::install()`. Ela deve ser utilizada quando o seu pacote estiver pronto (ou pelo menos alguma versão dele).
 
 ---
-# Referências  e materiais para estudo
+# Referências
 
 - [Zen do R](https://curso-r.github.io/zen-do-r/), livro em desenvolvimento pela Curso-R.
 
@@ -323,6 +407,6 @@ utils::globalVariables(c("variavel1", "variavel2"))
 
 - [R for Data Science - capítulo sobre Funcões](https://r4ds.had.co.nz/functions.html)
 
-- [Materiais da R-Ladies SP sobre a Hacktoberfest 2020](https://r-ladies-sao-paulo.github.io/2020-hacktoberfest/).
+- [Tutorial do `golem`](https://thinkr-open.github.io/golem/articles/a_start.html)
 
-- [Folha de dicas do Git em Português](https://training.github.com/downloads/pt_BR/github-git-cheat-sheet/)
+- [Engineering Production-Grade Shiny Apps](https://engineering-shiny.org/index.html)
