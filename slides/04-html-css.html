@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Dashboards com R — Módulo II</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="" />
+    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://curso-r.github.io/assets/css/padrao-curso-r.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Dashboards com R — Módulo II
+## HTML e CSS para Shiny
+### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
+### Abril de 2022
+
+---
+
+
+
+
+
+
+class: middle, center, inverse
+# HTML
+
+---
+# O que é?
+
+HTML é uma [linguagem de marcação](https://pt.wikipedia.org/wiki/Linguagem_de_marca%C3%A7%C3%A3o) para construir páginas web. 
+
+Uma linguagem de marcação é apenas um tipo de documento que contem texto simples (como em um bloco de notas) e um conjunto de instruções para formatar (anotar, marcar) parte específicas do conteúdo. Além do HTML, o LaTeX e o (R) Markdown são outros exemplos comuns de linguagem de marcação.
+
+A maior parte do esforço em aprender uma linguagem de marcação está em aprender quais são e como utilizar as instruções de formatação, os seus **marcadores**.
+
+Os marcadores no caso do HTML são as **tags**.
+
+---
+# Tags e elementos
+
+As tags no HTML definem os chamados **elementos HTML**.
+
+Um elemento HTML é composto por uma **tag de abertura**, algum **conteúdo** e uma **tag de fechamento**.
+
+```
+&lt;nome_da_tag&gt; conteúdo &lt;/nome_da_tag&gt;
+```
+
+---
+# Documentos HTML
+
+Todos os documentos HTML precisam começar com uma declaração de tipo
+
+
+```html
+&lt;!DOCTYPE html&gt;
+```
+
+Ela representa o tipo de documento, o que ajuda os navegarores a mostrar as páginas corretamente. Ela deve aparecer apenas uma vez, no topo da página.
+
+---
+# Documentos HTML
+
+O código HTML em si começa com a tag `&lt;html&gt;` e deve terminar com `&lt;/html&gt; `.
+
+A parte visível do documento fica entre as tags `&lt;body&gt;` e `&lt;/body&gt;`.
+
+
+```html
+&lt;!DOCTYPE html&gt;
+
+&lt;html&gt;
+  &lt;body&gt;
+    O conteúdo da página fica aqui.
+  &lt;/body&gt;
+&lt;/html&gt;
+```
+
+**Importante**: só pode haver apenas um `&lt;body&gt;` em um documento HTML.
+
+---
+# Cabeçalhos
+
+Você pode construir títulos e subtítulos com as tags `&lt;h1&gt;` a `&lt;h6&gt;`
+
+
+```html
+&lt;h1&gt;Título 1&lt;/h1&gt;
+&lt;h2&gt;Título 2&lt;/h2&gt;
+&lt;h3&gt;Título 3&lt;/h3&gt;
+&lt;h4&gt;Título 4&lt;/h4&gt;
+&lt;h5&gt;Título 5&lt;/h5&gt;
+&lt;h6&gt;Título 6&lt;/h6&gt;
+```
+
+`&lt;h1&gt;` define o título mais importante, enquanto `&lt;h6&gt;` o menos importante. 
+
+**Nota**: é uma boa prática colocar apenas um `&lt;h1&gt;` por página HTML.
+
+---
+# Parâgrafos
+
+Parâgrafos são definidos pela tag `&lt;p&gt;`. Eles sempre iniciam em uma nova linha. Os navegadores automaticamente criam um espaço em branco (margem) antes e depois do parâgrafo.
+
+
+```html
+&lt;p&gt;
+  Isto é um parâgrafo.
+&lt;/p&gt;
+&lt;p&gt;
+  E aqui um outro parâgrafo.
+&lt;/p&gt;
+```
+
+---
+# Elementos aninhados
+
+Elementos HTML se organizam de maneira hierárquica, isto é, os elementos são aninhados dentro de outros.
+
+
+```html
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;body&gt;
+
+    &lt;h1&gt;Título da página&lt;/h1&gt;
+    &lt;p&gt;Este é o primeiro &lt;b&gt;parâgrafo&lt;/b&gt; desta página HTML.&lt;/p&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;
+```
+
+No código acima
+
+- o elemento `&lt;body&gt;` reside dentro do elemento `html`
+- os elementos `&lt;h1&gt;` e `&lt;p&gt;` residem dentro do elemento `body`
+- o elemento `&lt;b&gt;`, que deixa o texto em negrito, reside dentro do elemento p.
+
+---
+# Atributos
+
+Todos os elementos HTML podem ter atributos, que provêm informação adicional sobre os elementos.
+
+Atributos são sempre especificados na tag de abertura. Eles geralmente possuem a seguinte sintaxe `nome="valor"`.
+
+
+```html
+&lt;!DOCTYPE html&gt;
+  &lt;html lang="pt-BR"&gt;
+    &lt;body&gt;
+      "Conteúdo da página"
+    &lt;/body&gt;
+&lt;/html&gt;
+```
+
+O atributo `lang` no elemento `&lt;html&gt;`, por exemplo, declara qual será o idioma utilizado na página.
+
+**Nota**: é uma boa prática declarar o idioma da página, pois isso é utilizado pelos algorítmos de busca e pelos navegadores.
+
+---
+# Links
+
+Links HTML são chamados de **hiperlinks** (ou hiperligação).
+
+Eles são criados com a tag `&lt;a&gt;`.
+
+
+```html
+&lt;a href="https://curso-r.com"&gt;
+  Clique aqui para acessar o site da curso-r
+&lt;/a&gt;
+```
+
+Veja que este elemento possui o atributo `href`, que define o destino do link.
+
+O conteúdo deste elemento será o texto visível na tela para ser clicado.
+
+---
+# Imagens
+
+
+
+
+---
+# Elementos vazios
+
+&lt;!-- HTML elements with no content are called empty elements. --&gt;
+
+&lt;!-- The &lt;br&gt; tag defines a line break, and is an empty element without a closing tag: --&gt;
+
+---
+# Quebra de linha
+
+---
+# É bom saber!
+
+&lt;!-- Some HTML elements will display correctly, even if you forget the end tag: --&gt;
+
+
+```html
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;p&gt;This is a paragraph
+&lt;p&gt;This is a paragraph
+
+&lt;/body&gt;
+&lt;/html&gt;
+```
+
+
+&lt;!-- However, never rely on this! Unexpected results and errors may occur if you forget the end tag! --&gt;
+
+&lt;!-- - HTML tags are not case sensitive: &lt;P&gt; means the same as &lt;p&gt;. --&gt; 
+&lt;!-- The HTML standard does not require lowercase tags, but W3C recommends lowercase in HTML, and demands lowercase for stricter document types like XHTML. --&gt;
+
+&lt;!-- You can add comments to your HTML source by using the following syntax: --&gt;
+&lt;!-- Write your comments here --&gt;
+
+
+
+
+--- 
+# Exemplos de atributos
+
+
+&lt;!-- The width and height Attributes --&gt;
+&lt;!-- The &lt;img&gt; tag should also contain the width and height attributes, which specifies the width and height of the image (in pixels): --&gt;
+
+&lt;!-- The style Attribute --&gt;
+&lt;!-- The style attribute is used to add styles to an element, such as color, font, size, and more. --&gt;
+
+&lt;!-- The title Attribute --&gt;
+&lt;!-- The title attribute defines some extra information about an element. --&gt;
+
+&lt;!-- The value of the title attribute will be displayed as a tooltip when you mouse over the element: --&gt;
+
+---
+# Elementos em bloco e em linha
+
+&lt;!-- A block-level element always starts on a new line, and the browsers automatically add some space (a margin) before and after the element. --&gt;
+
+&lt;!-- A block-level element always takes up the full width available (stretches out to the left and right as far as it can). --&gt;
+
+&lt;!-- Two commonly used block elements are: &lt;p&gt; and &lt;div&gt;. --&gt;
+
+&lt;!-- The &lt;p&gt; element defines a paragraph in an HTML document. --&gt;
+
+&lt;!-- The &lt;div&gt; element defines a division or a section in an HTML document. --&gt;
+
+&lt;!-- The &lt;p&gt; element is a block-level element. --&gt;
+
+&lt;!-- The &lt;div&gt; element is a block-level element. --&gt;
+
+&lt;!-- An inline element does not start on a new line. --&gt;
+
+&lt;!-- An inline element only takes up as much width as necessary. --&gt;
+
+&lt;!-- This is a &lt;span&gt; element inside a paragraph. --&gt;
+
+---
+# A tag &lt;div&gt;
+
+The &lt;div&gt; Element
+The &lt;div&gt; element is often used as a container for other HTML elements.
+
+The &lt;div&gt; element has no required attributes, but style, class and id are common.
+
+When used together with CSS, the &lt;div&gt; element can be used to style blocks of content:
+
+---
+# A tag &lt;span&gt;
+
+The &lt;span&gt; element is an inline container used to mark up a part of a text, or a part of a document.
+
+The &lt;span&gt; element has no required attributes, but style, class and id are common.
+
+When used together with CSS, the &lt;span&gt; element can be used to style parts of the text:
+
+---
+class: middle, center, inverse
+# CSS
+
+---
+# O que é?
+
+&lt;!-- Cascading Style Sheets (CSS) is used to format the layout of a webpage. --&gt;
+
+&lt;!-- With CSS, you can control the color, font, the size of text, the spacing between elements, how elements are positioned and laid out, what background images or background colors are to be used, different displays for different devices and screen sizes, and much more! --&gt;
+
+&lt;!-- The word cascading means that a style applied to a parent element will also apply to all children elements within the parent. So, if you set the color of the body text to "blue", all headings, paragraphs, and other text elements within the body will also get the same color (unless you specify something else)! --&gt;
+
+---
+# Usando CSS
+
+&lt;!-- CSS can be added to HTML documents in 3 ways: --&gt;
+
+&lt;!-- Inline - by using the style attribute inside HTML elements --&gt;
+&lt;!-- Internal - by using a &lt;style&gt; element in the &lt;head&gt; section --&gt;
+&lt;!-- External - by using a &lt;link&gt; element to link to an external CSS file --&gt;
+
+&lt;!-- The most common way to add CSS, is to keep the styles in external CSS files. However, in this tutorial we will use inline and internal styles, because this is easier to demonstrate, and easier for you to try it yourself. --&gt;
+
+---
+# CSS inline
+
+&lt;!-- An inline CSS is used to apply a unique style to a single HTML element. --&gt;
+
+&lt;!-- An inline CSS uses the style attribute of an HTML element. --&gt;
+
+&lt;!-- The following example sets the text color of the &lt;h1&gt; element to blue, and the text color of the &lt;p&gt; element to red: --&gt;
+
+---
+# CSS interno
+
+&lt;!-- An internal CSS is used to define a style for a single HTML page. --&gt;
+
+&lt;!-- An internal CSS is defined in the &lt;head&gt; section of an HTML page, within a &lt;style&gt; element. --&gt;
+
+&lt;!-- The following example sets the text color of ALL the &lt;h1&gt; elements (on that page) to blue, and the text color of ALL the &lt;p&gt; elements to red. In addition, the page will be displayed with a "powderblue" background color:  --&gt;
+
+---
+# CSS externo
+
+&lt;!-- An external style sheet is used to define the style for many HTML pages. --&gt;
+
+&lt;!-- To use an external style sheet, add a link to it in the &lt;head&gt; section of each HTML page: --&gt;
+
+&lt;!-- The external style sheet can be written in any text editor. The file must not contain any HTML code, and must be saved with a .css extension. --&gt;
+
+&lt;!-- Here is what the "styles.css" file looks like: --&gt;
+
+---
+# Cores, fontes e tamanhos
+
+&lt;!-- Here, we will demonstrate some commonly used CSS properties. You will learn more about them later. --&gt;
+
+&lt;!-- The CSS color property defines the text color to be used. --&gt;
+
+&lt;!-- The CSS font-family property defines the font to be used. --&gt;
+
+&lt;!-- The CSS font-size property defines the text size to be used. --&gt;
+
+--- 
+# Usando fontes do Google fontes
+
+
+---
+# Bordas
+
+&lt;!-- The CSS border property defines a border around an HTML element. --&gt;
+
+&lt;!-- Tip: You can define a border for nearly all HTML elements. --&gt;
+
+---
+# Margens e padding
+
+&lt;!-- The CSS margin property defines a margin (space) outside the border. --&gt;
+
+---
+# Classes
+
+&lt;!-- The class attribute is often used to point to a class name in a style sheet. It can also be used by a JavaScript to access and manipulate elements with the specific class name. --&gt;
+
+&lt;!-- In the following example we have three &lt;div&gt; elements with a class attribute with the value of "city". All of the three &lt;div&gt; elements will be styled equally according to the .city style definition in the head section: --&gt;
+
+&lt;!-- In the following example we have two &lt;span&gt; elements with a class attribute with the value of "note". Both &lt;span&gt; elements will be styled equally according to the .note style definition in the head section: --&gt;
+
+&lt;!-- HTML elements can belong to more than one class. --&gt;
+
+&lt;!-- To define multiple classes, separate the class names with a space, e.g. &lt;div class="city main"&gt;. The element will be styled according to all the classes specified. --&gt;
+
+&lt;!-- In the following example, the first &lt;h2&gt; element belongs to both the city class and also to the main class, and will get the CSS styles from both of the classes:  --&gt;
+
+&lt;!-- Different HTML elements can point to the same class name. --&gt;
+
+&lt;!-- In the following example, both &lt;h2&gt; and &lt;p&gt; points to the "city" class and will share the same style: --&gt;
+
+
+---
+# Ids
+
+&lt;!-- The id attribute specifies a unique id for an HTML element. The value of the id attribute must be unique within the HTML document. --&gt;
+
+&lt;!-- The id attribute is used to point to a specific style declaration in a style sheet. It is also used by JavaScript to access and manipulate the element with the specific id. --&gt;
+
+&lt;!-- The syntax for id is: write a hash character (#), followed by an id name. Then, define the CSS properties within curly braces {}. --&gt;
+
+&lt;!-- In the following example we have an &lt;h1&gt; element that points to the id name "myHeader". This &lt;h1&gt; element will be styled according to the #myHeader style definition in the head section: --&gt;
+
+&lt;!-- Difference Between Class and ID --&gt;
+&lt;!-- A class name can be used by multiple HTML elements, while an id name must only be used by one HTML element within the page: --&gt;
+
+---
+# Posicionamento relativo e absoluto
+
+- static position
+
+padrão para todos os elementos menos &lt;html&gt;
+
+- relative position: relativo a sua posição no fluxo normal do documento
+
+o elemento não é retirado do fluxo normal do documento
+
+
+- abolute positioning
+
+offsets: right, left, top, bottom
+todos os offsets são relativos à posição do ancestral mais próximo que não possui positioning static (em geral &lt;html&gt;)
+
+---
+## Atividade
+
+Vamos...
+
+&lt;br&gt;
+
+&lt;center&gt;
+&lt;img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300"&gt;
+&lt;br&gt;
+&lt;br&gt;
+<span style="color:#6495ed; font-weight: bold;">Ao RStudio: .R</span>
+&lt;center&gt;
+
+---
+## Referências e material extra
+
+- []()
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "4:3"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

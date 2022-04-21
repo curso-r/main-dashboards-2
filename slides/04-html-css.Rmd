@@ -15,7 +15,7 @@ output:
       highlightLines: true
       countIncrementalSlides: false
       ratio: "4:3"
-knit: pagedown::chrome_print
+# knit: pagedown::chrome_print
 ---
 
 ```{r, child="00-preamble.Rmd"}
@@ -32,63 +32,148 @@ HTML é uma [linguagem de marcação](https://pt.wikipedia.org/wiki/Linguagem_de
 
 Uma linguagem de marcação é apenas um tipo de documento que contem texto simples (como em um bloco de notas) e um conjunto de instruções para formatar (anotar, marcar) parte específicas do conteúdo. Além do HTML, o LaTeX e o (R) Markdown são outros exemplos comuns de linguagem de marcação.
 
-A maior parte do esforço em aprender uma linguagem de marcação está em aprender quais são e como utilizar as instruções de formatação.
+A maior parte do esforço em aprender uma linguagem de marcação está em aprender quais são e como utilizar as instruções de formatação, os seus **marcadores**.
+
+Os marcadores no caso do HTML são as **tags**.
+
+---
+# Tags e elementos
+
+As tags no HTML definem os chamados **elementos HTML**.
+
+Um elemento HTML é composto por uma **tag de abertura**, algum **conteúdo** e uma **tag de fechamento**.
+
+```
+<nome_da_tag> conteúdo </nome_da_tag>
+```
 
 ---
 # Documentos HTML
 
-<!-- All HTML documents must start with a document type declaration: <!DOCTYPE html>. -->
+Todos os documentos HTML precisam começar com uma declaração de tipo
 
-<!-- The HTML document itself begins with <html> and ends with </html>. -->
+```{html}
+<!DOCTYPE html>
+```
 
-<!-- The visible part of the HTML document is between <body> and </body>. -->
-
-<!-- The <!DOCTYPE> declaration represents the document type, and helps browsers to display web pages correctly. -->
-
-<!-- It must only appear once, at the top of the page (before any HTML tags). -->
-
-<!-- The <!DOCTYPE> declaration is not case sensitive. -->
-
-<!-- The <!DOCTYPE> declaration for HTML5 is: -->
+Ela representa o tipo de documento, o que ajuda os navegarores a mostrar as páginas corretamente. Ela deve aparecer apenas uma vez, no topo da página.
 
 ---
-# Principais tags
+# Documentos HTML
 
-#### Cabeçalhos
+O código HTML em si começa com a tag `<html>` e deve terminar com `</html> `.
 
-#### Parâgrafos
+A parte visível do documento fica entre as tags `<body>` e `</body>`.
 
-#### Links
+```{html}
+<!DOCTYPE html>
 
-#### Imagens
+<html>
+  <body>
+    O conteúdo da página fica aqui.
+  </body>
+</html>
+```
 
----
-# Elementos
-
-<!-- The HTML element is everything from the start tag to the end tag: -->
-
-<!-- <tagname>Content goes here...</tagname> -->
-
-<!-- Examples of some HTML elements: -->
-
-<!-- <h1>My First Heading</h1> -->
-<!-- <p>My first paragraph.</p> -->
+**Importante**: só pode haver apenas um `<body>` em um documento HTML.
 
 ---
-# Elementos aninhados 
+# Cabeçalhos
 
+Você pode construir títulos e subtítulos com as tags `<h1>` a `<h6>`
+
+```{html}
+<h1>Título 1</h1>
+<h2>Título 2</h2>
+<h3>Título 3</h3>
+<h4>Título 4</h4>
+<h5>Título 5</h5>
+<h6>Título 6</h6>
+```
+
+`<h1>` define o título mais importante, enquanto `<h6>` o menos importante. 
+
+**Nota**: é uma boa prática colocar apenas um `<h1>` por página HTML.
+
+---
+# Parâgrafos
+
+Parâgrafos são definidos pela tag `<p>`. Eles sempre iniciam em uma nova linha. Os navegadores automaticamente criam um espaço em branco (margem) antes e depois do parâgrafo.
+
+```{html}
+<p>
+  Isto é um parâgrafo.
+</p>
+<p>
+  E aqui um outro parâgrafo.
+</p>
+```
+
+---
+# Elementos aninhados
+
+Elementos HTML se organizam de maneira hierárquica, isto é, os elementos são aninhados dentro de outros.
 
 ```{html}
 <!DOCTYPE html>
 <html>
   <body>
 
-    <h1>My First Heading</h1>
-    <p>My first paragraph.</p>
+    <h1>Título da página</h1>
+    <p>Este é o primeiro <b>parâgrafo</b> desta página HTML.</p>
 
   </body>
 </html>
 ```
+
+No código acima
+
+- o elemento `<body>` reside dentro do elemento `html`
+- os elementos `<h1>` e `<p>` residem dentro do elemento `body`
+- o elemento `<b>`, que deixa o texto em negrito, reside dentro do elemento p.
+
+---
+# Atributos
+
+Todos os elementos HTML podem ter atributos, que provêm informação adicional sobre os elementos.
+
+Atributos são sempre especificados na tag de abertura. Eles geralmente possuem a seguinte sintaxe `nome="valor"`.
+
+```{html}
+<!DOCTYPE html>
+  <html lang="pt-BR">
+    <body>
+      "Conteúdo da página"
+    </body>
+</html>
+```
+
+O atributo `lang` no elemento `<html>`, por exemplo, declara qual será o idioma utilizado na página.
+
+**Nota**: é uma boa prática declarar o idioma da página, pois isso é utilizado pelos algorítmos de busca e pelos navegadores.
+
+---
+# Links
+
+Links HTML são chamados de **hiperlinks** (ou hiperligação).
+
+Eles são criados com a tag `<a>`.
+
+```{html}
+<a href="https://curso-r.com">
+  Clique aqui para acessar o site da curso-r
+</a>
+```
+
+Veja que este elemento possui o atributo `href`, que define o destino do link.
+
+O conteúdo deste elemento será o texto visível na tela para ser clicado.
+
+---
+# Imagens
+
+
+
 
 ---
 # Elementos vazios
@@ -96,6 +181,9 @@ A maior parte do esforço em aprender uma linguagem de marcação está em apren
 <!-- HTML elements with no content are called empty elements. -->
 
 <!-- The <br> tag defines a line break, and is an empty element without a closing tag: -->
+
+---
+# Quebra de linha
 
 ---
 # É bom saber!
@@ -123,32 +211,11 @@ A maior parte do esforço em aprender uma linguagem de marcação está em apren
 <!-- Write your comments here -->
 
 
----
-# Atributos
 
-<!-- All HTML elements can have attributes -->
-<!-- Attributes provide additional information about elements -->
-<!-- Attributes are always specified in the start tag -->
-<!-- Attributes usually come in name/value pairs like: name="value" -->
 
 --- 
 # Exemplos de atributos
 
-<!-- The href Attribute -->
-<!-- The <a> tag defines a hyperlink. The href attribute specifies the URL of the page the link goes to: -->
-
-<!-- The src Attribute -->
-<!-- The <img> tag is used to embed an image in an HTML page. The src attribute specifies the path to the image to be displayed: -->
-
-<!-- There are two ways to specify the URL in the src attribute: -->
-
-<!-- 1. Absolute URL - Links to an external image that is hosted on another website. Example: src="https://www.w3schools.com/images/img_girl.jpg". -->
-
-<!-- Notes: External images might be under copyright. If you do not get permission to use it, you may be in violation of copyright laws. In addition, you cannot control external images; it can suddenly be removed or changed. -->
-
-<!-- 2. Relative URL - Links to an image that is hosted within the website. Here, the URL does not include the domain name. If the URL begins without a slash, it will be relative to the current page. Example: src="img_girl.jpg". If the URL begins with a slash, it will be relative to the domain. Example: src="/images/img_girl.jpg". -->
-
-<!-- Tip: It is almost always best to use relative URLs. They will not break if you change domain. -->
 
 <!-- The width and height Attributes -->
 <!-- The <img> tag should also contain the width and height attributes, which specifies the width and height of the image (in pixels): -->
