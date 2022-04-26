@@ -50,6 +50,8 @@ Um elemento HTML é composto por uma **tag de abertura**, algum **conteúdo** e 
 &lt;nome_da_tag&gt; conteúdo &lt;/nome_da_tag&gt;
 ```
 
+**Nota**: Alguns elementos podem aparecer corretamente sem a tag de fechamento, mas não conte sempre com isso. Resultados inexperados e erros podem acontecer se você esquercar a tag de fechamento. 
+
 ---
 # Documentos HTML
 
@@ -145,8 +147,8 @@ No código acima
 
 Todos os elementos HTML podem ter atributos, que provêm informação adicional sobre os elementos.
 
-Atributos são sempre especificados na tag de abertura. Eles geralmente possuem a seguinte sintaxe `nome="valor"`.
-
+Atributos são sempre especificados na tag de abertura. Eles geralmente possuem a seguinte sintaxe `nome="valor"`. Dois argumentos diferentes são separados por um espaço vazio.
+ 
 
 ```html
 &lt;!DOCTYPE html&gt;
@@ -180,20 +182,40 @@ Veja que este elemento possui o atributo `href`, que define o destino do link.
 O conteúdo deste elemento será o texto visível na tela para ser clicado.
 
 ---
-# Imagens
-
-
-
-
----
 # Elementos vazios
 
-&lt;!-- HTML elements with no content are called empty elements. --&gt;
+Alguns elementos HTML não possuem conteúdo e, portanto, não precisam de uma tag de fechamento. Esses elementos são chamados de **elementos vazios**.
 
-&lt;!-- The &lt;br&gt; tag defines a line break, and is an empty element without a closing tag: --&gt;
+A tag `&lt;br&gt;`, que gera uma quebra de linha na página, é um exemplo de elemento vazio.
+
+
+```html
+&lt;p&gt;Parágrafo 1&lt;/p&gt;
+&lt;br&gt; &lt;!-- Espaço em branco --&gt;
+&lt;p&gt;Parágrafo 2&lt;/p&gt;
+```
+
+Veja que não precisamos fechar a tag `&lt;br&gt;` com uma tag `&lt;/br&gt;`
 
 ---
-# Quebra de linha
+# Imagens
+
+Imagens podem ser inseridas em uma página HTML a partir da tag `&lt;img&gt;`.
+
+
+```html
+&lt;img src = "caminho_ou_url_da_imagem" width = "100px" height = "100px" alt = "Essa é uma boa descrição da imagem"&gt;
+```
+
+No elemento acima:
+
+- o argumento `src` é utilizado para especificar o caminho ou URL da imagem
+
+- os argumentos `width` e `height` são utilizados para especificar o comprimento e altura da imagem;
+
+- especificar o comprimento e altura é importante pois o navegador reserva o espaço da imagem na tela, mantendo o layout da página, caso ela demore para ser carregada;
+
+- podemos usar o argumento `alt` para atribuir uma descrição à imagem, o que é utilizado por leitores de tela para descrever a imagem para pessoas com deficiências visuais.  
 
 ---
 # É bom saber!
@@ -211,7 +233,6 @@ O conteúdo deste elemento será o texto visível na tela para ser clicado.
 &lt;/body&gt;
 &lt;/html&gt;
 ```
-
 
 &lt;!-- However, never rely on this! Unexpected results and errors may occur if you forget the end tag! --&gt;
 

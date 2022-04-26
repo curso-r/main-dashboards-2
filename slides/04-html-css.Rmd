@@ -47,6 +47,8 @@ Um elemento HTML é composto por uma **tag de abertura**, algum **conteúdo** e 
 <nome_da_tag> conteúdo </nome_da_tag>
 ```
 
+**Nota**: Alguns elementos podem aparecer corretamente sem a tag de fechamento, mas não conte sempre com isso. Resultados inexperados e erros podem acontecer se você esquercar a tag de fechamento. 
+
 ---
 # Documentos HTML
 
@@ -137,8 +139,8 @@ No código acima
 
 Todos os elementos HTML podem ter atributos, que provêm informação adicional sobre os elementos.
 
-Atributos são sempre especificados na tag de abertura. Eles geralmente possuem a seguinte sintaxe `nome="valor"`.
-
+Atributos são sempre especificados na tag de abertura. Eles geralmente possuem a seguinte sintaxe `nome="valor"`. Dois argumentos diferentes são separados por um espaço vazio.
+ 
 ```{html}
 <!DOCTYPE html>
   <html lang="pt-BR">
@@ -170,39 +172,41 @@ Veja que este elemento possui o atributo `href`, que define o destino do link.
 O conteúdo deste elemento será o texto visível na tela para ser clicado.
 
 ---
-# Imagens
-
-
-
-
----
 # Elementos vazios
 
-<!-- HTML elements with no content are called empty elements. -->
+Alguns elementos HTML não possuem conteúdo e, portanto, não precisam de uma tag de fechamento. Esses elementos são chamados de **elementos vazios**.
 
-<!-- The <br> tag defines a line break, and is an empty element without a closing tag: -->
+A tag `<br>`, que gera uma quebra de linha na página, é um exemplo de elemento vazio.
+
+```{html}
+<p>Parágrafo 1</p>
+<br> <!-- Espaço em branco -->
+<p>Parágrafo 2</p>
+```
+
+Veja que não precisamos fechar a tag `<br>` com uma tag `</br>`
 
 ---
-# Quebra de linha
+# Imagens
+
+Imagens podem ser inseridas em uma página HTML a partir da tag `<img>`.
+
+```{html}
+<img src = "caminho_ou_url_da_imagem" width = "100px" height = "100px" alt = "Essa é uma boa descrição da imagem">
+```
+
+No elemento acima:
+
+- o argumento `src` é utilizado para especificar o caminho ou URL da imagem
+
+- os argumentos `width` e `height` são utilizados para especificar o comprimento e altura da imagem;
+
+- especificar o comprimento e altura é importante pois o navegador reserva o espaço da imagem na tela, mantendo o layout da página, caso ela demore para ser carregada;
+
+- podemos usar o argumento `alt` para atribuir uma descrição à imagem, o que é utilizado por leitores de tela para descrever a imagem para pessoas com deficiências visuais.  
 
 ---
 # É bom saber!
-
-<!-- Some HTML elements will display correctly, even if you forget the end tag: -->
-
-```{html}
-<html>
-<body>
-
-<p>This is a paragraph
-<p>This is a paragraph
-
-</body>
-</html>
-```
-
-
-<!-- However, never rely on this! Unexpected results and errors may occur if you forget the end tag! -->
 
 <!-- - HTML tags are not case sensitive: <P> means the same as <p>. --> 
 <!-- The HTML standard does not require lowercase tags, but W3C recommends lowercase in HTML, and demands lowercase for stricter document types like XHTML. -->
