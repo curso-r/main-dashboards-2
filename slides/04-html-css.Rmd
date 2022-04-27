@@ -80,6 +80,26 @@ A parte visível do documento fica entre as tags `<body>` e `</body>`.
 **Importante**: só pode haver apenas um `<body>` em um documento HTML.
 
 ---
+#A tag `<head>`
+
+A tag `<head>` cria uma seção de metadados para a nossa página HTML.
+
+O elemento `<title>`, por exemplo, pode ser utilizado para definir um título para a página, usado pelo navegador (na barra de ferramentas ou quando a página é adicionada aos favoritos) e por sites de busca.
+
+```{html}
+<html>
+  <head>
+    <title>Esse é o título da página</title>
+  </head>
+  <body>
+    O conteúdo da página fica aqui.
+  </body>
+</html>
+```
+
+Veremos outros metadados que podemos definir na seção `<head>` mais adiante.
+
+---
 # Cabeçalhos
 
 Você pode construir títulos e subtítulos com as tags `<h1>` a `<h6>`
@@ -269,51 +289,104 @@ class: middle, center, inverse
 ---
 # O que é?
 
-<!-- Cascading Style Sheets (CSS) is used to format the layout of a webpage. -->
+O CSS (*Cascading Style Sheets*) é uma linguagem de folha de estilo utilizada para formatar o layout de uma página Web.
 
-<!-- With CSS, you can control the color, font, the size of text, the spacing between elements, how elements are positioned and laid out, what background images or background colors are to be used, different displays for different devices and screen sizes, and much more! -->
+Com CSS, podemos controlar a cor, fonte, tamanho do texto, espaçamento entre elementos, cores e imagens de fundo, a maneira como os elementos são mostrados na página a depender dos diferentes tamanhos de tela e muito mais!
 
-<!-- The word cascading means that a style applied to a parent element will also apply to all children elements within the parent. So, if you set the color of the body text to "blue", all headings, paragraphs, and other text elements within the body will also get the same color (unless you specify something else)! -->
+**Nota**: a palavra *cascading* (cascata) significa que um estilo aplicado a um elemento pai também é aplicado a todos os elementos filhos.
+
+---
+# Sintaxe
+
+A seguir, temos um código CSS que define a cor dos parágrafos (o conteúdo dos elementos `<p>`) como azul e o tamanho da fonte como 12px.
+
+```{html}
+p {
+  color: blue;
+  font-size: 12px
+}
+```
+
+No código:
+
+- `p` é chamado de **seletor**, isto é, a definição dos elementos aos quais o estilo será aplicado
+
+- `color: blue;` e `font-size: 12px` são chamadas de **declarações**, que define o estilo a ser aplicado
+
+- `color` e `font-size` dentro de cada declaração são chamados de **propriedades**, isto é, a característica de cada elemento que será alterada.
+
+- já `blue` e `12px` são os **valores** atribuídos a cada propriedade.
 
 ---
 # Usando CSS
 
-<!-- CSS can be added to HTML documents in 3 ways: -->
+O CSS pode ser inserido em um código HTML de 3 maneiras:
 
-<!-- Inline - by using the style attribute inside HTML elements -->
-<!-- Internal - by using a <style> element in the <head> section -->
-<!-- External - by using a <link> element to link to an external CSS file -->
+- em linha (*inline*), usando o atributo `style` dentro de elementos HTML
 
-<!-- The most common way to add CSS, is to keep the styles in external CSS files. However, in this tutorial we will use inline and internal styles, because this is easier to demonstrate, and easier for you to try it yourself. -->
+- interno (*internal*), usando a tag `<style>` na seção `<head>`
+
+- externo (*external*), usando a tag `<link>` na seção `<head>`  para apontar para um arquivo CSS externo.
+
+O jeito mais comum de adicionar CSS ao HTML é utilizando um arquivo CSS externo, mas veremos aqui como utilizar as três formas.
 
 ---
 # CSS inline
 
-<!-- An inline CSS is used to apply a unique style to a single HTML element. -->
+O CSS inline é utilizado para aplicar estilo a um único elemento HTML. Fazemos isso usando o atributo `style` do elemento.
 
-<!-- An inline CSS uses the style attribute of an HTML element. -->
+```{html}
+<p style = "color: blue;"> Esse texto terá a cor azul. </p>
+```
 
-<!-- The following example sets the text color of the <h1> element to blue, and the text color of the <p> element to red: -->
+Veja que neste caso não precisamos declarar um seletor.
 
 ---
 # CSS interno
 
-<!-- An internal CSS is used to define a style for a single HTML page. -->
+Um CSS interno é utilizado para definir estilo para os elementos de uma única página HTML. Ele é definido na seção `<head>`, dentro de uma tag `<style>`.
 
-<!-- An internal CSS is defined in the <head> section of an HTML page, within a <style> element. -->
-
-<!-- The following example sets the text color of ALL the <h1> elements (on that page) to blue, and the text color of ALL the <p> elements to red. In addition, the page will be displayed with a "powderblue" background color:  -->
+```{html}
+<html>
+  <head>
+    <style>
+        h1 {
+          color: red;
+        }
+        p {
+          color: blue;
+        }
+    </style>
+  </head>
+  <body>
+    <h1> Esse título terá a cor vermelha </h1>
+    <p> Esse texto terá a cor azul </p>
+  </body>
+</html>
+```
 
 ---
 # CSS externo
 
-<!-- An external style sheet is used to define the style for many HTML pages. -->
+Um arquivo CSS externo é utilizado para definir o estilo de várias páginas HTML. Para associar um arquivo CSS a uma página HTML, usamos a tag `<link>` na seção `<head>`. 
 
-<!-- To use an external style sheet, add a link to it in the <head> section of each HTML page: -->
+A tag `<link>` é utilizada para estabelecer uma relação entre o arquivo HTML e um arquivo externo. O atributo `href` recebe o caminho para o arquivo externo (nosso arquivo CSS) e o atributo `rel` estabele qual o tipo de relação entre os arquivos.
 
-<!-- The external style sheet can be written in any text editor. The file must not contain any HTML code, and must be saved with a .css extension. -->
+```{html}
+<!--Arquivo CSS-->
+h1 {
+  color: red;
+}
 
-<!-- Here is what the "styles.css" file looks like: -->
+<!--Arquivo HTML-->>
+<html>
+  <head>
+    <link rel="stylesheet" href="custom.css">
+  </head>
+</html>
+
+```
+
 
 ---
 # Cores, fontes e tamanhos
@@ -410,5 +483,7 @@ Vamos...
 ---
 ## Referências e material extra
 
-- []()
+Estes slides são um resumo adaptado e traduzido do tutorial da w3shools.
+
+- [w3schools](https://www.w3schools.com/html/default.asp)
 

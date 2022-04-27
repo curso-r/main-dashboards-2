@@ -85,6 +85,27 @@ A parte visível do documento fica entre as tags `&lt;body&gt;` e `&lt;/body&gt;
 **Importante**: só pode haver apenas um `&lt;body&gt;` em um documento HTML.
 
 ---
+#A tag `&lt;head&gt;`
+
+A tag `&lt;head&gt;` cria uma seção de metadados para a nossa página HTML.
+
+O elemento `&lt;title&gt;`, por exemplo, pode ser utilizado para definir um título para a página, usado pelo navegador (na barra de ferramentas ou quando a página é adicionada aos favoritos) e por sites de busca.
+
+
+```html
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Esse é o título da página&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    O conteúdo da página fica aqui.
+  &lt;/body&gt;
+&lt;/html&gt;
+```
+
+Veremos outros metadados que podemos definir na seção `&lt;head&gt;` mais adiante.
+
+---
 # Cabeçalhos
 
 Você pode construir títulos e subtítulos com as tags `&lt;h1&gt;` a `&lt;h6&gt;`
@@ -104,17 +125,17 @@ Você pode construir títulos e subtítulos com as tags `&lt;h1&gt;` a `&lt;h6&g
 **Nota**: é uma boa prática colocar apenas um `&lt;h1&gt;` por página HTML.
 
 ---
-# Parâgrafos
+# Parágrafos
 
-Parâgrafos são definidos pela tag `&lt;p&gt;`. Eles sempre iniciam em uma nova linha. Os navegadores automaticamente criam um espaço em branco (margem) antes e depois do parâgrafo.
+Parágrafos são definidos pela tag `&lt;p&gt;`. Eles sempre iniciam em uma nova linha. Os navegadores automaticamente criam um espaço em branco (margem) antes e depois do parágrafo.
 
 
 ```html
 &lt;p&gt;
-  Isto é um parâgrafo.
+  Isto é um parágrafo.
 &lt;/p&gt;
 &lt;p&gt;
-  E aqui um outro parâgrafo.
+  E aqui um outro parágrafo.
 &lt;/p&gt;
 ```
 
@@ -132,7 +153,7 @@ Elementos HTML se organizam de maneira hierárquica, isto é, os elementos são 
   &lt;body&gt;
 
     &lt;h1&gt;Título da página&lt;/h1&gt;
-    &lt;p&gt;Este é o primeiro &lt;b&gt;parâgrafo&lt;/b&gt; desta página HTML.&lt;/p&gt;
+    &lt;p&gt;Este é o primeiro &lt;b&gt;parágrafo&lt;/b&gt; desta página HTML.&lt;/p&gt;
 
   &lt;/body&gt;
 &lt;/html&gt;
@@ -165,6 +186,12 @@ O atributo `lang` no elemento `&lt;html&gt;`, por exemplo, declara qual será o 
 
 **Nota**: é uma boa prática declarar o idioma da página, pois isso é utilizado pelos algorítmos de busca e pelos navegadores.
 
+&lt;!-- The title Attribute --&gt;
+&lt;!-- The title attribute defines some extra information about an element. --&gt;
+
+&lt;!-- The value of the title attribute will be displayed as a tooltip when you mouse over the element: --&gt;
+
+
 ---
 # Links
 
@@ -194,9 +221,9 @@ Podemos adicionar comentários ao nosso código HTML a partir da seguinte sintax
 
 
 ```html
-&lt;p&gt;Isto é um parâgrafo&lt;/p&gt;
+&lt;p&gt;Isto é um parágrafo&lt;/p&gt;
 &lt;!-- Isto é um comentário e vai ser ignorado pelo navegador. --&gt;
-&lt;p&gt;Isto é um outro parâgrafo&lt;/p&gt;
+&lt;p&gt;Isto é um outro parágrafo&lt;/p&gt;
 ```
 
 ---
@@ -235,62 +262,41 @@ No elemento acima:
 
 - podemos usar o argumento `alt` para atribuir uma descrição à imagem, o que é utilizado por leitores de tela para descrever a imagem para pessoas com deficiências visuais.
 
---- 
-# Exemplos de atributos
-
-
-&lt;!-- The width and height Attributes --&gt;
-&lt;!-- The &lt;img&gt; tag should also contain the width and height attributes, which specifies the width and height of the image (in pixels): --&gt;
-
-&lt;!-- The style Attribute --&gt;
-&lt;!-- The style attribute is used to add styles to an element, such as color, font, size, and more. --&gt;
-
-&lt;!-- The title Attribute --&gt;
-&lt;!-- The title attribute defines some extra information about an element. --&gt;
-
-&lt;!-- The value of the title attribute will be displayed as a tooltip when you mouse over the element: --&gt;
-
 ---
 # Elementos em bloco e em linha
 
-&lt;!-- A block-level element always starts on a new line, and the browsers automatically add some space (a margin) before and after the element. --&gt;
+**Elementos em bloco** sempre começam em uma nova linha e ocupam todo o comprimento da tela ou todo o comprimento que tiverem a disposão. Os navegadores automaticamente adicionam algum espaço (margem) antes e depois desses elementos.
 
-&lt;!-- A block-level element always takes up the full width available (stretches out to the left and right as far as it can). --&gt;
-
-&lt;!-- Two commonly used block elements are: &lt;p&gt; and &lt;div&gt;. --&gt;
-
-&lt;!-- The &lt;p&gt; element defines a paragraph in an HTML document. --&gt;
-
-&lt;!-- The &lt;div&gt; element defines a division or a section in an HTML document. --&gt;
-
-&lt;!-- The &lt;p&gt; element is a block-level element. --&gt;
-
-&lt;!-- The &lt;div&gt; element is a block-level element. --&gt;
-
-&lt;!-- An inline element does not start on a new line. --&gt;
-
-&lt;!-- An inline element only takes up as much width as necessary. --&gt;
-
-&lt;!-- This is a &lt;span&gt; element inside a paragraph. --&gt;
+**Elementos em linha** não iniciam uma nova linha. Esses elementos só ocupam o comprimento necessário para apresentar seu conteúdo na tela.
 
 ---
-# A tag &lt;div&gt;
+# A tag `&lt;div&gt;`
 
-The &lt;div&gt; Element
-The &lt;div&gt; element is often used as a container for other HTML elements.
+A tag `&lt;div&gt;` é um elemento em bloco normalmente é utilizado como um *container* para outros elementos HTML. Se você não atribuir nenhum atributo a ela, como comprimento ou altura, ela não gera nenhum efeito na página.
 
-The &lt;div&gt; element has no required attributes, but style, class and id are common.
+Normalmente aplicamos a ela atributos que vão definir o estilo de parte ou de todos os elementos que a `&lt;div&gt;` contém.
 
-When used together with CSS, the &lt;div&gt; element can be used to style blocks of content:
+
+```html
+&lt;div&gt;
+  &lt;p&gt;Um parágrafo&lt;/p&gt;
+  &lt;a href="https://curso-r.com"&gt;Um link&lt;/a&gt;
+&lt;/div&gt;
+```
 
 ---
-# A tag &lt;span&gt;
+# A tag `&lt;span&gt;`
 
-The &lt;span&gt; element is an inline container used to mark up a part of a text, or a part of a document.
+A tag `&lt;span&gt;` é um elemento em linha utilizada como um *container* para outros elementos HTML. Se você não atribuir nenhum atributo a ela, como comprimento ou altura, ela não gera nenhum efeito na página.
 
-The &lt;span&gt; element has no required attributes, but style, class and id are common.
+Normalmente aplicamos a ela atributos que vão definir o estilo de parte ou de todos os elementos que a `&lt;div&gt;` contém.
 
-When used together with CSS, the &lt;span&gt; element can be used to style parts of the text:
+
+```html
+&lt;p&gt;
+  Como formatar uma única &lt;span&gt;palavra&lt;/span&gt;?
+&lt;/p&gt;
+```
 
 ---
 class: middle, center, inverse
@@ -299,51 +305,108 @@ class: middle, center, inverse
 ---
 # O que é?
 
-&lt;!-- Cascading Style Sheets (CSS) is used to format the layout of a webpage. --&gt;
+O CSS (*Cascading Style Sheets*) é uma linguagem de folha de estilo utilizada para formatar o layout de uma página Web.
 
-&lt;!-- With CSS, you can control the color, font, the size of text, the spacing between elements, how elements are positioned and laid out, what background images or background colors are to be used, different displays for different devices and screen sizes, and much more! --&gt;
+Com CSS, podemos controlar a cor, fonte, tamanho do texto, espaçamento entre elementos, cores e imagens de fundo, a maneira como os elementos são mostrados na página a depender dos diferentes tamanhos de tela e muito mais!
 
-&lt;!-- The word cascading means that a style applied to a parent element will also apply to all children elements within the parent. So, if you set the color of the body text to "blue", all headings, paragraphs, and other text elements within the body will also get the same color (unless you specify something else)! --&gt;
+**Nota**: a palavra *cascading* (cascata) significa que um estilo aplicado a um elemento pai também é aplicado a todos os elementos filhos.
+
+---
+# Sintaxe
+
+A seguir, temos um código CSS que define a cor dos parágrafos (o conteúdo dos elementos `&lt;p&gt;`) como azul e o tamanho da fonte como 12px.
+
+
+```html
+p {
+  color: blue;
+  font-size: 12px
+}
+```
+
+No código:
+
+- `p` é chamado de **seletor**, isto é, a definição dos elementos aos quais o estilo será aplicado
+
+- `color: blue;` e `font-size: 12px` são chamadas de **declarações**, que define o estilo a ser aplicado
+
+- `color` e `font-size` dentro de cada declaração são chamados de **propriedades**, isto é, a característica de cada elemento que será alterada.
+
+- já `blue` e `12px` são os **valores** atribuídos a cada propriedade.
 
 ---
 # Usando CSS
 
-&lt;!-- CSS can be added to HTML documents in 3 ways: --&gt;
+O CSS pode ser inserido em um código HTML de 3 maneiras:
 
-&lt;!-- Inline - by using the style attribute inside HTML elements --&gt;
-&lt;!-- Internal - by using a &lt;style&gt; element in the &lt;head&gt; section --&gt;
-&lt;!-- External - by using a &lt;link&gt; element to link to an external CSS file --&gt;
+- em linha (*inline*), usando o atributo `style` dentro de elementos HTML
 
-&lt;!-- The most common way to add CSS, is to keep the styles in external CSS files. However, in this tutorial we will use inline and internal styles, because this is easier to demonstrate, and easier for you to try it yourself. --&gt;
+- interno (*internal*), usando a tag `&lt;style&gt;` na seção `&lt;head&gt;`
+
+- externo (*external*), usando a tag `&lt;link&gt;` na seção `&lt;head&gt;`  para apontar para um arquivo CSS externo.
+
+O jeito mais comum de adicionar CSS ao HTML é utilizando um arquivo CSS externo, mas veremos aqui como utilizar as três formas.
 
 ---
 # CSS inline
 
-&lt;!-- An inline CSS is used to apply a unique style to a single HTML element. --&gt;
+O CSS inline é utilizado para aplicar estilo a um único elemento HTML. Fazemos isso usando o atributo `style` do elemento.
 
-&lt;!-- An inline CSS uses the style attribute of an HTML element. --&gt;
 
-&lt;!-- The following example sets the text color of the &lt;h1&gt; element to blue, and the text color of the &lt;p&gt; element to red: --&gt;
+```html
+&lt;p style = "color: blue;"&gt; Esse texto terá a cor azul. &lt;/p&gt;
+```
+
+Veja que neste caso não precisamos declarar um seletor.
 
 ---
 # CSS interno
 
-&lt;!-- An internal CSS is used to define a style for a single HTML page. --&gt;
+Um CSS interno é utilizado para definir estilo para os elementos de uma única página HTML. Ele é definido na seção `&lt;head&gt;`, dentro de uma tag `&lt;style&gt;`.
 
-&lt;!-- An internal CSS is defined in the &lt;head&gt; section of an HTML page, within a &lt;style&gt; element. --&gt;
 
-&lt;!-- The following example sets the text color of ALL the &lt;h1&gt; elements (on that page) to blue, and the text color of ALL the &lt;p&gt; elements to red. In addition, the page will be displayed with a "powderblue" background color:  --&gt;
+```html
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;style&gt;
+        h1 {
+          color: red;
+        }
+        p {
+          color: blue;
+        }
+    &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt; Esse título terá a cor vermelha &lt;/h1&gt;
+    &lt;p&gt; Esse texto terá a cor azul &lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+```
 
 ---
 # CSS externo
 
-&lt;!-- An external style sheet is used to define the style for many HTML pages. --&gt;
+Um arquivo CSS externo é utilizado para definir o estilo de várias páginas HTML. Para associar um arquivo CSS a uma página HTML, usamos a tag `&lt;link&gt;` na seção `&lt;head&gt;`. 
 
-&lt;!-- To use an external style sheet, add a link to it in the &lt;head&gt; section of each HTML page: --&gt;
+A tag `&lt;link&gt;` é utilizada para estabelecer uma relação entre o arquivo HTML e um arquivo externo. O atributo `href` recebe o caminho para o arquivo externo (nosso arquivo CSS) e o atributo `rel` estabele qual o tipo de relação entre os arquivos.
 
-&lt;!-- The external style sheet can be written in any text editor. The file must not contain any HTML code, and must be saved with a .css extension. --&gt;
 
-&lt;!-- Here is what the "styles.css" file looks like: --&gt;
+```html
+&lt;!--Arquivo CSS--&gt;
+h1 {
+  color: red;
+}
+
+&lt;!--Arquivo HTML--&gt;&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;link rel="stylesheet" href="custom.css"&gt;
+  &lt;/head&gt;
+&lt;/html&gt;
+
+```
+
 
 ---
 # Cores, fontes e tamanhos
@@ -440,7 +503,9 @@ Vamos...
 ---
 ## Referências e material extra
 
-- []()
+Estes slides são um resumo adaptado e traduzido do tutorial da w3shools.
+
+- [w3schools](https://www.w3schools.com/html/default.asp)
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
