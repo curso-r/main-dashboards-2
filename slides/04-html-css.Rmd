@@ -2,7 +2,7 @@
 title: "Dashboards com R --- Módulo II"
 subtitle: "HTML e CSS para Shiny"
 author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
-date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE, locale = 'pt_BR.UTF-8'), 'de', lubridate::year(Sys.Date()))`"
+date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE), 'de', lubridate::year(Sys.Date()))`"
 output:
   xaringan::moon_reader:
     css: 
@@ -98,18 +98,20 @@ Você pode construir títulos e subtítulos com as tags `<h1>` a `<h6>`
 **Nota**: é uma boa prática colocar apenas um `<h1>` por página HTML.
 
 ---
-# Parâgrafos
+# Parágrafos
 
-Parâgrafos são definidos pela tag `<p>`. Eles sempre iniciam em uma nova linha. Os navegadores automaticamente criam um espaço em branco (margem) antes e depois do parâgrafo.
+Parágrafos são definidos pela tag `<p>`. Eles sempre iniciam em uma nova linha. Os navegadores automaticamente criam um espaço em branco (margem) antes e depois do parágrafo.
 
 ```{html}
 <p>
-  Isto é um parâgrafo.
+  Isto é um parágrafo.
 </p>
 <p>
-  E aqui um outro parâgrafo.
+  E aqui um outro parágrafo.
 </p>
 ```
+
+**Nota**: O HTML não é sensível à caixa das palavras, isto é, `<P>` e `<p>` são equivalentes. No entanto, é uma boa prática utilizar a caixa baixa.
 
 ---
 # Elementos aninhados
@@ -122,7 +124,7 @@ Elementos HTML se organizam de maneira hierárquica, isto é, os elementos são 
   <body>
 
     <h1>Título da página</h1>
-    <p>Este é o primeiro <b>parâgrafo</b> desta página HTML.</p>
+    <p>Este é o primeiro <b>parágrafo</b> desta página HTML.</p>
 
   </body>
 </html>
@@ -154,6 +156,12 @@ O atributo `lang` no elemento `<html>`, por exemplo, declara qual será o idioma
 
 **Nota**: é uma boa prática declarar o idioma da página, pois isso é utilizado pelos algorítmos de busca e pelos navegadores.
 
+<!-- The title Attribute -->
+<!-- The title attribute defines some extra information about an element. -->
+
+<!-- The value of the title attribute will be displayed as a tooltip when you mouse over the element: -->
+
+
 ---
 # Links
 
@@ -170,6 +178,21 @@ Eles são criados com a tag `<a>`.
 Veja que este elemento possui o atributo `href`, que define o destino do link.
 
 O conteúdo deste elemento será o texto visível na tela para ser clicado.
+
+---
+# Comentários
+
+Podemos adicionar comentários ao nosso código HTML a partir da seguinte sintaxe
+
+- use `<!--` para iniciar o comentário
+
+- use `-->` para encerrar o comentário
+
+```{html}
+<p>Isto é um parágrafo</p>
+<!-- Isto é um comentário e vai ser ignorado pelo navegador. -->
+<p>Isto é um outro parágrafo</p>
+```
 
 ---
 # Elementos vazios
@@ -203,76 +226,41 @@ No elemento acima:
 
 - especificar o comprimento e altura é importante pois o navegador reserva o espaço da imagem na tela, mantendo o layout da página, caso ela demore para ser carregada;
 
-- podemos usar o argumento `alt` para atribuir uma descrição à imagem, o que é utilizado por leitores de tela para descrever a imagem para pessoas com deficiências visuais.  
-
----
-# É bom saber!
-
-<!-- - HTML tags are not case sensitive: <P> means the same as <p>. --> 
-<!-- The HTML standard does not require lowercase tags, but W3C recommends lowercase in HTML, and demands lowercase for stricter document types like XHTML. -->
-
-<!-- You can add comments to your HTML source by using the following syntax: -->
-<!-- Write your comments here -->
-
-
-
-
---- 
-# Exemplos de atributos
-
-
-<!-- The width and height Attributes -->
-<!-- The <img> tag should also contain the width and height attributes, which specifies the width and height of the image (in pixels): -->
-
-<!-- The style Attribute -->
-<!-- The style attribute is used to add styles to an element, such as color, font, size, and more. -->
-
-<!-- The title Attribute -->
-<!-- The title attribute defines some extra information about an element. -->
-
-<!-- The value of the title attribute will be displayed as a tooltip when you mouse over the element: -->
+- podemos usar o argumento `alt` para atribuir uma descrição à imagem, o que é utilizado por leitores de tela para descrever a imagem para pessoas com deficiências visuais.
 
 ---
 # Elementos em bloco e em linha
 
-<!-- A block-level element always starts on a new line, and the browsers automatically add some space (a margin) before and after the element. -->
+**Elementos em bloco** sempre começam em uma nova linha e ocupam todo o comprimento da tela ou todo o comprimento que tiverem a disposão. Os navegadores automaticamente adicionam algum espaço (margem) antes e depois desses elementos.
 
-<!-- A block-level element always takes up the full width available (stretches out to the left and right as far as it can). -->
-
-<!-- Two commonly used block elements are: <p> and <div>. -->
-
-<!-- The <p> element defines a paragraph in an HTML document. -->
-
-<!-- The <div> element defines a division or a section in an HTML document. -->
-
-<!-- The <p> element is a block-level element. -->
-
-<!-- The <div> element is a block-level element. -->
-
-<!-- An inline element does not start on a new line. -->
-
-<!-- An inline element only takes up as much width as necessary. -->
-
-<!-- This is a <span> element inside a paragraph. -->
+**Elementos em linha** não iniciam uma nova linha. Esses elementos só ocupam o comprimento necessário para apresentar seu conteúdo na tela.
 
 ---
-# A tag <div>
+# A tag `<div>`
 
-The <div> Element
-The <div> element is often used as a container for other HTML elements.
+A tag `<div>` é um elemento em bloco normalmente é utilizado como um *container* para outros elementos HTML. Se você não atribuir nenhum atributo a ela, como comprimento ou altura, ela não gera nenhum efeito na página.
 
-The <div> element has no required attributes, but style, class and id are common.
+Normalmente aplicamos a ela atributos que vão definir o estilo de parte ou de todos os elementos que a `<div>` contém.
 
-When used together with CSS, the <div> element can be used to style blocks of content:
+```{html}
+<div>
+  <p>Um parágrafo</p>
+  <a href="https://curso-r.com">Um link</a>
+</div>
+```
 
 ---
-# A tag <span>
+# A tag `<span>`
 
-The <span> element is an inline container used to mark up a part of a text, or a part of a document.
+A tag `<span>` é um elemento em linha utilizada como um *container* para outros elementos HTML. Se você não atribuir nenhum atributo a ela, como comprimento ou altura, ela não gera nenhum efeito na página.
 
-The <span> element has no required attributes, but style, class and id are common.
+Normalmente aplicamos a ela atributos que vão definir o estilo de parte ou de todos os elementos que a `<div>` contém.
 
-When used together with CSS, the <span> element can be used to style parts of the text:
+```{html}
+<p>
+  Como formatar uma única <span>palavra</span>?
+</p>
+```
 
 ---
 class: middle, center, inverse

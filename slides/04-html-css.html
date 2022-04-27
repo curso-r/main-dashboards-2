@@ -4,7 +4,7 @@
     <title>Dashboards com R — Módulo II</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.13/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://curso-r.github.io/assets/css/padrao-curso-r.css" type="text/css" />
@@ -16,7 +16,7 @@ class: center, middle, inverse, title-slide
 # Dashboards com R — Módulo II
 ## HTML e CSS para Shiny
 ### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
-### Abril de 2022
+### abril de 2022
 
 ---
 
@@ -118,6 +118,8 @@ Parâgrafos são definidos pela tag `&lt;p&gt;`. Eles sempre iniciam em uma nova
 &lt;/p&gt;
 ```
 
+**Nota**: O HTML não é sensível à caixa das palavras, isto é, `&lt;P&gt;` e `&lt;p&gt;` são equivalentes. No entanto, é uma boa prática utilizar a caixa baixa.
+
 ---
 # Elementos aninhados
 
@@ -182,6 +184,22 @@ Veja que este elemento possui o atributo `href`, que define o destino do link.
 O conteúdo deste elemento será o texto visível na tela para ser clicado.
 
 ---
+# Comentários
+
+Podemos adicionar comentários ao nosso código HTML a partir da seguinte sintaxe
+
+- use `&lt;!--` para iniciar o comentário
+
+- use `--&gt;` para encerrar o comentário
+
+
+```html
+&lt;p&gt;Isto é um parâgrafo&lt;/p&gt;
+&lt;!-- Isto é um comentário e vai ser ignorado pelo navegador. --&gt;
+&lt;p&gt;Isto é um outro parâgrafo&lt;/p&gt;
+```
+
+---
 # Elementos vazios
 
 Alguns elementos HTML não possuem conteúdo e, portanto, não precisam de uma tag de fechamento. Esses elementos são chamados de **elementos vazios**.
@@ -215,35 +233,7 @@ No elemento acima:
 
 - especificar o comprimento e altura é importante pois o navegador reserva o espaço da imagem na tela, mantendo o layout da página, caso ela demore para ser carregada;
 
-- podemos usar o argumento `alt` para atribuir uma descrição à imagem, o que é utilizado por leitores de tela para descrever a imagem para pessoas com deficiências visuais.  
-
----
-# É bom saber!
-
-&lt;!-- Some HTML elements will display correctly, even if you forget the end tag: --&gt;
-
-
-```html
-&lt;html&gt;
-&lt;body&gt;
-
-&lt;p&gt;This is a paragraph
-&lt;p&gt;This is a paragraph
-
-&lt;/body&gt;
-&lt;/html&gt;
-```
-
-&lt;!-- However, never rely on this! Unexpected results and errors may occur if you forget the end tag! --&gt;
-
-&lt;!-- - HTML tags are not case sensitive: &lt;P&gt; means the same as &lt;p&gt;. --&gt; 
-&lt;!-- The HTML standard does not require lowercase tags, but W3C recommends lowercase in HTML, and demands lowercase for stricter document types like XHTML. --&gt;
-
-&lt;!-- You can add comments to your HTML source by using the following syntax: --&gt;
-&lt;!-- Write your comments here --&gt;
-
-
-
+- podemos usar o argumento `alt` para atribuir uma descrição à imagem, o que é utilizado por leitores de tela para descrever a imagem para pessoas com deficiências visuais.
 
 --- 
 # Exemplos de atributos
