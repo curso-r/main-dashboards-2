@@ -387,6 +387,8 @@ h1 {
 
 ```
 
+---
+# Precedência
 
 ---
 # Cores, fontes e tamanhos
