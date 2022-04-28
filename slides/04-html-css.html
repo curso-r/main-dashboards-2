@@ -4,7 +4,7 @@
     <title>Dashboards com R — Módulo II</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <script src="libs/header-attrs-2.13/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://curso-r.github.io/assets/css/padrao-curso-r.css" type="text/css" />
@@ -16,7 +16,7 @@ class: center, middle, inverse, title-slide
 # Dashboards com R — Módulo II
 ## HTML e CSS para Shiny
 ### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
-### abril de 2022
+### April de 2022
 
 ---
 
@@ -314,7 +314,7 @@ Com CSS, podemos controlar a cor, fonte, tamanho do texto, espaçamento entre el
 ---
 # Sintaxe
 
-A seguir, temos um código CSS que define a cor dos parágrafos (o conteúdo dos elementos `&lt;p&gt;`) como azul e o tamanho da fonte como 12px.
+A seguir, temos uma **regra** CSS que define a cor dos parágrafos (o conteúdo dos elementos `&lt;p&gt;`) como azul e o tamanho da fonte como 12px.
 
 
 ```html
@@ -407,89 +407,265 @@ h1 {
 
 ```
 
+---
+# Precedência
+
+Quando mais de uma declaração afeta um elemento HTML, algumas regras de precedência são utilizadas para definir qual declaração surtirá efeito.
+
+#### Quanto mais perto do elemento, maior a precedência
+
+- O CSS inline tem precedência com relação ao CSS interno e externo. 
+
+- Com relação ao CSS interno e externo, a precedência fica com o elemento (`&lt;style&gt;` ou `&lt;link&gt;`) inserido depois.
+
+- No caso de duas declarações com o mesmo seletor e para a mesma propriedade, mas com valores diferentes, a segunda declaração terá precedência sobre a primeira.
+
+**Nota**: existem outras regras de precedência com relação à **especificidade do seletor**. Para mais informações, [veja este artigo da W3Schools](https://www.w3schools.com/css/css_specificity.asp) em inglês ou [este artigo](https://tipscode.com.br/especificidade-css-5-coisas-que-voce-precisa) em português.
 
 ---
-# Cores, fontes e tamanhos
+# Cores
 
-&lt;!-- Here, we will demonstrate some commonly used CSS properties. You will learn more about them later. --&gt;
+Para alterar cores, utilizamos as propriedades `color` e `background-color`.
 
-&lt;!-- The CSS color property defines the text color to be used. --&gt;
 
-&lt;!-- The CSS font-family property defines the font to be used. --&gt;
+```html
+p {
+  color: white;
+}
 
-&lt;!-- The CSS font-size property defines the text size to be used. --&gt;
+h1, h2 {
+  color: blue;
+}
 
---- 
+body {
+  background-color: black
+}
+```
+
+**Nota**: repare que você pode selecionar um grupo de elementos separando cada seletor por uma vírgula (`h1, h2`).
+
+---
+# Tamanho da fonte
+
+Para alterar o tamanho da fonte, utilizamos a propriedade `font-size`.
+
+
+```html
+p {
+  font-size: 10px;
+}
+
+h1 {
+  font-size: 12pt;
+}
+```
+
+---
+# Fontes
+
+Para alterar a fonte do texto, utilizamos a propriedade `font-family`.
+
+
+```html
+p {
+  font-family: "Times New Roman", Times, serif;
+}
+
+p {
+  font-family: Arial, Helvetica, sans-serif;
+}
+```
+
+**Nota**:  você pode especificar mais de uma fonte em uma declaração, o que é útil para garantir que pelo menos uma das fontes especificadas esteja instalada no navegador de quem acessar a página HTML. A preferência é da esquerda para a direita.
+
+**Recomendação**: leia as [seções sobre fonte do W3Schools](https://www.w3schools.com/css/css_font.asp).
+
+---
 # Usando fontes do Google fontes
 
+Para importar uma fonte do Google fontes, basta utilizar o elemento `&lt;link rel = "stylesheet"&gt;` passando o link da fonte no atributo `href`. 
+
+
+```html
+&lt;head&gt;
+  &lt;link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia"&gt;
+  &lt;style&gt;
+  body {
+    font-family: "Sofia", sans-serif;
+  }
+  &lt;/style&gt;
+&lt;/head&gt;
+```
+
+Link para a fonte Sofia: https://fonts.google.com/specimen/Sofia?query=sofia
 
 ---
 # Bordas
 
-&lt;!-- The CSS border property defines a border around an HTML element. --&gt;
+Para definir uma borda a um elemento, utilizamos a propriedade `border`.
 
-&lt;!-- Tip: You can define a border for nearly all HTML elements. --&gt;
 
----
-# Margens e padding
+```htlm
+h1 {
+  border: 1px solid black;
+}
+```
 
-&lt;!-- The CSS margin property defines a margin (space) outside the border. --&gt;
+- O valor `1px` se refere à espessura da borda.
+
+- O valor `solid` se refere ao estilo da borda.
+
+- O valor `black` se refere à cor da borda.
+
+**Nota**: você pode definir uma borda para quase todos os elementos HTML.
 
 ---
 # Classes
 
-&lt;!-- The class attribute is often used to point to a class name in a style sheet. It can also be used by a JavaScript to access and manipulate elements with the specific class name. --&gt;
+Elementos HTML possuem um atributo `class` que pode ser utilizado como seletor em declarações CSS.
 
-&lt;!-- In the following example we have three &lt;div&gt; elements with a class attribute with the value of "city". All of the three &lt;div&gt; elements will be styled equally according to the .city style definition in the head section: --&gt;
 
-&lt;!-- In the following example we have two &lt;span&gt; elements with a class attribute with the value of "note". Both &lt;span&gt; elements will be styled equally according to the .note style definition in the head section: --&gt;
+```html
+&lt;!-- HTML --&gt;
+&lt;p class = "azul"&gt;Este parágrafo ficará azul&lt;/p&gt;
+&lt;p&gt;Este parágrafo não ficará azul&lt;/p&gt;
 
-&lt;!-- HTML elements can belong to more than one class. --&gt;
+&lt;!-- CSS --&gt;
+.azul {
+  color: blue;
+}
 
-&lt;!-- To define multiple classes, separate the class names with a space, e.g. &lt;div class="city main"&gt;. The element will be styled according to all the classes specified. --&gt;
+```
 
-&lt;!-- In the following example, the first &lt;h2&gt; element belongs to both the city class and also to the main class, and will get the CSS styles from both of the classes:  --&gt;
+Repare que para usar uma classe como seletor, colocamos um `.` antes do nome da classe.
 
-&lt;!-- Different HTML elements can point to the same class name. --&gt;
-
-&lt;!-- In the following example, both &lt;h2&gt; and &lt;p&gt; points to the "city" class and will share the same style: --&gt;
-
+**Nota**: elementos HTML podem ter mais de uma classe. Múltiplas classes são separadas por um espaço. Uma mesma classe pode ser utilizada em mais de um elemento HTML. 
 
 ---
 # Ids
 
-&lt;!-- The id attribute specifies a unique id for an HTML element. The value of the id attribute must be unique within the HTML document. --&gt;
+Elementos HTML possuem um atributo `id` que pode ser utilizado como seletor em declarações CSS. Ao contrário das classes, o id deve ser único dentro do documento HTML, isto é, dois elementos HTML não devem ter o mesmo id.
 
-&lt;!-- The id attribute is used to point to a specific style declaration in a style sheet. It is also used by JavaScript to access and manipulate the element with the specific id. --&gt;
 
-&lt;!-- The syntax for id is: write a hash character (#), followed by an id name. Then, define the CSS properties within curly braces {}. --&gt;
+```html
+&lt;!-- HTML --&gt;
+&lt;p id = "paragrafoAzul"&gt;Este parágrafo ficará azul&lt;/p&gt;
+&lt;p&gt;Este parágrafo não ficará azul&lt;/p&gt;
 
-&lt;!-- In the following example we have an &lt;h1&gt; element that points to the id name "myHeader". This &lt;h1&gt; element will be styled according to the #myHeader style definition in the head section: --&gt;
+&lt;!-- CSS --&gt;
+#paragrafoAzul {
+  color: blue;
+}
 
-&lt;!-- Difference Between Class and ID --&gt;
-&lt;!-- A class name can be used by multiple HTML elements, while an id name must only be used by one HTML element within the page: --&gt;
+```
+
+Repare que para usar um id como seletor, colocamos um `#` antes do nome do id.
 
 ---
-# Posicionamento relativo e absoluto
+# Margem
 
-- static position
-
-padrão para todos os elementos menos &lt;html&gt;
-
-- relative position: relativo a sua posição no fluxo normal do documento
-
-o elemento não é retirado do fluxo normal do documento
+Margens são utilizadas para criar espaço em branco entre elementos HTML.
 
 
-- abolute positioning
+```html
+p {
+  margin: 1px 2px 4px 3px;
+}
 
-offsets: right, left, top, bottom
-todos os offsets são relativos à posição do ancestral mais próximo que não possui positioning static (em geral &lt;html&gt;)
+p {
+  margin-top: 1px;
+  margin-right: 2px;
+  margin-bottom: 4px;
+  margin-left: 3px;
+}
+```
+
+As duas regras CSS acima são equivalentes.
+
+---
+# Padding
+
+A propriedade `padding` é utilizada para criar espaço ao redor do conteúdo de um elemento, dentro de qualquer borda definida.
+
+
+```html
+p {
+  padding: 1px 2px 4px 3px;
+}
+
+p {
+  padding-top: 1px;
+  padding-right: 2px;
+  padding-bottom: 4px;
+  padding-left: 3px;
+}
+```
+
+As duas regras CSS acima são equivalentes.
+
+---
+# Box model
+
+O *box model* do CSS é essencialmente uma caixa que envolve todos os elementos HTML. Ele consiste de uma margem, uma borda, *padding* e o próprio conteúdo do elemento.
+
+A imagem abaixo ilustra o *box model*:
+
+&lt;img src="img/box_model.png" width="84%" style="display: block; margin: auto;" /&gt;
+
+---
+# Display
+
+A propriedade `display` especifica se e como um elemento HTML é exibido na tela.
+
+Todo elemento HTML tem um valor padrão para essa propriedade. O valor padrão do `display` para a maioria dos elementos é `block` (em bloco) ou `inline` (em linha). Utilizando essa propriedade, podemos fazer uma `&lt;div&gt;` em linha ou um `&lt;img&gt;` em bloco.
+
+
+```html
+#divInline {
+  display: inline
+}
+
+#imgBlock {
+  display: block;
+}
+```
+
+
+**Nota**: também é possível atribuir o valor `none` a essa proprieda, fazendo com que o elemento não seja mostrado na tela. Isso é utilizado com JavaScript para mostrar/esconder elementos.
+
+---
+# Posicionamento
+
+A propriedade `position` define que tipo de posicionamento será usado em um elemento HTML.
+
+As principais opções são:
+
+- `static`, elementos são renderizados na ordem que eles aparecem no documento HTML (valor padrão)
+
+- `relative`, os elementos são posicionados relativamente a sua posição normal, permitindo o ajuste do elemento a partir de `offsets`
+
+- `absolute`, os elementos são posicionados relativamente ao seu primeiro elemento ancestral com `position` diferente de `static`
+
+- `fixed`, os elementos são posicionados relativamente à janela do navegador
 
 ---
 ## Atividade
 
-Vamos...
+Vamos reproduzir uma página HTML utilizando os conceitos aprendidos até aqui.
+
+&lt;br&gt;
+
+&lt;center&gt;
+&lt;img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300"&gt;
+&lt;br&gt;
+&lt;br&gt;
+<span style="color:#6495ed; font-weight: bold;">Ao RStudio: .html</span>
+&lt;center&gt;
+
+---
+## Atividade
+
+Vamos utilizar o que aprendemos de HTML e CSS para personalizar o visual de um aplicativo Shiny.
 
 &lt;br&gt;
 
@@ -505,7 +681,9 @@ Vamos...
 
 Estes slides são um resumo adaptado e traduzido do tutorial da w3shools.
 
-- [w3schools](https://www.w3schools.com/html/default.asp)
+- [Tutorial de HTML da w3schools](https://www.w3schools.com/html/default.asp)
+
+- [Tutorial de CSS da w3schools](https://www.w3schools.com/css/default.asp)
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
