@@ -651,20 +651,6 @@ As principais opções são:
 ---
 ## Atividade
 
-Vamos reproduzir uma página HTML utilizando os conceitos aprendidos até aqui.
-
-&lt;br&gt;
-
-&lt;center&gt;
-&lt;img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300"&gt;
-&lt;br&gt;
-&lt;br&gt;
-<span style="color:#6495ed; font-weight: bold;">Ao RStudio: .html</span>
-&lt;center&gt;
-
----
-## Atividade
-
 Vamos utilizar o que aprendemos de HTML e CSS para personalizar o visual de um aplicativo Shiny.
 
 &lt;br&gt;
@@ -675,6 +661,51 @@ Vamos utilizar o que aprendemos de HTML e CSS para personalizar o visual de um a
 &lt;br&gt;
 <span style="color:#6495ed; font-weight: bold;">Ao RStudio: .R</span>
 &lt;center&gt;
+
+---
+## Exercícios
+
+1) O que são elementos HTML?
+
+2) Para que serve a seção `&lt;head&gt;` de um código HTML?
+
+3) Conserte o erro do código HTML abaixo:
+
+
+```html
+&lt;p&gt; Para acessar a loja, basta clicar &lt;a href = "https://loja.curso-r.com"&gt;neste link&lt;/p&gt;&lt;/a&gt;
+```
+
+4) Qual a diferença entre as tags `&lt;div&gt;` e `&lt;span&gt;`?
+
+5) Ao que se refere o termo *cascading* da sigla CSS?
+
+6) Qual a ordem de precedência com relação ao local onde CSS pode ser colocado (inline, interno, externo)?
+
+7) O que é o *box model* no CSS?
+
+---
+## Exercícios
+
+8) Segundo o código CSS abaixo, a caixa azul vai aparecer sobre o fundo amarelo ou rosa? E a caixa laranja?
+
+
+```html
+&lt;div style = "position: relative;"&gt;
+  &lt;div style = "height: 100px; background-color: yellow;"&gt;&lt;/div&gt;
+  &lt;div style = "height: 100px; background-color: pink;"&gt;
+    &lt;div style = "height: 40px; width: 10%; background-color: blue;"&gt;
+      Caixa azul
+    &lt;/div&gt;
+    &lt;div style = "height: 40px; width: 10%; background-color: orange; position: absolute; top: 0px;"&gt;
+      Caixa laranja
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+```
+
+
+9) Reproduza a página HTML contida [neste link](https://eclectic-kitten-32e67a.netlify.app/). Sinta-se livre para deixar o visual da página da sua maneira.
 
 ---
 ## Referências e material extra

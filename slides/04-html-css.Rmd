@@ -623,20 +623,6 @@ As principais opções são:
 ---
 ## Atividade
 
-Vamos reproduzir uma página HTML utilizando os conceitos aprendidos até aqui.
-
-<br>
-
-<center>
-<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
-<br>
-<br>
-`r blue('Ao RStudio: .html')`
-<center>
-
----
-## Atividade
-
 Vamos utilizar o que aprendemos de HTML e CSS para personalizar o visual de um aplicativo Shiny.
 
 <br>
@@ -647,6 +633,49 @@ Vamos utilizar o que aprendemos de HTML e CSS para personalizar o visual de um a
 <br>
 `r blue('Ao RStudio: .R')`
 <center>
+
+---
+## Exercícios
+
+1) O que são elementos HTML?
+
+2) Para que serve a seção `<head>` de um código HTML?
+
+3) Conserte o erro do código HTML abaixo:
+
+```{html}
+<p> Para acessar a loja, basta clicar <a href = "https://loja.curso-r.com">neste link</p></a>
+```
+
+4) Qual a diferença entre as tags `<div>` e `<span>`?
+
+5) Ao que se refere o termo *cascading* da sigla CSS?
+
+6) Qual a ordem de precedência com relação ao local onde CSS pode ser colocado (inline, interno, externo)?
+
+7) O que é o *box model* no CSS?
+
+---
+## Exercícios
+
+8) Segundo o código CSS abaixo, a caixa azul vai aparecer sobre o fundo amarelo ou rosa? E a caixa laranja?
+
+```{html}
+<div style = "position: relative;">
+  <div style = "height: 100px; background-color: yellow;"></div>
+  <div style = "height: 100px; background-color: pink;">
+    <div style = "height: 40px; width: 10%; background-color: blue;">
+      Caixa azul
+    </div>
+    <div style = "height: 40px; width: 10%; background-color: orange; position: absolute; top: 0px;">
+      Caixa laranja
+    </div>
+  </div>
+</div>
+```
+
+
+9) Reproduza a página HTML contida [neste link](https://eclectic-kitten-32e67a.netlify.app/). Sinta-se livre para deixar o visual da página da sua maneira.
 
 ---
 ## Referências e material extra
