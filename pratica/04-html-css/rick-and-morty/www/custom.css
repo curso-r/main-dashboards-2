@@ -1,0 +1,34 @@
+body {
+  background: url("universe.jpg");
+  padding-left: 5%;
+  padding-right: 5%;
+  margin-top: 30px;
+}
+
+h1 {
+  text-align: center;
+  font-family: "get schwifty";
+  font-size: 80px;
+  color: #08acc6;
+  text-shadow: 2px 2px 2px #79b35a;
+}
+
+@font-face {
+  font-family: 'get schwifty';
+  src: url('get_schwifty.ttf')  format('truetype');
+}
+
+.form-group label {
+  color: white;
+}
+
+.rick {
+  width: 350px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+.areaPlot {
+  background-color: #00000069;
+}
