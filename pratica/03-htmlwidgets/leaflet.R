@@ -51,8 +51,6 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
   
-  
-  
   output$mapa <- renderLeaflet({
   
     tab_mapa <- pnud |> 
