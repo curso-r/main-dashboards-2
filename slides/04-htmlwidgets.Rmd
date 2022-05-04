@@ -39,6 +39,38 @@ knit: pagedown::chrome_print
 ---
 ## Eventos no leaflet
 
+Leaflet maps and objects send input values (which we’ll refer to as “events” in this document) to Shiny as the user interacts with them.
+
+Object events
+Object event names generally use this pattern:
+
+input$MAPID_OBJCATEGORY_EVENTNAME
+
+So for a leafletOutput("mymap") had a circle on it, clicking on that circle would update the Shiny input at input$mymap_shape_click. (Note that the layer ID is not part of the name, though it is part of the value.)
+
+If no shape has ever been clicked on this map, then input$mymap_shape_click is null.
+
+Valid values for OBJCATEGORY above are marker, shape, geojson, and topojson. (Tiles and controls don’t raise mouse events.) Valid values for EVENTNAME are click, mouseover, and mouseout.
+
+All of these events are set to either NULL if the event has never happened, or a list() that includes:
+
+lat - The latitude of the object, if available; otherwise, the mouse cursor
+lng - The longitude of the object, if available; otherwise, the mouse cursor
+id - The layerId, if any
+GeoJSON events also include additional properties:
+
+featureId - The feature ID, if any
+properties - The feature properties
+Map events
+The map itself also has a few input values/events.
+
+input$MAPID_click is an event that is sent when the map background or basemap is clicked. The value is a list with lat and lng.
+
+input$MAPID_bounds provides the latitude/longitude bounds of the currently visible map area; the value is a list() that has named elements north, east, south, and west.
+
+input$MAPID_zoom is an integer that indicates the zoom level.
+
+input$MAPID_center provides the latitude/longtitude of the center of the currently visible map area; the value is a list() that has named elements lat and lng.
 
 ---
 ## Eventos no reactable
