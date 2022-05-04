@@ -27,6 +27,23 @@ knit: pagedown::chrome_print
 ---
 ## Eventos
 
+
+---
+## Eventos no plotly
+
+
+---
+## Eventos no highcharts
+
+
+---
+## Eventos no leaflet
+
+
+---
+## Eventos no reactable
+
+
 ---
 ## Indo além do pacote em R
 
