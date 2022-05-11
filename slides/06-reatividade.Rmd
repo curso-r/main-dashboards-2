@@ -26,21 +26,20 @@ knit: pagedown::chrome_print
 
 ---
 
-## Filtros hierárquicos
+## Filtros codependentes
 
----
+**Problema**: como fazer para que as opções de um conjunto de filtros sejam automatizamente atualizadas sempre que escolhermos uma opção de um dos filtros.
 
-## Gatilhos
+<br>
+<br>
 
----
-
-## Editando bancos de dados
+**Solução parcial**: filtros hierárquicos
 
 ---
 
 ## Atividade
 
-Vamos...
+Vamos fazer um exemplo de filtros hierárquicos.
 
 <br>
 
@@ -48,11 +47,57 @@ Vamos...
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio: .R')`
+<!-- `r blue('Ao RStudio: .R')` -->
 <center>
 
 ---
-## Referências e material extra
 
-- []()
+## Retornando valores de módulos
 
+**Problema**: para fazer um módulo devolver mais de um valor reativo, precisamos colocá-los dentro de uma única expressão reativa, fazendo com que uma mudança em qualquer um deles faça com que qualquer output que dependa dessa expressão reativa seja recalculado, mesmo se ele não depender do valore reativo que mudou.
+
+<br>
+<br>
+
+**Algumas soluções possíveis**: devolver uma tabela filtrada ou refatorar a UI
+
+---
+
+## Atividade
+
+Vamos fazer um exemplo transformando um conjunto de filtros em módulo.
+
+<br>
+
+<center>
+<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
+<br>
+<br>
+<!-- `r blue('Ao RStudio: .R')` -->
+<center>
+
+---
+
+## Bancos de dados
+
+**Problema**: trabalhar com bancos de dados dentro do Shiny desperta a preocupação de manipularmos os dados de manteira eficiente e de sabermos a hora certa de fazer coletar os dados do banco.
+
+<br>
+<br>
+
+**Solução**: usar funções do `dplyr/dbplyr` e só coletar para dentro do app sempre a menor porção possível dos dados.
+
+---
+
+## Atividade
+
+Vamos fazer um exemplo utilizando banco de dados.
+
+<br>
+
+<center>
+<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
+<br>
+<br>
+<!-- `r blue('Ao RStudio: .R')` -->
+<center>
