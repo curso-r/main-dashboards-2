@@ -5,8 +5,6 @@ library(leaflet)
 library(dplyr)
 library(reactable)
 
-pnud <- readr::read_rds(here::here("dados/pnud_min.rds"))
-
 ui <- fluidPage(
   h1("PNUD - Programa das Nações Unidas para o Desenvolvimento"),
   hr(),
@@ -16,8 +14,8 @@ ui <- fluidPage(
       selectInput(
         "ano",
         label = "Selecione um ano",
-        choices = unique(pnud$ano),
-        selected = max(pnud$ano),
+        choices = c(1991, 200, 2010),
+        selected = 2010,
         width = "100%"
       )
     ),
@@ -54,13 +52,22 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
   
+  con <- RSQLite::dbConnect(RSQLite::SQLite(), here::here("dados/pnud_min.sqlite"))
+  pnud <- dplyr::tbl(con, "pnud")
+  
   tabela <- reactive({
+    
+    ano_selecionado <- as.character(input$ano)
+    variavel_selecionada <- input$variavel
+    
     pnud |> 
       filter(
-        ano == input$ano
+        ano == ano_selecionado
       ) |> 
-      arrange(across(one_of(input$variavel), desc)) |> 
+      arrange(desc(.data[[variavel_selecionada]])) |> 
+      collect() |> 
       slice(1:10)
+    
   })
   
   output$tabela <- renderReactable({

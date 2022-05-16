@@ -17,7 +17,8 @@ ui <- fluidPage(
       selectInput(
         "ano",
         label = "Selecione um ano",
-        choices = unique(pnud$ano),
+        choices = c(1991, 200, 2010),
+        selected = 2010,
         width = "100%"
       )
     ),
@@ -61,7 +62,7 @@ server <- function(input, output, session) {
     tab_mapa <- pnud |> 
       filter(ano == ano_selecionado) |> 
       group_by(uf_sigla) |> 
-      summarise(across(variavel_selecionada, mean, .names = "media")) |>
+      summarise(media = .data[[variavel_selecionada]]) |>
       collect() |>
       left_join(geo_estados, by = c("uf_sigla" = "abbrev_state")) |> 
       sf::st_as_sf() 
@@ -96,10 +97,11 @@ server <- function(input, output, session) {
     ano_selecionado <- as.character(input$ano)
     variavel_selecionada <- input$variavel
     
+    
     if (is.null(input$mapa_shape_click)) {
       estado <- "RJ"
     } else {
-      estado <- input$mapa_shape_click
+      estado <- input$mapa_shape_click$id
     }
     
     pnud |> 
@@ -108,7 +110,7 @@ server <- function(input, output, session) {
         ano == ano_selecionado
       ) |> 
       select(muni_nm, one_of(variavel_selecionada), espvida, idhm, rdpc, gini) |> 
-      arrange(across(one_of(variavel_selecionada), desc)) |> 
+      arrange(desc(.data[[variavel_selecionada]])) |> 
       collect() |> 
       reactable()
     
