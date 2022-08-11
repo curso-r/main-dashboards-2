@@ -675,7 +675,7 @@ Vamos utilizar o que aprendemos de HTML e CSS para personalizar o visual de um a
 ```
 
 
-9) Reproduza a página HTML contida [neste link](https://eclectic-kitten-32e67a.netlify.app/). Sinta-se livre para deixar o visual da página da sua maneira.
+9) Reproduza a página HTML contida [neste link](https://curso-r.github.io/main-dashboards-2/exercicios/04-html-css/harry_potter/index.html). Sinta-se livre para deixar o visual da página da sua maneira.
 
 ---
 ## Referências e material extra

@@ -2,6 +2,7 @@
 title: "Dashboards com R --- Módulo II"
 subtitle: "O pacote Golem"
 author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
+date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE, locale = 'pt_BR.UTF-8'), 'de', lubridate::year(Sys.Date()))`"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -48,9 +49,9 @@ O `golem` é um *framework* para desenvolvimento de aplicativos Shiny prontos pa
 ---
 # Premissas do `golem`
 
-- Um aplicativo `golem` funciona melhor quando trabalhamos com módulos.
+- Um aplicativo `golem` é construído como um pacote R.
 
-- Um aplicativo `golem` é construído dentro de um pacote R.
+- Divida seu aplicativo em módulos!
 
 Antes de continuar falando do `golem`, vamos fazer uma breve introdução ao desenvolvimentos de pacotes em R.
 
@@ -111,14 +112,14 @@ Essa é a estrutura criada quando usamos a função `usethis::create_package()`:
 - `.Rbuildignore`:  Lista arquivos que não devem ser incluídos ao compilar o pacote R a partir do código-fonte
 <!-- usethis::use_build_ignore("..") ajuda a adicionar arquivos no .Rbuildignore-->
 
-- `NAMESPACE`: Não devemos editar este arquivo manualmente. Ele declara as funções que o pacote exporta para uso externo e as funções externas que seu pacote importa de outros pacotes
+- `NAMESPACE`: Não devemos editar este arquivo manualmente. Ele declara as funções que o pacote exporta e as funções que seu pacote importa de outros pacotes
 
 ---
 # A pasta R/
 
 Dentro de um pacote, a pasta `R/` só pode ter arquivos R com funções.
 
-- Uma função é responsável por executar uma tarefa pequena, mas muito bem. Quando trabalhamos com funções, nossas operações ficam mais confiáveis.
+- Uma função é responsável por executar uma tarefa pequena, mas muito bem.
 
 - A ideia da pasta `R/` é guardar em um local comum tudo aquilo que nós utilizamos como ferramenta interna para nossas análises, bem como aquilo que queremos que outras pessoas possam usar no futuro.
 
@@ -170,7 +171,7 @@ Quando lidamos com pacotes, a função `library()` não pode ser utilizada, e to
 ---
 # Recomendações
 
-Algumas recomendação sobre como organizar seu código:
+Algumas recomendações sobre como organizar seu código:
 
 - Evite usar `.` no nome das suas funções (hoje em dia usar `_` é muito mais comum)
 
@@ -281,6 +282,21 @@ A pasta criada terá a seguinte estrutura:
 - `inst/app/www`: pasta onde adicionaremos os recursos externos do aplicativo (imagens, arquivos CSS, fontes etc).
 
 - `man`: documentação do pacote, a ser gerado pelo R e pelo `roxygen2`.
+
+---
+# Referências
+
+- [Zen do R](https://curso-r.github.io/zen-do-r/), livro em desenvolvimento pela Curso-R.
+
+- [R Packages](https://r-pkgs.org), livro aprofundado sobre desenvolvimento de pacotes.
+
+- [R for Data Science - capítulo sobre Funcões](https://r4ds.had.co.nz/functions.html)
+
+- [Tutorial do `golem`](https://thinkr-open.github.io/golem/articles/a_start.html)
+
+- [Engineering Production-Grade Shiny Apps](https://engineering-shiny.org/index.html)
+
+- [rhino](https://appsilon.github.io/rhino/): alternativa ao golem.
 
 ---
 class: middle, center, inverse
@@ -397,16 +413,3 @@ utils::globalVariables(c("variavel1", "variavel2"))
 - Para deixar a documentação das suas funções acessível (no help do R), use a função `devtools::document()`.
 
 - Se você precisar instalar o seu pacote (equivalente ao que fazemos com pacotes do CRAN quando rodamos `install.packages()`), use a função `devtools::install()`. Ela deve ser utilizada quando o seu pacote estiver pronto (ou pelo menos alguma versão dele).
-
----
-# Referências
-
-- [Zen do R](https://curso-r.github.io/zen-do-r/), livro em desenvolvimento pela Curso-R.
-
-- [R Packages](https://r-pkgs.org), livro aprofundado sobre desenvolvimento de pacotes.
-
-- [R for Data Science - capítulo sobre Funcões](https://r4ds.had.co.nz/functions.html)
-
-- [Tutorial do `golem`](https://thinkr-open.github.io/golem/articles/a_start.html)
-
-- [Engineering Production-Grade Shiny Apps](https://engineering-shiny.org/index.html)
