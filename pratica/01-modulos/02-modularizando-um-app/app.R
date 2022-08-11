@@ -1,5 +1,7 @@
-library(shiny)
+# Terminar o exemplo colocando o código dos módulos em 
+# um outro arquivo, na pasta R
 
+library(shiny)
 
 # Módulos -----------------------------------------------------------------
 
@@ -73,20 +75,15 @@ dispersao_server <- function(id) {
 
 # App ---------------------------------------------------------------------
 
-ui <- fluidPage(
-  h1("Treinando a construção de módulos"),
-  br(),
-  fluidRow(
-    column(
-      width = 6,
-      histograma_ui("histograma")
-    ),
-    fluidRow(
-      column(
-        width = 6,
-        dispersao_ui("dispersao")
-      )
-    )
+ui <- navbarPage(
+  title = "Histogramas",
+  tabPanel(
+    title = "Histograma",
+    histograma_ui("histograma")
+  ),
+  tabPanel(
+    title = "Dispersão",
+    dispersao_ui("dispersao")
   )
 )
 
