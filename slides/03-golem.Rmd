@@ -15,7 +15,7 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
-#knit: pagedown::chrome_print
+knit: pagedown::chrome_print
 ---
 
 ```{r setup, include=FALSE}
@@ -282,6 +282,19 @@ A pasta criada terá a seguinte estrutura:
 - `inst/app/www`: pasta onde adicionaremos os recursos externos do aplicativo (imagens, arquivos CSS, fontes etc).
 
 - `man`: documentação do pacote, a ser gerado pelo R e pelo `roxygen2`.
+
+---
+# Exercício
+
+Aplique o framework Golem no app disponibilizado [neste link](https://curso-r.github.io/main-dashboards-2/exercicios/03-golem/app.R). Ele utiliza a base de dados Pokemon, que pode ser baixada [clicando aqui](https://curso-r.github.io/main-dashboards-2/dados/pkmn.rds).
+
+- Transforme o shinydashboard em Bs4Dash: construa ao menos a UI do zero.
+
+- Modularize o app (cada página do dashboard deve ser um módulo diferente).
+
+- Refaça os gráficos utilizando alguma biblioteca javascript (plotly, echarts, highcharts etc)
+
+- Faça o deploy do app para o shinyapps.io
 
 ---
 # Referências
