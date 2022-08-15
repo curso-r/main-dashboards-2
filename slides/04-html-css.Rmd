@@ -1,5 +1,5 @@
 ---
-title: "Dashboards com R --- Módulo II"
+title: "Dashboards com R II"
 subtitle: "HTML e CSS para Shiny"
 author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
 date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE), 'de', lubridate::year(Sys.Date()))`"
@@ -15,7 +15,7 @@ output:
       highlightLines: true
       countIncrementalSlides: false
       ratio: "4:3"
-knit: pagedown::chrome_print
+# knit: pagedown::chrome_print
 ---
 
 ```{r, child="00-preamble.Rmd"}
@@ -388,21 +388,6 @@ h1 {
 ```
 
 ---
-# Precedência
-
-Quando mais de uma declaração afeta um elemento HTML, algumas regras de precedência são utilizadas para definir qual declaração surtirá efeito.
-
-#### Quanto mais perto do elemento, maior a precedência
-
-- O CSS inline tem precedência com relação ao CSS interno e externo. 
-
-- Com relação ao CSS interno e externo, a precedência fica com o elemento (`<style>` ou `<link>`) inserido depois.
-
-- No caso de duas declarações com o mesmo seletor e para a mesma propriedade, mas com valores diferentes, a segunda declaração terá precedência sobre a primeira.
-
-**Nota**: existem outras regras de precedência com relação à **especificidade do seletor**. Para mais informações, [veja este artigo da W3Schools](https://www.w3schools.com/css/css_specificity.asp) em inglês ou [este artigo](https://tipscode.com.br/especificidade-css-5-coisas-que-voce-precisa) em português.
-
----
 # Cores
 
 Para alterar cores, utilizamos as propriedades `color` e `background-color`.
@@ -533,6 +518,18 @@ Elementos HTML possuem um atributo `id` que pode ser utilizado como seletor em d
 ```
 
 Repare que para usar um id como seletor, colocamos um `#` antes do nome do id.
+
+---
+# Especificidade
+
+Quando mais de uma declaração afeta um elemento HTML, utilizaremos as regras a seguir para definir a especificidade de um seletor:
+
+1. Se o estilo é inline (+1000)
+2. Se o seletor é um id (+100)
+3. Se o seletor é uma classe (+10)
+4. Se o seletor é um elemento (+1)
+
+**Nota**: saiba mais sobre **especificidade** [neste artigo da W3Schools](https://www.w3schools.com/css/css_specificity.asp) em inglês ou [neste artigo](https://tipscode.com.br/especificidade-css-5-coisas-que-voce-precisa) em português.
 
 ---
 # Margem

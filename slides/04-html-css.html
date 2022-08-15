@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Dashboards com R II</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="" />
+    <script src="libs/header-attrs-2.14/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://curso-r.github.io/assets/css/padrao-curso-r.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Dashboards com R II
+]
+.subtitle[
+## HTML e CSS para Shiny
+]
+.author[
+### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
+]
+.date[
+### August de 2022
+]
+
+---
+
+
+
+
+
+
+class: middle, center, inverse
+# HTML
+
+---
+# O que é?
+
+HTML é uma [linguagem de marcação](https://pt.wikipedia.org/wiki/Linguagem_de_marca%C3%A7%C3%A3o) para construir páginas web. 
+
+Uma linguagem de marcação é apenas um tipo de documento que contem texto simples (como em um bloco de notas) e um conjunto de instruções para formatar (anotar, marcar) parte específicas do conteúdo. Além do HTML, o LaTeX e o (R) Markdown são outros exemplos comuns de linguagem de marcação.
+
+A maior parte do esforço em aprender uma linguagem de marcação está em aprender quais são e como utilizar as instruções de formatação, os seus **marcadores**.
+
+Os marcadores no caso do HTML são as **tags**.
+
+---
+# Tags e elementos
+
+As tags no HTML definem os chamados **elementos HTML**.
+
+Um elemento HTML é composto por uma **tag de abertura**, algum **conteúdo** e uma **tag de fechamento**.
+
+```
+&lt;nome_da_tag&gt; conteúdo &lt;/nome_da_tag&gt;
+```
+
+**Nota**: Alguns elementos podem aparecer corretamente sem a tag de fechamento, mas não conte sempre com isso. Resultados inexperados e erros podem acontecer se você esquercar a tag de fechamento. 
+
+---
+# Documentos HTML
+
+Todos os documentos HTML precisam começar com uma declaração de tipo
+
+
+```html
+&lt;!DOCTYPE html&gt;
+```
+
+Ela representa o tipo de documento, o que ajuda os navegarores a mostrar as páginas corretamente. Ela deve aparecer apenas uma vez, no topo da página.
+
+---
+# Documentos HTML
+
+O código HTML em si começa com a tag `&lt;html&gt;` e deve terminar com `&lt;/html&gt; `.
+
+A parte visível do documento fica entre as tags `&lt;body&gt;` e `&lt;/body&gt;`.
+
+
+```html
+&lt;!DOCTYPE html&gt;
+
+&lt;html&gt;
+  &lt;body&gt;
+    O conteúdo da página fica aqui.
+  &lt;/body&gt;
+&lt;/html&gt;
+```
+
+**Importante**: só pode haver apenas um `&lt;body&gt;` em um documento HTML.
+
+---
+#A tag `&lt;head&gt;`
+
+A tag `&lt;head&gt;` cria uma seção de metadados para a nossa página HTML.
+
+O elemento `&lt;title&gt;`, por exemplo, pode ser utilizado para definir um título para a página, usado pelo navegador (na barra de ferramentas ou quando a página é adicionada aos favoritos) e por sites de busca.
+
+
+```html
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Esse é o título da página&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    O conteúdo da página fica aqui.
+  &lt;/body&gt;
+&lt;/html&gt;
+```
+
+Veremos outros metadados que podemos definir na seção `&lt;head&gt;` mais adiante.
+
+---
+# Cabeçalhos
+
+Você pode construir títulos e subtítulos com as tags `&lt;h1&gt;` a `&lt;h6&gt;`
+
+
+```html
+&lt;h1&gt;Título 1&lt;/h1&gt;
+&lt;h2&gt;Título 2&lt;/h2&gt;
+&lt;h3&gt;Título 3&lt;/h3&gt;
+&lt;h4&gt;Título 4&lt;/h4&gt;
+&lt;h5&gt;Título 5&lt;/h5&gt;
+&lt;h6&gt;Título 6&lt;/h6&gt;
+```
+
+`&lt;h1&gt;` define o título mais importante, enquanto `&lt;h6&gt;` o menos importante. 
+
+**Nota**: é uma boa prática colocar apenas um `&lt;h1&gt;` por página HTML.
+
+---
+# Parágrafos
+
+Parágrafos são definidos pela tag `&lt;p&gt;`. Eles sempre iniciam em uma nova linha. Os navegadores automaticamente criam um espaço em branco (margem) antes e depois do parágrafo.
+
+
+```html
+&lt;p&gt;
+  Isto é um parágrafo.
+&lt;/p&gt;
+&lt;p&gt;
+  E aqui um outro parágrafo.
+&lt;/p&gt;
+```
+
+**Nota**: O HTML não é sensível à caixa das palavras, isto é, `&lt;P&gt;` e `&lt;p&gt;` são equivalentes. No entanto, é uma boa prática utilizar a caixa baixa.
+
+---
+# Elementos aninhados
+
+Elementos HTML se organizam de maneira hierárquica, isto é, os elementos são aninhados dentro de outros.
+
+
+```html
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;body&gt;
+
+    &lt;h1&gt;Título da página&lt;/h1&gt;
+    &lt;p&gt;Este é o primeiro &lt;b&gt;parágrafo&lt;/b&gt; desta página HTML.&lt;/p&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;
+```
+
+No código acima
+
+- o elemento `&lt;body&gt;` reside dentro do elemento `html`
+- os elementos `&lt;h1&gt;` e `&lt;p&gt;` residem dentro do elemento `body`
+- o elemento `&lt;b&gt;`, que deixa o texto em negrito, reside dentro do elemento p.
+
+---
+# Atributos
+
+Todos os elementos HTML podem ter atributos, que provêm informação adicional sobre os elementos.
+
+Atributos são sempre especificados na tag de abertura. Eles geralmente possuem a seguinte sintaxe `nome="valor"`. Dois argumentos diferentes são separados por um espaço vazio.
+ 
+
+```html
+&lt;!DOCTYPE html&gt;
+  &lt;html lang="pt-BR"&gt;
+    &lt;body&gt;
+      "Conteúdo da página"
+    &lt;/body&gt;
+&lt;/html&gt;
+```
+
+O atributo `lang` no elemento `&lt;html&gt;`, por exemplo, declara qual será o idioma utilizado na página.
+
+**Nota**: é uma boa prática declarar o idioma da página, pois isso é utilizado pelos algorítmos de busca e pelos navegadores.
+
+&lt;!-- The title Attribute --&gt;
+&lt;!-- The title attribute defines some extra information about an element. --&gt;
+
+&lt;!-- The value of the title attribute will be displayed as a tooltip when you mouse over the element: --&gt;
+
+
+---
+# Links
+
+Links HTML são chamados de **hiperlinks** (ou hiperligação).
+
+Eles são criados com a tag `&lt;a&gt;`.
+
+
+```html
+&lt;a href="https://curso-r.com"&gt;
+  Clique aqui para acessar o site da curso-r
+&lt;/a&gt;
+```
+
+Veja que este elemento possui o atributo `href`, que define o destino do link.
+
+O conteúdo deste elemento será o texto visível na tela para ser clicado.
+
+---
+# Comentários
+
+Podemos adicionar comentários ao nosso código HTML a partir da seguinte sintaxe
+
+- use `&lt;!--` para iniciar o comentário
+
+- use `--&gt;` para encerrar o comentário
+
+
+```html
+&lt;p&gt;Isto é um parágrafo&lt;/p&gt;
+&lt;!-- Isto é um comentário e vai ser ignorado pelo navegador. --&gt;
+&lt;p&gt;Isto é um outro parágrafo&lt;/p&gt;
+```
+
+---
+# Elementos vazios
+
+Alguns elementos HTML não possuem conteúdo e, portanto, não precisam de uma tag de fechamento. Esses elementos são chamados de **elementos vazios**.
+
+A tag `&lt;br&gt;`, que gera uma quebra de linha na página, é um exemplo de elemento vazio.
+
+
+```html
+&lt;p&gt;Parágrafo 1&lt;/p&gt;
+&lt;br&gt; &lt;!-- Espaço em branco --&gt;
+&lt;p&gt;Parágrafo 2&lt;/p&gt;
+```
+
+Veja que não precisamos fechar a tag `&lt;br&gt;` com uma tag `&lt;/br&gt;`
+
+---
+# Imagens
+
+Imagens podem ser inseridas em uma página HTML a partir da tag `&lt;img&gt;`.
+
+
+```html
+&lt;img src = "caminho_ou_url_da_imagem" width = "100px" height = "100px" alt = "Essa é uma boa descrição da imagem"&gt;
+```
+
+No elemento acima:
+
+- o argumento `src` é utilizado para especificar o caminho ou URL da imagem
+
+- os argumentos `width` e `height` são utilizados para especificar o comprimento e altura da imagem;
+
+- especificar o comprimento e altura é importante pois o navegador reserva o espaço da imagem na tela, mantendo o layout da página, caso ela demore para ser carregada;
+
+- podemos usar o argumento `alt` para atribuir uma descrição à imagem, o que é utilizado por leitores de tela para descrever a imagem para pessoas com deficiências visuais.
+
+---
+# Elementos em bloco e em linha
+
+**Elementos em bloco** sempre começam em uma nova linha e ocupam todo o comprimento da tela ou todo o comprimento que tiverem a disposão. Os navegadores automaticamente adicionam algum espaço (margem) antes e depois desses elementos.
+
+**Elementos em linha** não iniciam uma nova linha. Esses elementos só ocupam o comprimento necessário para apresentar seu conteúdo na tela.
+
+---
+# A tag `&lt;div&gt;`
+
+A tag `&lt;div&gt;` é um elemento em bloco normalmente é utilizado como um *container* para outros elementos HTML. Se você não atribuir nenhum atributo a ela, como comprimento ou altura, ela não gera nenhum efeito na página.
+
+Normalmente aplicamos a ela atributos que vão definir o estilo de parte ou de todos os elementos que a `&lt;div&gt;` contém.
+
+
+```html
+&lt;div&gt;
+  &lt;p&gt;Um parágrafo&lt;/p&gt;
+  &lt;a href="https://curso-r.com"&gt;Um link&lt;/a&gt;
+&lt;/div&gt;
+```
+
+---
+# A tag `&lt;span&gt;`
+
+A tag `&lt;span&gt;` é um elemento em linha utilizada como um *container* para outros elementos HTML. Se você não atribuir nenhum atributo a ela, como comprimento ou altura, ela não gera nenhum efeito na página.
+
+Normalmente aplicamos a ela atributos que vão definir o estilo de parte ou de todos os elementos que a `&lt;div&gt;` contém.
+
+
+```html
+&lt;p&gt;
+  Como formatar uma única &lt;span&gt;palavra&lt;/span&gt;?
+&lt;/p&gt;
+```
+
+---
+class: middle, center, inverse
+# CSS
+
+---
+# O que é?
+
+O CSS (*Cascading Style Sheets*) é uma linguagem de folha de estilo utilizada para formatar o layout de uma página Web.
+
+Com CSS, podemos controlar a cor, fonte, tamanho do texto, espaçamento entre elementos, cores e imagens de fundo, a maneira como os elementos são mostrados na página a depender dos diferentes tamanhos de tela e muito mais!
+
+**Nota**: a palavra *cascading* (cascata) significa que um estilo aplicado a um elemento pai também é aplicado a todos os elementos filhos.
+
+---
+# Sintaxe
+
+A seguir, temos uma **regra** CSS que define a cor dos parágrafos (o conteúdo dos elementos `&lt;p&gt;`) como azul e o tamanho da fonte como 12px.
+
+
+```html
+p {
+  color: blue;
+  font-size: 12px
+}
+```
+
+No código:
+
+- `p` é chamado de **seletor**, isto é, a definição dos elementos aos quais o estilo será aplicado
+
+- `color: blue;` e `font-size: 12px` são chamadas de **declarações**, que define o estilo a ser aplicado
+
+- `color` e `font-size` dentro de cada declaração são chamados de **propriedades**, isto é, a característica de cada elemento que será alterada.
+
+- já `blue` e `12px` são os **valores** atribuídos a cada propriedade.
+
+---
+# Usando CSS
+
+O CSS pode ser inserido em um código HTML de 3 maneiras:
+
+- em linha (*inline*), usando o atributo `style` dentro de elementos HTML
+
+- interno (*internal*), usando a tag `&lt;style&gt;` na seção `&lt;head&gt;`
+
+- externo (*external*), usando a tag `&lt;link&gt;` na seção `&lt;head&gt;`  para apontar para um arquivo CSS externo.
+
+O jeito mais comum de adicionar CSS ao HTML é utilizando um arquivo CSS externo, mas veremos aqui como utilizar as três formas.
+
+---
+# CSS inline
+
+O CSS inline é utilizado para aplicar estilo a um único elemento HTML. Fazemos isso usando o atributo `style` do elemento.
+
+
+```html
+&lt;p style = "color: blue;"&gt; Esse texto terá a cor azul. &lt;/p&gt;
+```
+
+Veja que neste caso não precisamos declarar um seletor.
+
+---
+# CSS interno
+
+Um CSS interno é utilizado para definir estilo para os elementos de uma única página HTML. Ele é definido na seção `&lt;head&gt;`, dentro de uma tag `&lt;style&gt;`.
+
+
+```html
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;style&gt;
+        h1 {
+          color: red;
+        }
+        p {
+          color: blue;
+        }
+    &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt; Esse título terá a cor vermelha &lt;/h1&gt;
+    &lt;p&gt; Esse texto terá a cor azul &lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+```
+
+---
+# CSS externo
+
+Um arquivo CSS externo é utilizado para definir o estilo de várias páginas HTML. Para associar um arquivo CSS a uma página HTML, usamos a tag `&lt;link&gt;` na seção `&lt;head&gt;`. 
+
+A tag `&lt;link&gt;` é utilizada para estabelecer uma relação entre o arquivo HTML e um arquivo externo. O atributo `href` recebe o caminho para o arquivo externo (nosso arquivo CSS) e o atributo `rel` estabele qual o tipo de relação entre os arquivos.
+
+
+```html
+&lt;!--Arquivo CSS--&gt;
+h1 {
+  color: red;
+}
+
+&lt;!--Arquivo HTML--&gt;&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;link rel="stylesheet" href="custom.css"&gt;
+  &lt;/head&gt;
+&lt;/html&gt;
+
+```
+
+---
+# Cores
+
+Para alterar cores, utilizamos as propriedades `color` e `background-color`.
+
+
+```html
+p {
+  color: white;
+}
+
+h1, h2 {
+  color: blue;
+}
+
+body {
+  background-color: black
+}
+```
+
+**Nota**: repare que você pode selecionar um grupo de elementos separando cada seletor por uma vírgula (`h1, h2`).
+
+---
+# Tamanho da fonte
+
+Para alterar o tamanho da fonte, utilizamos a propriedade `font-size`.
+
+
+```html
+p {
+  font-size: 10px;
+}
+
+h1 {
+  font-size: 12pt;
+}
+```
+
+---
+# Fontes
+
+Para alterar a fonte do texto, utilizamos a propriedade `font-family`.
+
+
+```html
+p {
+  font-family: "Times New Roman", Times, serif;
+}
+
+p {
+  font-family: Arial, Helvetica, sans-serif;
+}
+```
+
+**Nota**:  você pode especificar mais de uma fonte em uma declaração, o que é útil para garantir que pelo menos uma das fontes especificadas esteja instalada no navegador de quem acessar a página HTML. A preferência é da esquerda para a direita.
+
+**Recomendação**: leia as [seções sobre fonte do W3Schools](https://www.w3schools.com/css/css_font.asp).
+
+---
+# Usando fontes do Google fontes
+
+Para importar uma fonte do Google fontes, basta utilizar o elemento `&lt;link rel = "stylesheet"&gt;` passando o link da fonte no atributo `href`. 
+
+
+```html
+&lt;head&gt;
+  &lt;link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia"&gt;
+  &lt;style&gt;
+  body {
+    font-family: "Sofia", sans-serif;
+  }
+  &lt;/style&gt;
+&lt;/head&gt;
+```
+
+Link para a fonte Sofia: https://fonts.google.com/specimen/Sofia?query=sofia
+
+---
+# Bordas
+
+Para definir uma borda a um elemento, utilizamos a propriedade `border`.
+
+
+```htlm
+h1 {
+  border: 1px solid black;
+}
+```
+
+- O valor `1px` se refere à espessura da borda.
+
+- O valor `solid` se refere ao estilo da borda.
+
+- O valor `black` se refere à cor da borda.
+
+**Nota**: você pode definir uma borda para quase todos os elementos HTML.
+
+---
+# Classes
+
+Elementos HTML possuem um atributo `class` que pode ser utilizado como seletor em declarações CSS.
+
+
+```html
+&lt;!-- HTML --&gt;
+&lt;p class = "azul"&gt;Este parágrafo ficará azul&lt;/p&gt;
+&lt;p&gt;Este parágrafo não ficará azul&lt;/p&gt;
+
+&lt;!-- CSS --&gt;
+.azul {
+  color: blue;
+}
+
+```
+
+Repare que para usar uma classe como seletor, colocamos um `.` antes do nome da classe.
+
+**Nota**: elementos HTML podem ter mais de uma classe. Múltiplas classes são separadas por um espaço. Uma mesma classe pode ser utilizada em mais de um elemento HTML. 
+
+---
+# Ids
+
+Elementos HTML possuem um atributo `id` que pode ser utilizado como seletor em declarações CSS. Ao contrário das classes, o id deve ser único dentro do documento HTML, isto é, dois elementos HTML não devem ter o mesmo id.
+
+
+```html
+&lt;!-- HTML --&gt;
+&lt;p id = "paragrafoAzul"&gt;Este parágrafo ficará azul&lt;/p&gt;
+&lt;p&gt;Este parágrafo não ficará azul&lt;/p&gt;
+
+&lt;!-- CSS --&gt;
+#paragrafoAzul {
+  color: blue;
+}
+
+```
+
+Repare que para usar um id como seletor, colocamos um `#` antes do nome do id.
+
+---
+# Especificidade
+
+Quando mais de uma declaração afeta um elemento HTML, utilizaremos as regras a seguir para definir a especificidade de um seletor:
+
+1. Se o estilo é inline (+1000)
+2. Se o seletor é um id (+100)
+3. Se o seletor é uma classe (+10)
+4. Se o seletor é um elemento (+1)
+
+**Nota**: saiba mais sobre **especificidade** [neste artigo da W3Schools](https://www.w3schools.com/css/css_specificity.asp) em inglês ou [neste artigo](https://tipscode.com.br/especificidade-css-5-coisas-que-voce-precisa) em português.
+
+---
+# Margem
+
+Margens são utilizadas para criar espaço em branco entre elementos HTML.
+
+
+```html
+p {
+  margin: 1px 2px 4px 3px;
+}
+
+p {
+  margin-top: 1px;
+  margin-right: 2px;
+  margin-bottom: 4px;
+  margin-left: 3px;
+}
+```
+
+As duas regras CSS acima são equivalentes.
+
+---
+# Padding
+
+A propriedade `padding` é utilizada para criar espaço ao redor do conteúdo de um elemento, dentro de qualquer borda definida.
+
+
+```html
+p {
+  padding: 1px 2px 4px 3px;
+}
+
+p {
+  padding-top: 1px;
+  padding-right: 2px;
+  padding-bottom: 4px;
+  padding-left: 3px;
+}
+```
+
+As duas regras CSS acima são equivalentes.
+
+---
+# Box model
+
+O *box model* do CSS é essencialmente uma caixa que envolve todos os elementos HTML. Ele consiste de uma margem, uma borda, *padding* e o próprio conteúdo do elemento.
+
+A imagem abaixo ilustra o *box model*:
+
+&lt;img src="img/box_model.png" width="84%" style="display: block; margin: auto;" /&gt;
+
+---
+# Display
+
+A propriedade `display` especifica se e como um elemento HTML é exibido na tela.
+
+Todo elemento HTML tem um valor padrão para essa propriedade. O valor padrão do `display` para a maioria dos elementos é `block` (em bloco) ou `inline` (em linha). Utilizando essa propriedade, podemos fazer uma `&lt;div&gt;` em linha ou um `&lt;img&gt;` em bloco.
+
+
+```html
+#divInline {
+  display: inline
+}
+
+#imgBlock {
+  display: block;
+}
+```
+
+
+**Nota**: também é possível atribuir o valor `none` a essa proprieda, fazendo com que o elemento não seja mostrado na tela. Isso é utilizado com JavaScript para mostrar/esconder elementos.
+
+---
+# Posicionamento
+
+A propriedade `position` define que tipo de posicionamento será usado em um elemento HTML.
+
+As principais opções são:
+
+- `static`, elementos são renderizados na ordem que eles aparecem no documento HTML (valor padrão)
+
+- `relative`, os elementos são posicionados relativamente a sua posição normal, permitindo o ajuste do elemento a partir de `offsets`
+
+- `absolute`, os elementos são posicionados relativamente ao seu primeiro elemento ancestral com `position` diferente de `static`
+
+- `fixed`, os elementos são posicionados relativamente à janela do navegador
+
+---
+## Atividade
+
+Vamos utilizar o que aprendemos de HTML e CSS para personalizar o visual de um aplicativo Shiny.
+
+&lt;br&gt;
+
+&lt;center&gt;
+&lt;img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300"&gt;
+&lt;br&gt;
+&lt;br&gt;
+<span style="color:#6495ed; font-weight: bold;">Ao RStudio: .R</span>
+&lt;center&gt;
+
+---
+## Exercícios
+
+1) O que são elementos HTML?
+
+2) Para que serve a seção `&lt;head&gt;` de um código HTML?
+
+3) Conserte o erro do código HTML abaixo:
+
+
+```html
+&lt;p&gt; Para acessar a loja, basta clicar &lt;a href = "https://loja.curso-r.com"&gt;neste link&lt;/p&gt;&lt;/a&gt;
+```
+
+4) Qual a diferença entre as tags `&lt;div&gt;` e `&lt;span&gt;`?
+
+5) Ao que se refere o termo *cascading* da sigla CSS?
+
+6) Qual a ordem de precedência com relação ao local onde CSS pode ser colocado (inline, interno, externo)?
+
+7) O que é o *box model* no CSS?
+
+---
+## Exercícios
+
+8) Segundo o código CSS abaixo, a caixa azul vai aparecer sobre o fundo amarelo ou rosa? E a caixa laranja?
+
+
+```html
+&lt;div style = "position: relative;"&gt;
+  &lt;div style = "height: 100px; background-color: yellow;"&gt;&lt;/div&gt;
+  &lt;div style = "height: 100px; background-color: pink;"&gt;
+    &lt;div style = "height: 40px; width: 10%; background-color: blue;"&gt;
+      Caixa azul
+    &lt;/div&gt;
+    &lt;div style = "height: 40px; width: 10%; background-color: orange; position: absolute; top: 0px;"&gt;
+      Caixa laranja
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+```
+
+
+9) Reproduza a página HTML contida [neste link](https://curso-r.github.io/main-dashboards-2/exercicios/04-html-css/harry_potter/index.html). Sinta-se livre para deixar o visual da página da sua maneira.
+
+---
+## Referências e material extra
+
+Estes slides são um resumo adaptado e traduzido do tutorial da w3shools.
+
+- [Tutorial de HTML da w3schools](https://www.w3schools.com/html/default.asp)
+
+- [Tutorial de CSS da w3schools](https://www.w3schools.com/css/default.asp)
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "4:3"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
