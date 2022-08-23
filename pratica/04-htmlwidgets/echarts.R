@@ -6,8 +6,7 @@ library(echarts4r)
 
 pnud <- readr::read_rds(here::here("dados/pnud_min.rds"))
 
-nossa_e_tooltip <- function (e, trigger = c("item", "axis"), ...) 
-{
+nossa_e_tooltip <- function (e, trigger = c("item", "axis"), ...) {
   if (missing(e)) {
     stop("must pass e", call. = FALSE)
   }

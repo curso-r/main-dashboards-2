@@ -129,7 +129,7 @@ server <- function(input, output, session) {
     tabela_filtrada() |> 
       select(
         Município = muni_nm,
-        Populaçãp = pop,
+        População = pop,
         IDHM = idhm,
         `Esp. Vida` = espvida,
         `Renda per capita` = rdpc,
