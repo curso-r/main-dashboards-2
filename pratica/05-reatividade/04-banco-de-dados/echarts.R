@@ -28,7 +28,7 @@ ui <- fluidPage(
       selectInput(
         "ano",
         label = "Selecione um ano",
-        choices = c(1991, 200, 2010),
+        choices = c(1991, 2000, 2010),
         selected = 2010,
         width = "100%"
       )
