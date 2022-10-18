@@ -93,7 +93,7 @@ Veja a lista completa na [documentação do pacote](https://echarts4r.john-coene
 ---
 ## Eventos no leaflet
 
-Mapas feitos com a biblioteca leaflet enviam automaticamente valores provenientes de eventos para a lista `input`. A seguinte padrão de nome é utilizado: `input$outputId_tipoObjeto_nomeEvento`.
+Mapas feitos com a biblioteca leaflet enviam automaticamente valores provenientes de eventos para a lista `input`. O seguinte padrão de nome é utilizado: `input$outputId_tipoObjeto_nomeEvento`.
 
 Por exemplo, se um mapa com `outputId = "mapa"` tiver um círculo, ao clicar no círculo o `input$mapa_shape_click` será atualizado. Antes do primeiro clique, o valor de `input$mapa_shape_click` é `NULL`.
 
