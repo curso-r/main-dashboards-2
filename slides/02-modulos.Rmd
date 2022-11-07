@@ -124,6 +124,13 @@ Vamos construir um aplicativo Shiny modularizado.
 <center>
 
 ---
+## Exercícios
+
+Faça os [exercícios do capítulo de Módulos](https://programando-em-shiny.curso-r.com/modulos.html#exerc%C3%ADcios) do livro Pogramando em Shiny.
+
+
+---
+
 ## Referências e material extra
 
 - [Artigo sobre módulos da RStudio](https://shiny.rstudio.com/articles/modules.html)

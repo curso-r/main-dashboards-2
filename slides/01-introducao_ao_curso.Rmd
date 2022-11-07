@@ -151,14 +151,21 @@ class: middle, center
 
 .pull-right[
 - **Aula 4**: 
-  - Reatividade
+  - HTMLWidgets
 
 - **Aula 5**:
-  - HTMLWidgets
+  - Reatividade
 
 - **Aula 6**:
   - A definir
 ]
+
+
+<br>
+<br>
+<center>
+<b>Não haverá aula no dia 14 de novembro.</b>
+</center>
 
 ---
 ## Dinâmica do curso
