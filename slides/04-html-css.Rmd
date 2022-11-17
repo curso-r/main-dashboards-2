@@ -626,9 +626,6 @@ Vamos utilizar o que aprendemos de HTML e CSS para personalizar o visual de um a
 
 <center>
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
-<br>
-<br>
-`r blue('Ao RStudio: .R')`
 <center>
 
 ---
