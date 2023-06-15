@@ -164,7 +164,7 @@ class: middle, center
 <br>
 <br>
 <center>
-<b>Não haverá aula no dia 14 de novembro.</b>
+<b></b>
 </center>
 
 ---
